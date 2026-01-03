@@ -1,7 +1,12 @@
 ---
-layout: default
+layout: docs
 title: "Avisos Legais e Disclaimers"
+page_title: "Avisos Legais"
+breadcrumb: "Avisos Legais"
 description: "Avisos legais, disclaimers e limitações de responsabilidade para uso do CBAM Producer Data Package."
+prev_page:
+  url: /docs/lifecycle
+  title: "Ciclo de Vida"
 ---
 
 Este documento contém avisos legais importantes sobre o uso e limitações do CBAM Producer Data Package.
@@ -10,15 +15,22 @@ Este documento contém avisos legais importantes sobre o uso e limitações do C
 
 ## ⚠️ Aviso Principal
 
-> **O CBAM Producer Data Package NÃO é um relatório de submissão CBAM (QReport).**
->
-> Este documento não pode ser submetido diretamente ao CBAM Registry da União Europeia.
+<div class="alert">
+  <div class="alert-title">
+    <i class="fas fa-exclamation-triangle"></i>
+    Importante
+  </div>
+  <p><strong>O CBAM Producer Data Package NÃO é um relatório de submissão CBAM (QReport).</strong></p>
+  <p>Este documento não pode ser submetido diretamente ao CBAM Registry da União Europeia.</p>
+</div>
 
 ---
 
 ## Limitações do Formato
 
 ### O que este formato NÃO é
+
+<div class="table-wrapper">
 
 | ❌ NÃO é | Explicação |
 |---------|------------|
@@ -27,7 +39,11 @@ Este documento contém avisos legais importantes sobre o uso e limitações do C
 | Certificado de emissões | Não é verificado por terceiros independentes |
 | Schema oficial da UE | É um formato privado para troca de dados |
 
+</div>
+
 ### O que este formato É
+
+<div class="table-wrapper">
 
 | ✅ É | Explicação |
 |-----|------------|
@@ -35,6 +51,8 @@ Este documento contém avisos legais importantes sobre o uso e limitações do C
 | Formato intermediário | Facilita a preparação de dados para o CBAM |
 | Especificação técnica | Permite validação automática de arquivos |
 | Padrão aberto | Pode ser implementado por qualquer sistema |
+
+</div>
 
 ---
 
@@ -59,7 +77,12 @@ O importador europeu é responsável por:
 4. **Submissão** do relatório trimestral
 5. **Aquisição** de certificados CBAM
 
-> **Importante:** A classificação de códigos CN/HS é de responsabilidade legal exclusiva do importador. O produtor fornece apenas uma sugestão informativa.
+<div class="warning-box">
+  <div class="warning-box-title">
+    <i class="fas fa-exclamation-triangle"></i> Importante
+  </div>
+  <p>A classificação de códigos CN/HS é de <strong>responsabilidade legal exclusiva do importador</strong>. O produtor fornece apenas uma sugestão informativa.</p>
+</div>
 
 ---
 
@@ -67,30 +90,15 @@ O importador europeu é responsável por:
 
 ### Sobre Precisão dos Dados
 
-```
-Os dados contidos em um CBAM Producer Data Package são fornecidos 
-pelo produtor com base em suas melhores informações disponíveis 
-na data de geração. O importador deve realizar sua própria 
-verificação antes de utilizar os dados para fins regulatórios.
-```
+> Os dados contidos em um CBAM Producer Data Package são fornecidos pelo produtor com base em suas melhores informações disponíveis na data de geração. O importador deve realizar sua própria verificação antes de utilizar os dados para fins regulatórios.
 
 ### Sobre Metodologia de Cálculo
 
-```
-As emissões reportadas são calculadas de acordo com metodologias 
-declaradas no pacote. Este formato não define nem endossa 
-metodologias específicas de cálculo, que devem seguir as 
-regulamentações aplicáveis (EU 2023/956 e regulamentos de 
-implementação).
-```
+> As emissões reportadas são calculadas de acordo com metodologias declaradas no pacote. Este formato não define nem endossa metodologias específicas de cálculo, que devem seguir as regulamentações aplicáveis (EU 2023/956 e regulamentos de implementação).
 
 ### Sobre Conformidade Regulatória
 
-```
-O uso deste formato não garante conformidade com o CBAM. A 
-conformidade depende da precisão dos dados, adequação da 
-metodologia e correta submissão ao CBAM Registry pelo importador.
-```
+> O uso deste formato não garante conformidade com o CBAM. A conformidade depende da precisão dos dados, adequação da metodologia e correta submissão ao CBAM Registry pelo importador.
 
 ---
 
@@ -100,7 +108,7 @@ Recomenda-se incluir o seguinte texto no campo `LegalDisclaimer` de cada pacote 
 
 ### Em Inglês
 
-```
+```text
 IMPORTANT: This document is NOT a CBAM submission report (QReport) and 
 cannot be submitted directly to the EU CBAM Registry. It is a CBAM 
 Producer Data Package containing emission data for use by EU importers 
@@ -117,7 +125,7 @@ provided for informational purposes only.
 
 ### Em Português
 
-```
+```text
 IMPORTANTE: Este documento NÃO é um relatório de submissão CBAM 
 (QReport) e não pode ser submetido diretamente ao CBAM Registry da 
 União Europeia. É um CBAM Producer Data Package contendo dados de 
@@ -152,11 +160,18 @@ O pacote pode conter informações comercialmente sensíveis:
 - Intensidade de emissões (pode indicar eficiência)
 - Rotas de produção
 
-**Recomendação:** Estabelecer acordos de confidencialidade (NDA) entre produtor e importador.
+<div class="info-box">
+  <div class="info-box-title">
+    <i class="fas fa-shield-alt"></i> Recomendação
+  </div>
+  <p>Estabelecer acordos de confidencialidade (NDA) entre produtor e importador.</p>
+</div>
 
 ---
 
 ## Referências Regulatórias
+
+<div class="table-wrapper">
 
 | Regulamento | Descrição |
 |-------------|-----------|
@@ -165,23 +180,27 @@ O pacote pode conter informações comercialmente sensíveis:
 | Anexo I | Lista de produtos cobertos |
 | Anexo III | Metodologias de cálculo |
 
+</div>
+
 ---
 
 ## Isenção de Responsabilidade
 
-```
-OS MANTENEDORES DESTE FORMATO NÃO SE RESPONSABILIZAM POR:
-
-1. Erros ou omissões nos dados fornecidos por produtores
-2. Interpretações incorretas da regulamentação CBAM
-3. Decisões de compliance baseadas neste formato
-4. Penalidades resultantes de uso inadequado
-5. Perdas financeiras de qualquer natureza
-
-O uso deste formato é por conta e risco do usuário. Recomenda-se 
-consultar especialistas em compliance CBAM e autoridades competentes 
-para orientações específicas.
-```
+<div class="alert">
+  <div class="alert-title">
+    <i class="fas fa-gavel"></i>
+    Isenção de Responsabilidade
+  </div>
+  <p><strong>Os mantenedores deste formato NÃO se responsabilizam por:</strong></p>
+  <ul>
+    <li>Erros ou omissões nos dados fornecidos por produtores</li>
+    <li>Interpretações incorretas da regulamentação CBAM</li>
+    <li>Decisões de compliance baseadas neste formato</li>
+    <li>Penalidades resultantes de uso inadequado</li>
+    <li>Perdas financeiras de qualquer natureza</li>
+  </ul>
+  <p>O uso deste formato é por conta e risco do usuário. Recomenda-se consultar especialistas em compliance CBAM e autoridades competentes para orientações específicas.</p>
+</div>
 
 ---
 
@@ -190,6 +209,5 @@ para orientações específicas.
 Para questões sobre:
 
 - **Regulamentação CBAM:** Consultar [CBAM Registry](https://cbam.ec.europa.eu/) ou autoridades nacionais competentes
-- **Este formato:** Abrir Issue no repositório
+- **Este formato:** Abrir Issue no [repositório]({{ site.github.repository_url }}/issues)
 - **Implementação específica:** Consultar documentação do software utilizado
-

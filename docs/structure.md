@@ -1,7 +1,15 @@
 ---
-layout: default
+layout: docs
 title: "Estrutura do CBAM Producer Data Package"
+page_title: "Estrutura XML"
+breadcrumb: "Estrutura"
 description: "Documentação detalhada da estrutura XML do CBAM Producer Data Package, incluindo hierarquia, tipos de dados e enumerações."
+prev_page:
+  url: /docs/concept
+  title: "Conceito"
+next_page:
+  url: /docs/lifecycle
+  title: "Ciclo de Vida"
 ---
 
 Este documento descreve a estrutura conceitual do documento XML do CBAM Producer Data Package.
@@ -72,6 +80,8 @@ CBAMProducerDataPackage (root)
 
 Identifica unicamente o pacote de dados.
 
+<div class="table-wrapper">
+
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
 | `DatasetId` | UUID | Identificador global único |
@@ -79,9 +89,13 @@ Identifica unicamente o pacote de dados.
 | `GenerationDate` | Date | Data de geração (YYYY-MM-DD) |
 | `DatasetStatus` | Enum | `draft` ou `final` |
 
+</div>
+
 ### 2. ReportingPeriod
 
 Define o trimestre de referência dos dados.
+
+<div class="table-wrapper">
 
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
@@ -90,26 +104,36 @@ Define o trimestre de referência dos dados.
 | `PeriodId` | String | Identificador legível (ex: "2026-Q1") |
 | `SubmissionDeadline` | Date | Prazo para submissão CBAM |
 
+</div>
+
 ### 3. Operator
 
 Informações sobre a empresa produtora.
 
+<div class="table-wrapper">
+
 | Campo | Classificação | Descrição |
 |-------|---------------|-----------|
-| `OperatorId` | REGULATORY | CNPJ (Brasil), CIN (Índia), etc. |
-| `OperatorName` | REGULATORY | Nome comercial |
-| `LegalName` | NON-REGULATORY | Razão social |
-| `Address.Country` | REGULATORY | País (ISO 3166-1) |
+| `OperatorId` | <span class="badge badge-red">REGULATORY</span> | CNPJ (Brasil), CIN (Índia), etc. |
+| `OperatorName` | <span class="badge badge-red">REGULATORY</span> | Nome comercial |
+| `LegalName` | <span class="badge badge-yellow">NON-REGULATORY</span> | Razão social |
+| `Address.Country` | <span class="badge badge-red">REGULATORY</span> | País (ISO 3166-1) |
+
+</div>
 
 ### 4. Installation
 
 Dados de cada planta produtora.
 
+<div class="table-wrapper">
+
 | Campo | Classificação | Descrição |
 |-------|---------------|-----------|
-| `InstallationId` | REGULATORY | Identificador único da instalação |
-| `InstallationName` | REGULATORY | Nome da instalação |
-| `ProductionProcess` | REGULATORY | Rota e metodologia de produção |
+| `InstallationId` | <span class="badge badge-red">REGULATORY</span> | Identificador único da instalação |
+| `InstallationName` | <span class="badge badge-red">REGULATORY</span> | Nome da instalação |
+| `ProductionProcess` | <span class="badge badge-red">REGULATORY</span> | Rota e metodologia de produção |
+
+</div>
 
 ### 5. Product
 
@@ -160,12 +184,20 @@ DirectEmissions / IndirectEmissions
 ### Enumerações
 
 #### DeterminationType
+
+<div class="table-wrapper">
+
 | Código | Descrição |
 |--------|-----------|
 | `01` | Dados reais (medidos/calculados) |
 | `02` | Valores default (período transitório) |
 
+</div>
+
 #### RouteCode
+
+<div class="table-wrapper">
+
 | Código | Descrição |
 |--------|-----------|
 | `BF-BOF` | Alto-forno + Convertedor |
@@ -175,28 +207,47 @@ DirectEmissions / IndirectEmissions
 | `COREX` | Redução por fusão |
 | `OTHER` | Outra rota |
 
+</div>
+
 #### MethodologyCode
+
+<div class="table-wrapper">
+
 | Código | Descrição |
 |--------|-----------|
 | `TOM01` | Balanço de massa |
 | `TOM02` | Monitoramento contínuo (CEMS) |
 
+</div>
+
 #### ElectricitySourceCode
+
+<div class="table-wrapper">
+
 | Código | Descrição |
 |--------|-----------|
 | `SOE01` | Contrato específico (PPA) |
 | `SOE02` | Fator médio do grid nacional |
 | `SOE03` | Outra fonte |
 
+</div>
+
 #### DatasetStatus
+
+<div class="table-wrapper">
+
 | Valor | Descrição |
 |-------|-----------|
 | `draft` | Rascunho, sujeito a alterações |
 | `final` | Final, período fechado |
 
+</div>
+
 ---
 
 ## Cardinalidade
+
+<div class="table-wrapper">
 
 | Elemento | Min | Max | Descrição |
 |----------|-----|-----|-----------|
@@ -205,6 +256,8 @@ DirectEmissions / IndirectEmissions
 | `Product` | 1 | ∞ | Pelo menos um produto por instalação |
 | `ConsolidatedSummary` | 0 | 1 | Opcional |
 | `PackageMetadata` | 0 | 1 | Opcional |
+
+</div>
 
 ---
 
@@ -237,4 +290,3 @@ O schema XSD garante:
 3. **Formatos** (CN Code = 8 dígitos, Country = 2 letras)
 4. **Unicidade** de IDs (Installation e Product)
 5. **Cardinalidade** mínima e máxima de elementos
-

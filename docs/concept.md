@@ -1,7 +1,15 @@
 ---
-layout: default
+layout: docs
 title: "Conceito do CBAM Producer Data Package"
+page_title: "Conceito"
+breadcrumb: "Conceito"
 description: "Entenda o que é o CBAM Producer Data Package, seu propósito e como ele se encaixa no contexto regulatório europeu."
+prev_page:
+  url: /getting-started
+  title: "Começar"
+next_page:
+  url: /docs/structure
+  title: "Estrutura XML"
 ---
 
 ## O que é o CBAM?
@@ -23,25 +31,18 @@ O **CBAM Producer Data Package** é um formato de dados estruturado que permite 
 
 ### Propósito
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        CADEIA DE DADOS CBAM                         │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│   PRODUTOR          PACOTE DE DADOS         IMPORTADOR    REGISTRY │
-│  (ex: Brasil)        (este spec)              (EU)          (UE)   │
-│                                                                     │
-│  ┌──────────┐      ┌──────────────┐       ┌──────────┐   ┌───────┐ │
-│  │ Cálculo  │─────▶│   Producer   │──────▶│ Validação│──▶│QReport│ │
-│  │ emissões │      │ Data Package │       │ e uso    │   │       │ │
-│  └──────────┘      └──────────────┘       └──────────┘   └───────┘ │
-│                            ▲                                        │
-│                            │                                        │
-│                   Este formato define                               │
-│                   a estrutura de dados                              │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
+<div class="info-box">
+  <div class="info-box-title">
+    <i class="fas fa-info-circle"></i> Cadeia de Dados CBAM
+  </div>
+  <p><strong>PRODUTOR</strong> → gera <strong>Producer Data Package</strong> → enviado para <strong>IMPORTADOR</strong> → que submete <strong>QReport</strong> ao <strong>CBAM Registry</strong></p>
+</div>
+
+O formato define a estrutura de dados que permite que produtores forneçam informações de emissões de forma padronizada para que importadores possam:
+
+1. **Validar** a consistência dos dados recebidos
+2. **Converter** para o formato oficial do CBAM Registry
+3. **Submeter** relatórios trimestrais (QReport) às autoridades
 
 ---
 
@@ -51,6 +52,8 @@ O **CBAM Producer Data Package** é um formato de dados estruturado que permite 
 
 São campos diretamente exigidos pelo Regulamento EU 2023/956 e seus regulamentos de implementação. Exemplos:
 
+<div class="table-wrapper">
+
 | Campo | Descrição |
 |-------|-----------|
 | `DeterminationType` | Se os dados são reais (01) ou default (02) |
@@ -58,9 +61,13 @@ São campos diretamente exigidos pelo Regulamento EU 2023/956 e seus regulamento
 | `RouteCode` | Rota produtiva (BF-BOF, EAF, etc.) |
 | `MethodologyCode` | Metodologia de cálculo (TOM01, TOM02) |
 
+</div>
+
 ### Campos Não-Regulatórios
 
 Campos informativos para facilitar a leitura humana, rastreabilidade ou integração:
+
+<div class="table-wrapper">
 
 | Campo | Descrição |
 |-------|-----------|
@@ -69,16 +76,27 @@ Campos informativos para facilitar a leitura humana, rastreabilidade ou integra�
 | `ConsolidatedSummary` | Resumo agregado (apenas informativo) |
 | `PackageMetadata` | Metadados de geração do pacote |
 
+</div>
+
 ### Campos Informativos
 
 Campos cuja responsabilidade final de classificação é do **importador**:
+
+<div class="table-wrapper">
 
 | Campo | Descrição |
 |-------|-----------|
 | `CnCode` | Código da Nomenclatura Combinada (8 dígitos) |
 | `HsCode` | Código do Sistema Harmonizado (6 dígitos) |
 
-⚠️ **Importante:** O produtor fornece sua melhor estimativa, mas a responsabilidade legal pela classificação aduaneira correta é do importador.
+</div>
+
+<div class="warning-box">
+  <div class="warning-box-title">
+    <i class="fas fa-exclamation-triangle"></i> Importante
+  </div>
+  <p>O produtor fornece sua melhor estimativa, mas a <strong>responsabilidade legal pela classificação aduaneira correta é do importador</strong>.</p>
+</div>
 
 ---
 
@@ -113,39 +131,52 @@ O importador europeu recebe o pacote de dados e:
 
 O CBAM considera três categorias de emissões incorporadas:
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                    EMISSÕES INCORPORADAS                         │
-│                  (Embedded Emissions)                            │
-├────────────────────┬────────────────────┬───────────────────────┤
-│   DIRETAS          │   INDIRETAS        │   PRECURSORES         │
-│   (Scope 1)        │   (Scope 2)        │                       │
-├────────────────────┼────────────────────┼───────────────────────┤
-│ • Queima de        │ • Consumo de       │ • Emissões de         │
-│   combustíveis     │   eletricidade     │   materiais de        │
-│                    │   da rede          │   entrada que são     │
-│ • Reações          │                    │   produtos CBAM       │
-│   químicas         │                    │   (ex: ferro-gusa     │
-│                    │                    │   usado em aço)       │
-│ • Processos        │                    │                       │
-│   industriais      │                    │                       │
-└────────────────────┴────────────────────┴───────────────────────┘
-```
+<div class="cards-grid" style="margin: 1.5rem 0;">
+  <div class="card">
+    <div class="card-icon" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);">
+      <i class="fas fa-fire"></i>
+    </div>
+    <h3>Emissões Diretas</h3>
+    <p><strong>Scope 1:</strong> Queima de combustíveis, reações químicas, processos industriais.</p>
+  </div>
+  
+  <div class="card">
+    <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+      <i class="fas fa-bolt"></i>
+    </div>
+    <h3>Emissões Indiretas</h3>
+    <p><strong>Scope 2:</strong> Consumo de eletricidade da rede.</p>
+  </div>
+  
+  <div class="card">
+    <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">
+      <i class="fas fa-cubes"></i>
+    </div>
+    <h3>Precursores</h3>
+    <p>Emissões de materiais de entrada que são produtos CBAM (ex: ferro-gusa usado em aço).</p>
+  </div>
+</div>
 
 ### Emissões Específicas
 
 O CBAM utiliza primariamente **emissões específicas** (por unidade de produto):
+
+<div class="table-wrapper">
 
 | Unidade | Uso |
 |---------|-----|
 | `tCO2e/t` | Toneladas de CO2eq por tonelada de produto |
 | `tCO2e/MWh` | Para eletricidade |
 
+</div>
+
 ---
 
 ## Período de Reporte
 
 O CBAM opera em ciclos trimestrais:
+
+<div class="table-wrapper">
 
 | Trimestre | Período | Deadline de Submissão |
 |-----------|---------|----------------------|
@@ -154,6 +185,8 @@ O CBAM opera em ciclos trimestrais:
 | Q3 | Julho - Setembro | 31 de Outubro |
 | Q4 | Outubro - Dezembro | 31 de Janeiro (ano seguinte) |
 
+</div>
+
 ---
 
 ## Referências
@@ -161,4 +194,3 @@ O CBAM opera em ciclos trimestrais:
 - [Regulamento EU 2023/956 (CBAM)](https://eur-lex.europa.eu/eli/reg/2023/956)
 - [Regulamento de Implementação EU 2023/1773](https://eur-lex.europa.eu/eli/reg_impl/2023/1773)
 - [Portal CBAM da Comissão Europeia](https://cbam.ec.europa.eu/)
-

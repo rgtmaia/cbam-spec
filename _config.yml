@@ -7,9 +7,19 @@ description: >-
   entre produtores de países terceiros e importadores europeus no contexto 
   do CBAM (Carbon Border Adjustment Mechanism) da União Europeia.
 
+# Tagline para o hero
+tagline: "Padronize a comunicação de emissões e simplifique sua conformidade CBAM"
+
+# Versão atual
+version: "2.0.0"
+schema_version: "2.0.0"
+
 # URL Settings
 baseurl: "/cbam-spec"
 url: "https://rgtmaia.github.io"
+
+# Repository info
+repository: "rgtmaia/cbam-spec"
 
 # Plugins
 plugins:
@@ -18,6 +28,10 @@ plugins:
 # SEO
 author: "CBAM Spec Contributors"
 lang: "pt-BR"
+
+# Social / Open Graph
+twitter:
+  card: summary
 
 # Google Analytics
 google_analytics: G-GFBFPPKRGR
@@ -30,12 +44,20 @@ kramdown:
   hard_wrap: false
   syntax_highlighter: rouge
 
-# Defaults - todas as páginas usam o layout default
+# Defaults - páginas principais usam layout default, docs usam layout docs
 defaults:
   - scope:
       path: ""
     values:
       layout: "default"
+  - scope:
+      path: "docs"
+    values:
+      layout: "docs"
+  - scope:
+      path: "getting-started.md"
+    values:
+      layout: "docs"
 
 # Exclude from build
 exclude:
@@ -46,3 +68,4 @@ exclude:
   - .git
   - .gitignore
   - README.md
+  - LICENSE

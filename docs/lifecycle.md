@@ -1,7 +1,15 @@
 ---
-layout: default
+layout: docs
 title: "Ciclo de Vida e Versionamento"
+page_title: "Ciclo de Vida"
+breadcrumb: "Ciclo de Vida"
 description: "Como funciona o ciclo de vida do CBAM Producer Data Package, incluindo estados draft/final, versionamento e governança de dados."
+prev_page:
+  url: /docs/structure
+  title: "Estrutura XML"
+next_page:
+  url: /docs/legal-notices
+  title: "Avisos Legais"
 ---
 
 Este documento descreve o ciclo de vida de um CBAM Producer Data Package, incluindo estados, versionamento e governança dos dados.
@@ -12,13 +20,23 @@ Este documento descreve o ciclo de vida de um CBAM Producer Data Package, inclui
 
 O campo `DatasetStatus` indica o estado atual do pacote de dados:
 
-```
-┌────────────┐          ┌────────────┐
-│   DRAFT    │─────────▶│   FINAL    │
-│            │          │            │
-└────────────┘          └────────────┘
-    Mutável               Imutável
-```
+<div class="cards-grid" style="margin: 1.5rem 0;">
+  <div class="card">
+    <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+      <i class="fas fa-pencil-alt"></i>
+    </div>
+    <h3>Draft (Rascunho)</h3>
+    <p><strong>Mutável.</strong> O período ainda não foi fechado. Dados podem ser alterados, recalculados ou corrigidos.</p>
+  </div>
+  
+  <div class="card">
+    <div class="card-icon" style="background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h3>Final</h3>
+    <p><strong>Imutável.</strong> O período foi oficialmente fechado. Representa a versão oficial para o período.</p>
+  </div>
+</div>
 
 ### Draft (Rascunho)
 
@@ -58,34 +76,26 @@ X.Y.Z
 
 Indica a revisão dos dados para um mesmo período:
 
+<div class="table-wrapper">
+
 | Versão | Significado |
 |--------|-------------|
 | `1.0` | Geração inicial |
 | `1.1` | Correção de dados de entrada |
 | `2.0` | Recálculo completo com nova metodologia |
 
+</div>
+
 ---
 
 ## Ciclo de Vida Típico
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                        CICLO DE VIDA DO PACKAGE                         │
-└─────────────────────────────────────────────────────────────────────────┘
-
-  PRODUÇÃO               REVISÃO              FECHAMENTO          EXPORTAÇÃO
-      │                     │                     │                   │
-      ▼                     ▼                     ▼                   ▼
-┌───────────┐         ┌───────────┐         ┌───────────┐       ┌───────────┐
-│  Entrada  │────────▶│ Cálculo/  │────────▶│  Período  │──────▶│ Envio ao  │
-│  de dados │         │ Verificação│        │  Fechado  │       │ Importador│
-└───────────┘         └───────────┘         └───────────┘       └───────────┘
-     │                     │                     │                   │
-     │                     │                     │                   │
-  Status:               Status:               Status:            Status:
-  draft                 draft                 final              final
-  Version: 1.0          Version: 1.x         Version: 1.x       Version: 1.x
-```
+<div class="info-box">
+  <div class="info-box-title">
+    <i class="fas fa-sync-alt"></i> Fluxo do Ciclo de Vida
+  </div>
+  <p><strong>Entrada de dados</strong> (draft v1.0) → <strong>Cálculo/Verificação</strong> (draft v1.x) → <strong>Período Fechado</strong> (final v1.x) → <strong>Envio ao Importador</strong> (final v1.x)</p>
+</div>
 
 ---
 
@@ -93,12 +103,16 @@ Indica a revisão dos dados para um mesmo período:
 
 ### Quando Incrementar a Versão
 
+<div class="table-wrapper">
+
 | Evento | Ação |
 |--------|------|
 | Correção de dados de entrada (ex: quantidade) | Minor increment (1.0 → 1.1) |
 | Recálculo de emissões | Minor increment (1.1 → 1.2) |
 | Mudança de metodologia | Major increment (1.x → 2.0) |
 | Fechamento do período | Não incrementa (apenas muda status) |
+
+</div>
 
 ### Imutabilidade do Final
 
@@ -156,23 +170,19 @@ O campo `IntegrityHash` (em PackageMetadata) permite verificar que o pacote não
 
 ## Fluxo de Dados
 
-```
-PRODUTOR                                              IMPORTADOR
-   │                                                      │
-   ├─── Gera package v1.0 (draft) ───────────────────────▶│
-   │                                                      │
-   │◀── Solicitação de correção ─────────────────────────┤
-   │                                                      │
-   ├─── Gera package v1.1 (draft) ───────────────────────▶│
-   │                                                      │
-   ├─── Fecha período: v1.1 (final) ─────────────────────▶│
-   │                                                      │
-   │                                         Valida e converte
-   │                                                      │
-   │                                         Submete ao Registry
-   │                                                      ▼
-                                                   CBAM REGISTRY
-```
+<div class="info-box">
+  <div class="info-box-title">
+    <i class="fas fa-exchange-alt"></i> Comunicação Produtor ↔ Importador
+  </div>
+  <div style="font-family: monospace; font-size: 0.875rem; line-height: 1.8;">
+    PRODUTOR → Gera v1.0 (draft) → IMPORTADOR<br>
+    PRODUTOR ← Solicitação de correção ← IMPORTADOR<br>
+    PRODUTOR → Gera v1.1 (draft) → IMPORTADOR<br>
+    PRODUTOR → Fecha período: v1.1 (final) → IMPORTADOR<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBAM REGISTRY
+  </div>
+</div>
 
 ---
 
@@ -205,6 +215,8 @@ PRODUTOR                                              IMPORTADOR
 
 Cada pacote inclui metadados para auditoria:
 
+<div class="table-wrapper">
+
 | Campo | Descrição |
 |-------|-----------|
 | `GeneratingSoftware.Name` | Nome do sistema gerador |
@@ -212,10 +224,11 @@ Cada pacote inclui metadados para auditoria:
 | `GeneratedAt` | Timestamp de geração |
 | `ClosedAt` | Timestamp de fechamento (se final) |
 
+</div>
+
 ### Retenção
 
 Recomenda-se manter os pacotes arquivados por pelo menos:
 
 - **5 anos** para fins de auditoria CBAM
 - **Conforme legislação local** para fins tributários e comerciais
-
