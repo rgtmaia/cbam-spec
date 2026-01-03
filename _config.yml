@@ -29,6 +29,12 @@ plugins:
 author: "CBAM Spec Contributors"
 lang: "en-GB"
 
+# Multilingual support
+languages:
+  - en
+  - pt-BR
+default_lang: "en"
+
 # Social / Open Graph
 twitter:
   card: summary

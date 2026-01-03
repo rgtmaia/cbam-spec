@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'pt-BR' }}" data-theme="dark">
+<html lang="{{ page.lang | default: site.lang | default: 'en-GB' }}" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -251,6 +251,81 @@
     .theme-toggle .fa-sun { display: none; }
     [data-theme="light"] .theme-toggle .fa-sun { display: block; }
     [data-theme="light"] .theme-toggle .fa-moon { display: none; }
+
+    /* Language Switcher */
+    .lang-switcher {
+      position: relative;
+    }
+
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.375rem 0.625rem;
+      border-radius: var(--radius-sm);
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      cursor: pointer;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .lang-btn:hover {
+      background: var(--color-bg-elevated);
+      color: var(--color-text);
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.5rem;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      min-width: 150px;
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: var(--transition);
+    }
+
+    .lang-switcher:hover .lang-dropdown,
+    .lang-dropdown:hover {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.625rem 0.875rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.8125rem;
+    }
+
+    .lang-option:hover {
+      background: var(--color-bg-elevated);
+      color: var(--color-text);
+    }
+
+    .lang-option.active {
+      color: var(--color-primary-light);
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .lang-flag {
+      font-size: 1.125rem;
+    }
 
     /* ========================================
        BREADCRUMBS
@@ -898,6 +973,23 @@
         <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}" class="nav-link">
           <i class="fas fa-file-code"></i> Examples
         </a>
+        <div class="lang-switcher">
+          <button class="lang-btn" title="Change language">
+            <i class="fas fa-globe"></i>
+            <span id="current-lang">EN</span>
+            <i class="fas fa-chevron-down" style="font-size: 0.5rem;"></i>
+          </button>
+          <div class="lang-dropdown">
+            <a href="{{ '/' | relative_url }}" class="lang-option {% unless page.lang == 'pt-BR' %}active{% endunless %}" data-lang="en">
+              <span class="lang-flag">🇬🇧</span>
+              <span>English</span>
+            </a>
+            <a href="{{ '/pt-br/' | relative_url }}" class="lang-option {% if page.lang == 'pt-BR' %}active{% endif %}" data-lang="pt-BR">
+              <span class="lang-flag">🇧🇷</span>
+              <span>Português (BR)</span>
+            </a>
+          </div>
+        </div>
         <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
           <i class="fas fa-moon"></i>
           <i class="fas fa-sun"></i>
@@ -992,6 +1084,51 @@
         scrollBtn.classList.remove('visible');
       }
     });
+
+    // Language Detection and Switching
+    (function() {
+      const baseUrl = '{{ site.baseurl }}';
+      const currentPath = window.location.pathname;
+      const isPortuguese = currentPath.includes('/pt-br/');
+      
+      // Update current language display
+      const currentLangEl = document.getElementById('current-lang');
+      if (currentLangEl) {
+        currentLangEl.textContent = isPortuguese ? 'PT' : 'EN';
+      }
+
+      // Check if user has a saved language preference
+      const savedLang = localStorage.getItem('preferred-lang');
+      const hasVisited = localStorage.getItem('has-visited');
+
+      // Auto-detect language on first visit
+      if (!hasVisited) {
+        localStorage.setItem('has-visited', 'true');
+        
+        // Get browser language
+        const browserLang = navigator.language || navigator.userLanguage;
+        const isPortugueseBrowser = browserLang.toLowerCase().startsWith('pt');
+        
+        // Redirect if browser language doesn't match current page
+        if (isPortugueseBrowser && !isPortuguese) {
+          // Browser is Portuguese, redirect to PT-BR version
+          const ptPath = baseUrl + '/pt-br/';
+          window.location.href = ptPath;
+        } else if (!isPortugueseBrowser && isPortuguese) {
+          // Browser is not Portuguese, redirect to English version
+          const enPath = baseUrl + '/';
+          window.location.href = enPath;
+        }
+      }
+
+      // Handle language option clicks
+      document.querySelectorAll('.lang-option').forEach(function(option) {
+        option.addEventListener('click', function(e) {
+          const lang = this.getAttribute('data-lang');
+          localStorage.setItem('preferred-lang', lang);
+        });
+      });
+    })();
   </script>
 </body>
 </html>
