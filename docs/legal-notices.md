@@ -9,10 +9,6 @@ prev_page:
   title: "Lifecycle"
 ---
 
-This document contains legal and compliance information relating to the CBAM Producer Data Package.
-
----
-
 ## Licensing
 
 ### Specification and Schema

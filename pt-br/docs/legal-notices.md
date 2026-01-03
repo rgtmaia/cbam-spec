@@ -10,10 +10,6 @@ prev_page:
   title: "Ciclo de Vida"
 ---
 
-Este documento contém informações legais e de compliance relacionadas ao CBAM Producer Data Package.
-
----
-
 ## Licenciamento
 
 ### Especificação e Schema
