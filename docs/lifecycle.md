@@ -1,9 +1,9 @@
 ---
 layout: docs
-title: "Ciclo de Vida e Versionamento"
+title: "Ciclo de Vida do Dataset"
 page_title: "Ciclo de Vida"
 breadcrumb: "Ciclo de Vida"
-description: "Como funciona o ciclo de vida do CBAM Producer Data Package, incluindo estados draft/final, versionamento e governança de dados."
+description: "Como um CBAM Producer Data Package é criado, versionado, transmitido e arquivado ao longo do tempo."
 prev_page:
   url: /docs/structure
   title: "Estrutura XML"
@@ -12,223 +12,255 @@ next_page:
   title: "Avisos Legais"
 ---
 
-Este documento descreve o ciclo de vida de um CBAM Producer Data Package, incluindo estados, versionamento e governança dos dados.
+Este documento descreve o ciclo de vida completo de um CBAM Producer Data Package, desde sua criação até o arquivamento.
+
+---
+
+## Visão Geral
+
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   CRIAÇÃO   │───►│  REVISÃO    │───►│ TRANSMISSÃO │───►│ ARQUIVAMENTO│
+│   (draft)   │    │  (draft)    │    │   (final)   │    │   (final)   │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+     │                   │                   │                   │
+     ▼                   ▼                   ▼                   ▼
+  Dataset v1.0       Dataset v1.x       Dataset final      Retenção 10a
+```
 
 ---
 
 ## Estados do Dataset
 
-O campo `DatasetStatus` indica o estado atual do pacote de dados:
+### DatasetStatus
 
-<div class="cards-grid" style="margin: 1.5rem 0;">
-  <div class="card">
-    <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
-      <i class="fas fa-pencil-alt"></i>
-    </div>
-    <h3>Draft (Rascunho)</h3>
-    <p><strong>Mutável.</strong> O período ainda não foi fechado. Dados podem ser alterados, recalculados ou corrigidos.</p>
-  </div>
-  
-  <div class="card">
-    <div class="card-icon" style="background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);">
-      <i class="fas fa-check-circle"></i>
-    </div>
-    <h3>Final</h3>
-    <p><strong>Imutável.</strong> O período foi oficialmente fechado. Representa a versão oficial para o período.</p>
-  </div>
+<div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Status</th><th>Descrição</th><th>Editável</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>draft</code></td><td>Em elaboração, sujeito a alterações</td><td>✅ Sim</td></tr>
+    <tr><td><code>final</code></td><td>Fechado, apenas para referência</td><td>❌ Não</td></tr>
+  </tbody>
+</table>
 </div>
 
-### Draft (Rascunho)
+### Transição de Estados
 
-- O período de reporte ainda não foi fechado
-- Dados podem ser alterados, recalculados ou corrigidos
-- Novas versões podem ser geradas
-- **Uso:** Compartilhamento preliminar, revisões internas
-
-### Final (Final)
-
-- O período de reporte foi oficialmente fechado
-- Dados são considerados **imutáveis**
-- Representa a versão oficial para o período
-- **Uso:** Submissão ao importador para relatório CBAM
+```
+          ┌──────────────┐
+          │    DRAFT     │◄────────────────┐
+          └──────┬───────┘                 │
+                 │                         │
+        [revisão]│                         │
+                 │                         │
+                 ▼                         │
+          ┌──────────────┐                 │
+          │    DRAFT     │────────────────►│ (nova versão)
+          │   (v1.x)     │                 │
+          └──────┬───────┘                 │
+                 │                         │
+       [fechamento]                        │
+                 │                         │
+                 ▼                         │
+          ┌──────────────┐                 │
+          │    FINAL     │ ───────────────►│ (correção pós-fechamento)
+          │   (vN.0)     │                 │
+          └──────────────┘                 │
+```
 
 ---
 
 ## Versionamento
 
-O pacote utiliza dois níveis de versionamento:
-
-### 1. Versão do Schema (`@schemaVersion`)
-
-Indica a versão do formato/estrutura XML. Segue versionamento semântico:
-
-```
-X.Y.Z
-│ │ │
-│ │ └── Patch: correções, melhorias de documentação
-│ └──── Minor: novos campos opcionais, retrocompatível
-└────── Major: mudanças estruturais incompatíveis
-```
-
-**Exemplo:** `2.0.0`
-
-### 2. Versão do Dataset (`DatasetIdentification.Version`)
-
-Indica a revisão dos dados para um mesmo período:
+### Regras de Versão
 
 <div class="table-wrapper">
-
-| Versão | Significado |
-|--------|-------------|
-| `1.0` | Geração inicial |
-| `1.1` | Correção de dados de entrada |
-| `2.0` | Recálculo completo com nova metodologia |
-
+<table>
+  <thead>
+    <tr><th>Tipo de Alteração</th><th>Versão</th><th>Exemplo</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Criação inicial</td><td><code>1.0</code></td><td>Primeiro dataset do período</td></tr>
+    <tr><td>Revisão em draft</td><td><code>1.x</code></td><td>1.1, 1.2, 1.3...</td></tr>
+    <tr><td>Correção pós-final</td><td><code>N.0</code></td><td>2.0, 3.0 (substitui anterior)</td></tr>
+  </tbody>
+</table>
 </div>
 
----
-
-## Ciclo de Vida Típico
-
-<div class="info-box">
-  <div class="info-box-title">
-    <i class="fas fa-sync-alt"></i> Fluxo do Ciclo de Vida
-  </div>
-  <p><strong>Entrada de dados</strong> (draft v1.0) → <strong>Cálculo/Verificação</strong> (draft v1.x) → <strong>Período Fechado</strong> (final v1.x) → <strong>Envio ao Importador</strong> (final v1.x)</p>
-</div>
-
----
-
-## Eventos de Versionamento
-
-### Quando Incrementar a Versão
-
-<div class="table-wrapper">
-
-| Evento | Ação |
-|--------|------|
-| Correção de dados de entrada (ex: quantidade) | Minor increment (1.0 → 1.1) |
-| Recálculo de emissões | Minor increment (1.1 → 1.2) |
-| Mudança de metodologia | Major increment (1.x → 2.0) |
-| Fechamento do período | Não incrementa (apenas muda status) |
-
-</div>
-
-### Imutabilidade do Final
-
-Uma vez que o status muda para `final`:
-
-- ❌ Não é possível alterar dados
-- ❌ Não é possível gerar nova versão para o mesmo período
-- ✅ O pacote pode ser exportado múltiplas vezes (mesmo conteúdo)
-
----
-
-## Identificação Única
-
-### DatasetId
-
-Identificador único global do pacote. Recomenda-se usar **UUID v4**:
+### Campos de Versionamento
 
 ```xml
-<DatasetId>550e8400-e29b-41d4-a716-446655440000</DatasetId>
+<DatasetIdentification>
+  <DatasetId>550e8400-e29b-41d4-a716-446655440000</DatasetId>
+  <Version>1.2</Version>
+  <GenerationDate>2026-03-15</GenerationDate>
+  <DatasetStatus>draft</DatasetStatus>
+</DatasetIdentification>
 ```
 
-**Características:**
-- Permanece o mesmo entre versões do mesmo dataset
-- Permite rastreabilidade entre produtor e importador
-- Vinculação com documentos de suporte (notas fiscais, certificados)
-
-### PeriodId
-
-Identificador legível do período de reporte:
+### Histórico de Versões
 
 ```xml
-<PeriodId>2026-Q1</PeriodId>
+<PackageMetadata>
+  <VersionHistory>
+    <PreviousVersion>
+      <DatasetId>550e8400-e29b-41d4-a716-446655440000</DatasetId>
+      <Version>1.1</Version>
+    </PreviousVersion>
+  </VersionHistory>
+</PackageMetadata>
 ```
-
-**Formato:** `YYYY-QN` onde N é o trimestre (1-4)
-
----
-
-## Integridade dos Dados
-
-### Hash de Integridade
-
-O campo `IntegrityHash` (em PackageMetadata) permite verificar que o pacote não foi alterado:
-
-```xml
-<IntegrityHash>sha256:a3f8c2d1e5b9f7a2c4d6e8f0a1b3c5d7e9f1a2b4c6d8e0f2a4b6c8d0e2f4a6b8</IntegrityHash>
-```
-
-**Uso:**
-- Validação de que o arquivo não foi corrompido em trânsito
-- Auditoria e rastreabilidade
-- Prova de que dados não foram alterados após fechamento
 
 ---
 
 ## Fluxo de Dados
 
-<div class="info-box">
-  <div class="info-box-title">
-    <i class="fas fa-exchange-alt"></i> Comunicação Produtor ↔ Importador
-  </div>
-  <div style="font-family: monospace; font-size: 0.875rem; line-height: 1.8;">
-    PRODUTOR → Gera v1.0 (draft) → IMPORTADOR<br>
-    PRODUTOR ← Solicitação de correção ← IMPORTADOR<br>
-    PRODUTOR → Gera v1.1 (draft) → IMPORTADOR<br>
-    PRODUTOR → Fecha período: v1.1 (final) → IMPORTADOR<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CBAM REGISTRY
-  </div>
-</div>
+### Atores
 
----
+```
+┌──────────────┐        ┌──────────────┐        ┌──────────────┐
+│   PRODUTOR   │        │  IMPORTADOR  │        │   COMISSÃO   │
+│   (3º país)  │        │     (UE)     │        │   EUROPEIA   │
+└──────┬───────┘        └──────┬───────┘        └──────┬───────┘
+       │                       │                       │
+       │   XML Package         │                       │
+       │──────────────────────►│                       │
+       │                       │                       │
+       │                       │   CBAM Report         │
+       │                       │──────────────────────►│
+       │                       │                       │
+       │                       │◄──────────────────────│
+       │                       │   Feedback            │
+       │                       │                       │
+```
 
-## Boas Práticas
-
-### Para Produtores
-
-1. **Mantenha histórico** de todas as versões geradas
-2. **Documente** as razões de cada nova versão
-3. **Feche o período** apenas quando os dados estiverem verificados
-4. **Inclua justificativas** para uso de valores default
-
-### Para Importadores
-
-1. **Valide** o pacote contra o schema antes de processar
-2. **Verifique** a integridade usando o hash (quando disponível)
-3. **Confirme** o status do pacote (preferir `final`)
-4. **Arquive** os pacotes recebidos para auditoria
-
----
-
-## Governança
-
-### Quem Pode Gerar Pacotes
-
-- Apenas sistemas autorizados pelo operador (produtor)
-- Identificados pelo campo `PackageMetadata.GeneratingSoftware`
-
-### Rastreabilidade
-
-Cada pacote inclui metadados para auditoria:
+### Responsabilidades
 
 <div class="table-wrapper">
-
-| Campo | Descrição |
-|-------|-----------|
-| `GeneratingSoftware.Name` | Nome do sistema gerador |
-| `GeneratingSoftware.Version` | Versão do sistema |
-| `GeneratedAt` | Timestamp de geração |
-| `ClosedAt` | Timestamp de fechamento (se final) |
-
+<table>
+  <thead>
+    <tr><th>Ator</th><th>Responsabilidade</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Produtor</strong></td><td>Gerar XML com dados de emissão</td></tr>
+    <tr><td><strong>Importador</strong></td><td>Validar e complementar dados (CN/HS codes)</td></tr>
+    <tr><td><strong>Importador</strong></td><td>Submeter relatório CBAM ao registro transitório</td></tr>
+    <tr><td><strong>Comissão</strong></td><td>Verificar e processar declarações</td></tr>
+  </tbody>
+</table>
 </div>
 
-### Retenção
+---
 
-Recomenda-se manter os pacotes arquivados por pelo menos:
+## Trimestres de Referência
 
-- **5 anos** para fins de auditoria CBAM
-- **Conforme legislação local** para fins tributários e comerciais
+### Prazos CBAM (Período Transitório)
+
+<div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Trimestre</th><th>Período</th><th>Deadline</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Q1</td><td>Jan–Mar</td><td>30 de Abril</td></tr>
+    <tr><td>Q2</td><td>Abr–Jun</td><td>31 de Julho</td></tr>
+    <tr><td>Q3</td><td>Jul–Set</td><td>31 de Outubro</td></tr>
+    <tr><td>Q4</td><td>Out–Dez</td><td>31 de Janeiro (ano seguinte)</td></tr>
+  </tbody>
+</table>
+</div>
+
+### Exemplo de ReportingPeriod
+
+```xml
+<ReportingPeriod>
+  <Year>2026</Year>
+  <Quarter>1</Quarter>
+  <PeriodId>2026-Q1</PeriodId>
+  <SubmissionDeadline>2026-04-30</SubmissionDeadline>
+</ReportingPeriod>
+```
+
+---
+
+## Correções e Retificações
+
+### Antes do Fechamento (draft)
+
+1. Criar nova versão do dataset (`Version` +0.1)
+2. Atualizar `GenerationDate`
+3. Manter mesmo `DatasetId`
+4. Atualizar `VersionHistory`
+
+### Após o Fechamento (final)
+
+1. Criar **novo** dataset com `Version` +1.0
+2. Gerar **novo** `DatasetId`
+3. Referenciar dataset anterior em `PreviousVersion`
+4. Marcar como `draft` até aprovação do importador
+
+---
+
+## Arquivamento
+
+### Requisitos
+
+<div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Aspecto</th><th>Requisito</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Retenção</strong></td><td>Mínimo 10 anos após geração</td></tr>
+    <tr><td><strong>Integridade</strong></td><td>Hash SHA-256 do arquivo XML</td></tr>
+    <tr><td><strong>Rastreabilidade</strong></td><td>Histórico de versões preservado</td></tr>
+    <tr><td><strong>Acessibilidade</strong></td><td>Disponível para auditorias</td></tr>
+  </tbody>
+</table>
+</div>
+
+### Metadados de Arquivamento
+
+```xml
+<PackageMetadata>
+  <FileIntegrity>
+    <HashAlgorithm>SHA-256</HashAlgorithm>
+    <HashValue>abc123...</HashValue>
+  </FileIntegrity>
+  <RetentionPolicy>
+    <MinimumRetentionYears>10</MinimumRetentionYears>
+    <ArchiveDate>2026-05-01</ArchiveDate>
+  </RetentionPolicy>
+</PackageMetadata>
+```
+
+---
+
+## Exemplo Completo
+
+### Cenário
+
+1. Produtor cria dataset Q1/2026 em 10/Mar
+2. Revisão em 20/Mar após verificação interna
+3. Envio ao importador em 25/Mar
+4. Importador complementa e fecha em 15/Abr
+5. Arquivamento para auditoria
+
+### Evolução do Dataset
+
+<div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Etapa</th><th>Versão</th><th>Status</th><th>Data</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Criação</td><td>1.0</td><td>draft</td><td>2026-03-10</td></tr>
+    <tr><td>Revisão</td><td>1.1</td><td>draft</td><td>2026-03-20</td></tr>
+    <tr><td>Envio</td><td>1.1</td><td>draft</td><td>2026-03-25</td></tr>
+    <tr><td>Fechamento</td><td>1.1</td><td>final</td><td>2026-04-15</td></tr>
+    <tr><td>Arquivamento</td><td>1.1</td><td>final</td><td>2026-04-15</td></tr>
+  </tbody>
+</table>
+</div>

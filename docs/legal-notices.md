@@ -1,213 +1,211 @@
 ---
 layout: docs
-title: "Avisos Legais e Disclaimers"
+title: "Avisos Legais"
 page_title: "Avisos Legais"
 breadcrumb: "Avisos Legais"
-description: "Avisos legais, disclaimers e limitações de responsabilidade para uso do CBAM Producer Data Package."
+description: "Informações sobre licenciamento, responsabilidades e compliance relacionados ao CBAM Producer Data Package."
 prev_page:
   url: /docs/lifecycle
   title: "Ciclo de Vida"
 ---
 
-Este documento contém avisos legais importantes sobre o uso e limitações do CBAM Producer Data Package.
+Este documento contém informações legais e de compliance relacionadas ao CBAM Producer Data Package.
 
 ---
 
-## ⚠️ Aviso Principal
+## Licenciamento
 
-<div class="alert">
-  <div class="alert-title">
-    <i class="fas fa-exclamation-triangle"></i>
-    Importante
-  </div>
-  <p><strong>O CBAM Producer Data Package NÃO é um relatório de submissão CBAM (QReport).</strong></p>
-  <p>Este documento não pode ser submetido diretamente ao CBAM Registry da União Europeia.</p>
-</div>
+### Especificação e Schema
 
----
+O CBAM Producer Data Package Specification e seus arquivos associados são disponibilizados sob a licença **Apache 2.0**.
 
-## Limitações do Formato
+```
+Copyright 2024-2026 CBAM Spec Contributors
 
-### O que este formato NÃO é
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-<div class="table-wrapper">
+    http://www.apache.org/licenses/LICENSE-2.0
 
-| ❌ NÃO é | Explicação |
-|---------|------------|
-| QReport oficial | Não substitui o formato oficial do CBAM Registry |
-| Documento de compliance | Não comprova conformidade regulatória por si só |
-| Certificado de emissões | Não é verificado por terceiros independentes |
-| Schema oficial da UE | É um formato privado para troca de dados |
-
-</div>
-
-### O que este formato É
-
-<div class="table-wrapper">
-
-| ✅ É | Explicação |
-|-----|------------|
-| Contrato de dados | Define estrutura para comunicação produtor-importador |
-| Formato intermediário | Facilita a preparação de dados para o CBAM |
-| Especificação técnica | Permite validação automática de arquivos |
-| Padrão aberto | Pode ser implementado por qualquer sistema |
-
-</div>
-
----
-
-## Responsabilidades
-
-### Responsabilidade do Produtor
-
-O produtor (operador) é responsável por:
-
-1. **Veracidade dos dados** de produção e emissões
-2. **Metodologia de cálculo** aplicada
-3. **Documentação de suporte** para auditorias
-4. **Atualização** de dados quando necessário
-
-### Responsabilidade do Importador
-
-O importador europeu é responsável por:
-
-1. **Classificação aduaneira** correta (códigos CN/HS)
-2. **Validação** dos dados recebidos
-3. **Conversão** para o formato do CBAM Registry
-4. **Submissão** do relatório trimestral
-5. **Aquisição** de certificados CBAM
-
-<div class="warning-box">
-  <div class="warning-box-title">
-    <i class="fas fa-exclamation-triangle"></i> Importante
-  </div>
-  <p>A classificação de códigos CN/HS é de <strong>responsabilidade legal exclusiva do importador</strong>. O produtor fornece apenas uma sugestão informativa.</p>
-</div>
-
----
-
-## Disclaimers
-
-### Sobre Precisão dos Dados
-
-> Os dados contidos em um CBAM Producer Data Package são fornecidos pelo produtor com base em suas melhores informações disponíveis na data de geração. O importador deve realizar sua própria verificação antes de utilizar os dados para fins regulatórios.
-
-### Sobre Metodologia de Cálculo
-
-> As emissões reportadas são calculadas de acordo com metodologias declaradas no pacote. Este formato não define nem endossa metodologias específicas de cálculo, que devem seguir as regulamentações aplicáveis (EU 2023/956 e regulamentos de implementação).
-
-### Sobre Conformidade Regulatória
-
-> O uso deste formato não garante conformidade com o CBAM. A conformidade depende da precisão dos dados, adequação da metodologia e correta submissão ao CBAM Registry pelo importador.
-
----
-
-## Texto de Disclaimer para Inclusão em Pacotes
-
-Recomenda-se incluir o seguinte texto no campo `LegalDisclaimer` de cada pacote gerado:
-
-### Em Inglês
-
-```text
-IMPORTANT: This document is NOT a CBAM submission report (QReport) and 
-cannot be submitted directly to the EU CBAM Registry. It is a CBAM 
-Producer Data Package containing emission data for use by EU importers 
-in completing their quarterly CBAM reports.
-
-The importer is responsible for:
-- Final verification of all data
-- Commodity code classification (CN/HS codes)
-- Submission to the CBAM Registry
-
-This document does not constitute certification of emissions and is 
-provided for informational purposes only.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
 
-### Em Português
+### Arquivos Cobertos
 
-```text
-IMPORTANTE: Este documento NÃO é um relatório de submissão CBAM 
-(QReport) e não pode ser submetido diretamente ao CBAM Registry da 
-União Europeia. É um CBAM Producer Data Package contendo dados de 
-emissões para uso por importadores europeus.
-
-O importador é responsável por:
-- Verificação final de todos os dados
-- Classificação de códigos aduaneiros (códigos CN/HS)
-- Submissão ao CBAM Registry
-
-Este documento não constitui certificação de emissões e é fornecido 
-apenas para fins informativos.
-```
+<div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Arquivo</th><th>Licença</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>cbam-producer-data-package-v2.xsd</code></td><td>Apache 2.0</td></tr>
+    <tr><td>Documentação (Markdown)</td><td>Apache 2.0</td></tr>
+    <tr><td>Exemplos (XML)</td><td>Apache 2.0</td></tr>
+  </tbody>
+</table>
+</div>
 
 ---
 
-## Proteção de Dados
+## Disclaimer
 
-### LGPD/GDPR
+### Propósito
 
-O formato foi projetado minimizando dados pessoais:
+Esta especificação foi desenvolvida com o objetivo de:
 
-- **Não inclui** emails, telefones ou dados pessoais diretos
-- **ContactDetails** contém apenas nome do departamento/função
-- Dados de identificação empresarial (CNPJ, etc.) são públicos
+1. **Padronizar** a comunicação de dados de emissões entre produtores e importadores
+2. **Facilitar** o cumprimento das obrigações CBAM durante o período transitório
+3. **Promover** interoperabilidade entre sistemas de diferentes organizações
 
-### Dados Comerciais Sensíveis
+### Limitações
 
-O pacote pode conter informações comercialmente sensíveis:
+> **AVISO IMPORTANTE**
+> 
+> Esta especificação é uma iniciativa comunitária e **NÃO** é um documento oficial da União Europeia ou de qualquer autoridade reguladora.
 
-- Volumes de produção
-- Intensidade de emissões (pode indicar eficiência)
-- Rotas de produção
-
-<div class="info-box">
-  <div class="info-box-title">
-    <i class="fas fa-shield-alt"></i> Recomendação
-  </div>
-  <p>Estabelecer acordos de confidencialidade (NDA) entre produtor e importador.</p>
+<div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Aspecto</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Reconhecimento oficial pela UE</td><td>❌ Não</td></tr>
+    <tr><td>Validação pela Comissão Europeia</td><td>❌ Não</td></tr>
+    <tr><td>Substituição de formulários oficiais</td><td>❌ Não</td></tr>
+    <tr><td>Uso como formato auxiliar</td><td>✅ Sim</td></tr>
+  </tbody>
+</table>
 </div>
+
+### Responsabilidade
+
+- Os **usuários** são responsáveis por verificar a conformidade de seus dados com os requisitos regulatórios
+- Os **importadores** devem utilizar os formulários e sistemas oficiais do CBAM Transitional Registry para submissões
+- Os **desenvolvedores** desta especificação não garantem adequação para propósitos específicos
 
 ---
 
 ## Referências Regulatórias
 
+### Base Legal
+
 <div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Documento</th><th>Referência</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Regulamento CBAM</td><td>EU 2023/956</td></tr>
+    <tr><td>Regulamento de Implementação</td><td>EU 2023/1773</td></tr>
+    <tr><td>Orientações da Comissão</td><td>C(2023) 5512</td></tr>
+  </tbody>
+</table>
+</div>
 
-| Regulamento | Descrição |
-|-------------|-----------|
-| EU 2023/956 | Regulamento CBAM principal |
-| EU 2023/1773 | Regulamento de Implementação |
-| Anexo I | Lista de produtos cobertos |
-| Anexo III | Metodologias de cálculo |
+### Links Oficiais
 
+- [CBAM - Taxation and Customs Union](https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism_en)
+- [CBAM Transitional Registry](https://cbam.ec.europa.eu/)
+- [EU Climate Action](https://climate.ec.europa.eu/eu-action/carbon-border-adjustment-mechanism_en)
+
+---
+
+## Contribuição
+
+### Como Contribuir
+
+1. **Issues**: Reporte problemas ou sugestões via GitHub Issues
+2. **Pull Requests**: Envie correções ou melhorias
+3. **Discussões**: Participe das discussões no repositório
+
+### Código de Conduta
+
+Contribuidores devem seguir o [Contributor Covenant](https://www.contributor-covenant.org/) versão 2.1.
+
+### Processo de Revisão
+
+<div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Tipo</th><th>Aprovação</th><th>Prazo</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Typo/Correção simples</td><td>1 maintainer</td><td>~3 dias</td></tr>
+    <tr><td>Melhoria de documentação</td><td>1 maintainer</td><td>~7 dias</td></tr>
+    <tr><td>Alteração no schema</td><td>2 maintainers</td><td>~14 dias</td></tr>
+    <tr><td>Breaking change</td><td>Consenso + RFC</td><td>~30 dias</td></tr>
+  </tbody>
+</table>
 </div>
 
 ---
 
-## Isenção de Responsabilidade
+## Versionamento do Schema
 
-<div class="alert">
-  <div class="alert-title">
-    <i class="fas fa-gavel"></i>
-    Isenção de Responsabilidade
-  </div>
-  <p><strong>Os mantenedores deste formato NÃO se responsabilizam por:</strong></p>
-  <ul>
-    <li>Erros ou omissões nos dados fornecidos por produtores</li>
-    <li>Interpretações incorretas da regulamentação CBAM</li>
-    <li>Decisões de compliance baseadas neste formato</li>
-    <li>Penalidades resultantes de uso inadequado</li>
-    <li>Perdas financeiras de qualquer natureza</li>
-  </ul>
-  <p>O uso deste formato é por conta e risco do usuário. Recomenda-se consultar especialistas em compliance CBAM e autoridades competentes para orientações específicas.</p>
+### Política de Versão
+
+Esta especificação segue [Semantic Versioning 2.0.0](https://semver.org/):
+
+- **MAJOR** (X.0.0): Mudanças incompatíveis
+- **MINOR** (2.X.0): Adições retrocompatíveis
+- **PATCH** (2.0.X): Correções retrocompatíveis
+
+### Histórico de Versões
+
+<div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Versão</th><th>Data</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2.0.0</td><td>Jan 2026</td><td>Versão atual com classificação de campos</td></tr>
+    <tr><td>1.0.0</td><td>Out 2024</td><td>Versão inicial</td></tr>
+  </tbody>
+</table>
+</div>
+
+### Suporte a Versões
+
+<div class="table-wrapper">
+<table>
+  <thead>
+    <tr><th>Versão</th><th>Status</th><th>Suporte até</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2.x</td><td>✅ Ativa</td><td>—</td></tr>
+    <tr><td>1.x</td><td>⚠️ Legado</td><td>Dez 2026</td></tr>
+  </tbody>
+</table>
 </div>
 
 ---
 
-## Suporte e Contato
+## Contato
 
-Para questões sobre:
+### Maintainers
 
-- **Regulamentação CBAM:** Consultar [CBAM Registry](https://cbam.ec.europa.eu/) ou autoridades nacionais competentes
-- **Este formato:** Abrir Issue no [repositório]({{ site.github.repository_url }}/issues)
-- **Implementação específica:** Consultar documentação do software utilizado
+Para questões relacionadas à especificação:
+
+- **GitHub**: [rgtmaia/cbam-spec](https://github.com/rgtmaia/cbam-spec)
+- **Issues**: Utilize o sistema de Issues do GitHub
+
+### Suporte Comercial
+
+Esta especificação é mantida pela comunidade. Para suporte comercial ou implementação corporativa, entre em contato com os maintainers.
+
+---
+
+## Agradecimentos
+
+Este projeto foi inspirado por:
+
+- Iniciativas de padronização de dados ambientais
+- Comunidade de compliance CBAM
+- Contribuidores open source
+
+Agradecemos a todos que contribuíram com feedback e melhorias.

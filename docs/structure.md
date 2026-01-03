@@ -81,14 +81,17 @@ CBAMProducerDataPackage (root)
 Identifica unicamente o pacote de dados.
 
 <div class="table-wrapper">
-
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| `DatasetId` | UUID | Identificador global único |
-| `Version` | String | Versão do dataset (ex: "1.0", "1.1") |
-| `GenerationDate` | Date | Data de geração (YYYY-MM-DD) |
-| `DatasetStatus` | Enum | `draft` ou `final` |
-
+<table>
+  <thead>
+    <tr><th>Campo</th><th>Tipo</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>DatasetId</code></td><td>UUID</td><td>Identificador global único</td></tr>
+    <tr><td><code>Version</code></td><td>String</td><td>Versão do dataset (ex: "1.0", "1.1")</td></tr>
+    <tr><td><code>GenerationDate</code></td><td>Date</td><td>Data de geração (YYYY-MM-DD)</td></tr>
+    <tr><td><code>DatasetStatus</code></td><td>Enum</td><td><code>draft</code> ou <code>final</code></td></tr>
+  </tbody>
+</table>
 </div>
 
 ### 2. ReportingPeriod
@@ -96,14 +99,17 @@ Identifica unicamente o pacote de dados.
 Define o trimestre de referência dos dados.
 
 <div class="table-wrapper">
-
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| `Year` | gYear | Ano de referência |
-| `Quarter` | 1-4 | Trimestre (Q1, Q2, Q3, Q4) |
-| `PeriodId` | String | Identificador legível (ex: "2026-Q1") |
-| `SubmissionDeadline` | Date | Prazo para submissão CBAM |
-
+<table>
+  <thead>
+    <tr><th>Campo</th><th>Tipo</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>Year</code></td><td>gYear</td><td>Ano de referência</td></tr>
+    <tr><td><code>Quarter</code></td><td>1-4</td><td>Trimestre (Q1, Q2, Q3, Q4)</td></tr>
+    <tr><td><code>PeriodId</code></td><td>String</td><td>Identificador legível (ex: "2026-Q1")</td></tr>
+    <tr><td><code>SubmissionDeadline</code></td><td>Date</td><td>Prazo para submissão CBAM</td></tr>
+  </tbody>
+</table>
 </div>
 
 ### 3. Operator
@@ -111,14 +117,17 @@ Define o trimestre de referência dos dados.
 Informações sobre a empresa produtora.
 
 <div class="table-wrapper">
-
-| Campo | Classificação | Descrição |
-|-------|---------------|-----------|
-| `OperatorId` | <span class="badge badge-red">REGULATORY</span> | CNPJ (Brasil), CIN (Índia), etc. |
-| `OperatorName` | <span class="badge badge-red">REGULATORY</span> | Nome comercial |
-| `LegalName` | <span class="badge badge-yellow">NON-REGULATORY</span> | Razão social |
-| `Address.Country` | <span class="badge badge-red">REGULATORY</span> | País (ISO 3166-1) |
-
+<table>
+  <thead>
+    <tr><th>Campo</th><th>Classificação</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>OperatorId</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>CNPJ (Brasil), CIN (Índia), etc.</td></tr>
+    <tr><td><code>OperatorName</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Nome comercial</td></tr>
+    <tr><td><code>LegalName</code></td><td><span class="badge badge-yellow">NON-REGULATORY</span></td><td>Razão social</td></tr>
+    <tr><td><code>Address.Country</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>País (ISO 3166-1)</td></tr>
+  </tbody>
+</table>
 </div>
 
 ### 4. Installation
@@ -126,13 +135,16 @@ Informações sobre a empresa produtora.
 Dados de cada planta produtora.
 
 <div class="table-wrapper">
-
-| Campo | Classificação | Descrição |
-|-------|---------------|-----------|
-| `InstallationId` | <span class="badge badge-red">REGULATORY</span> | Identificador único da instalação |
-| `InstallationName` | <span class="badge badge-red">REGULATORY</span> | Nome da instalação |
-| `ProductionProcess` | <span class="badge badge-red">REGULATORY</span> | Rota e metodologia de produção |
-
+<table>
+  <thead>
+    <tr><th>Campo</th><th>Classificação</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>InstallationId</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Identificador único da instalação</td></tr>
+    <tr><td><code>InstallationName</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Nome da instalação</td></tr>
+    <tr><td><code>ProductionProcess</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Rota e metodologia de produção</td></tr>
+  </tbody>
+</table>
 </div>
 
 ### 5. Product
@@ -186,61 +198,76 @@ DirectEmissions / IndirectEmissions
 #### DeterminationType
 
 <div class="table-wrapper">
-
-| Código | Descrição |
-|--------|-----------|
-| `01` | Dados reais (medidos/calculados) |
-| `02` | Valores default (período transitório) |
-
+<table>
+  <thead>
+    <tr><th>Código</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>01</code></td><td>Dados reais (medidos/calculados)</td></tr>
+    <tr><td><code>02</code></td><td>Valores default (período transitório)</td></tr>
+  </tbody>
+</table>
 </div>
 
 #### RouteCode
 
 <div class="table-wrapper">
-
-| Código | Descrição |
-|--------|-----------|
-| `BF-BOF` | Alto-forno + Convertedor |
-| `EAF` | Forno elétrico a arco |
-| `DRI-EAF` | Redução direta + EAF |
-| `DRI-BOF` | Redução direta + BOF |
-| `COREX` | Redução por fusão |
-| `OTHER` | Outra rota |
-
+<table>
+  <thead>
+    <tr><th>Código</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>BF-BOF</code></td><td>Alto-forno + Convertedor</td></tr>
+    <tr><td><code>EAF</code></td><td>Forno elétrico a arco</td></tr>
+    <tr><td><code>DRI-EAF</code></td><td>Redução direta + EAF</td></tr>
+    <tr><td><code>DRI-BOF</code></td><td>Redução direta + BOF</td></tr>
+    <tr><td><code>COREX</code></td><td>Redução por fusão</td></tr>
+    <tr><td><code>OTHER</code></td><td>Outra rota</td></tr>
+  </tbody>
+</table>
 </div>
 
 #### MethodologyCode
 
 <div class="table-wrapper">
-
-| Código | Descrição |
-|--------|-----------|
-| `TOM01` | Balanço de massa |
-| `TOM02` | Monitoramento contínuo (CEMS) |
-
+<table>
+  <thead>
+    <tr><th>Código</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>TOM01</code></td><td>Balanço de massa</td></tr>
+    <tr><td><code>TOM02</code></td><td>Monitoramento contínuo (CEMS)</td></tr>
+  </tbody>
+</table>
 </div>
 
 #### ElectricitySourceCode
 
 <div class="table-wrapper">
-
-| Código | Descrição |
-|--------|-----------|
-| `SOE01` | Contrato específico (PPA) |
-| `SOE02` | Fator médio do grid nacional |
-| `SOE03` | Outra fonte |
-
+<table>
+  <thead>
+    <tr><th>Código</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>SOE01</code></td><td>Contrato específico (PPA)</td></tr>
+    <tr><td><code>SOE02</code></td><td>Fator médio do grid nacional</td></tr>
+    <tr><td><code>SOE03</code></td><td>Outra fonte</td></tr>
+  </tbody>
+</table>
 </div>
 
 #### DatasetStatus
 
 <div class="table-wrapper">
-
-| Valor | Descrição |
-|-------|-----------|
-| `draft` | Rascunho, sujeito a alterações |
-| `final` | Final, período fechado |
-
+<table>
+  <thead>
+    <tr><th>Valor</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>draft</code></td><td>Rascunho, sujeito a alterações</td></tr>
+    <tr><td><code>final</code></td><td>Final, período fechado</td></tr>
+  </tbody>
+</table>
 </div>
 
 ---
@@ -248,15 +275,18 @@ DirectEmissions / IndirectEmissions
 ## Cardinalidade
 
 <div class="table-wrapper">
-
-| Elemento | Min | Max | Descrição |
-|----------|-----|-----|-----------|
-| `CBAMProducerDataPackage` | 1 | 1 | Elemento raiz |
-| `Installation` | 1 | ∞ | Pelo menos uma instalação |
-| `Product` | 1 | ∞ | Pelo menos um produto por instalação |
-| `ConsolidatedSummary` | 0 | 1 | Opcional |
-| `PackageMetadata` | 0 | 1 | Opcional |
-
+<table>
+  <thead>
+    <tr><th>Elemento</th><th>Min</th><th>Max</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>CBAMProducerDataPackage</code></td><td>1</td><td>1</td><td>Elemento raiz</td></tr>
+    <tr><td><code>Installation</code></td><td>1</td><td>∞</td><td>Pelo menos uma instalação</td></tr>
+    <tr><td><code>Product</code></td><td>1</td><td>∞</td><td>Pelo menos um produto por instalação</td></tr>
+    <tr><td><code>ConsolidatedSummary</code></td><td>0</td><td>1</td><td>Opcional</td></tr>
+    <tr><td><code>PackageMetadata</code></td><td>0</td><td>1</td><td>Opcional</td></tr>
+  </tbody>
+</table>
 </div>
 
 ---

@@ -53,14 +53,17 @@ O formato define a estrutura de dados que permite que produtores forneçam infor
 São campos diretamente exigidos pelo Regulamento EU 2023/956 e seus regulamentos de implementação. Exemplos:
 
 <div class="table-wrapper">
-
-| Campo | Descrição |
-|-------|-----------|
-| `DeterminationType` | Se os dados são reais (01) ou default (02) |
-| `SpecificEmissions` | Emissões específicas em tCO2e por tonelada |
-| `RouteCode` | Rota produtiva (BF-BOF, EAF, etc.) |
-| `MethodologyCode` | Metodologia de cálculo (TOM01, TOM02) |
-
+<table>
+  <thead>
+    <tr><th>Campo</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>DeterminationType</code></td><td>Se os dados são reais (01) ou default (02)</td></tr>
+    <tr><td><code>SpecificEmissions</code></td><td>Emissões específicas em tCO2e por tonelada</td></tr>
+    <tr><td><code>RouteCode</code></td><td>Rota produtiva (BF-BOF, EAF, etc.)</td></tr>
+    <tr><td><code>MethodologyCode</code></td><td>Metodologia de cálculo (TOM01, TOM02)</td></tr>
+  </tbody>
+</table>
 </div>
 
 ### Campos Não-Regulatórios
@@ -68,14 +71,17 @@ São campos diretamente exigidos pelo Regulamento EU 2023/956 e seus regulamento
 Campos informativos para facilitar a leitura humana, rastreabilidade ou integração:
 
 <div class="table-wrapper">
-
-| Campo | Descrição |
-|-------|-----------|
-| `Description` | Descrição textual do produto |
-| `LegalName` | Razão social da empresa |
-| `ConsolidatedSummary` | Resumo agregado (apenas informativo) |
-| `PackageMetadata` | Metadados de geração do pacote |
-
+<table>
+  <thead>
+    <tr><th>Campo</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>Description</code></td><td>Descrição textual do produto</td></tr>
+    <tr><td><code>LegalName</code></td><td>Razão social da empresa</td></tr>
+    <tr><td><code>ConsolidatedSummary</code></td><td>Resumo agregado (apenas informativo)</td></tr>
+    <tr><td><code>PackageMetadata</code></td><td>Metadados de geração do pacote</td></tr>
+  </tbody>
+</table>
 </div>
 
 ### Campos Informativos
@@ -83,12 +89,15 @@ Campos informativos para facilitar a leitura humana, rastreabilidade ou integra�
 Campos cuja responsabilidade final de classificação é do **importador**:
 
 <div class="table-wrapper">
-
-| Campo | Descrição |
-|-------|-----------|
-| `CnCode` | Código da Nomenclatura Combinada (8 dígitos) |
-| `HsCode` | Código do Sistema Harmonizado (6 dígitos) |
-
+<table>
+  <thead>
+    <tr><th>Campo</th><th>Descrição</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>CnCode</code></td><td>Código da Nomenclatura Combinada (8 dígitos)</td></tr>
+    <tr><td><code>HsCode</code></td><td>Código do Sistema Harmonizado (6 dígitos)</td></tr>
+  </tbody>
+</table>
 </div>
 
 <div class="warning-box">
@@ -162,12 +171,15 @@ O CBAM considera três categorias de emissões incorporadas:
 O CBAM utiliza primariamente **emissões específicas** (por unidade de produto):
 
 <div class="table-wrapper">
-
-| Unidade | Uso |
-|---------|-----|
-| `tCO2e/t` | Toneladas de CO2eq por tonelada de produto |
-| `tCO2e/MWh` | Para eletricidade |
-
+<table>
+  <thead>
+    <tr><th>Unidade</th><th>Uso</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>tCO2e/t</code></td><td>Toneladas de CO2eq por tonelada de produto</td></tr>
+    <tr><td><code>tCO2e/MWh</code></td><td>Para eletricidade</td></tr>
+  </tbody>
+</table>
 </div>
 
 ---
@@ -177,14 +189,17 @@ O CBAM utiliza primariamente **emissões específicas** (por unidade de produto)
 O CBAM opera em ciclos trimestrais:
 
 <div class="table-wrapper">
-
-| Trimestre | Período | Deadline de Submissão |
-|-----------|---------|----------------------|
-| Q1 | Janeiro - Março | 30 de Abril |
-| Q2 | Abril - Junho | 31 de Julho |
-| Q3 | Julho - Setembro | 31 de Outubro |
-| Q4 | Outubro - Dezembro | 31 de Janeiro (ano seguinte) |
-
+<table>
+  <thead>
+    <tr><th>Trimestre</th><th>Período</th><th>Deadline de Submissão</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Q1</td><td>Janeiro - Março</td><td>30 de Abril</td></tr>
+    <tr><td>Q2</td><td>Abril - Junho</td><td>31 de Julho</td></tr>
+    <tr><td>Q3</td><td>Julho - Setembro</td><td>31 de Outubro</td></tr>
+    <tr><td>Q4</td><td>Outubro - Dezembro</td><td>31 de Janeiro (ano seguinte)</td></tr>
+  </tbody>
+</table>
 </div>
 
 ---

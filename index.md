@@ -210,13 +210,36 @@ xmllint --schema cbam-producer-data-package-v2.xsd seu-arquivo.xml --noout
 O schema distingue três tipos de campos com responsabilidades diferentes:
 
 <div class="table-wrapper">
-
-| Tipo | Badge | Descrição | Exemplos |
-|------|-------|-----------|----------|
-| **REGULATORY** | <span class="badge badge-red">🔴 Regulatório</span> | Exigidos pelo EU 2023/956 | `DeterminationType`, `SpecificEmissions` |
-| **NON-REGULATORY** | <span class="badge badge-yellow">🟡 Não-Regulatório</span> | Informativos/rastreabilidade | `Description`, `LegalName` |
-| **INFORMATIVE** | <span class="badge badge-blue">🔵 Informativo</span> | Responsabilidade do importador | `CnCode`, `HsCode` |
-
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Badge</th>
+      <th>Descrição</th>
+      <th>Exemplos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>REGULATORY</strong></td>
+      <td><span class="badge badge-red">🔴 Regulatório</span></td>
+      <td>Exigidos pelo EU 2023/956</td>
+      <td><code>DeterminationType</code>, <code>SpecificEmissions</code></td>
+    </tr>
+    <tr>
+      <td><strong>NON-REGULATORY</strong></td>
+      <td><span class="badge badge-yellow">🟡 Não-Regulatório</span></td>
+      <td>Informativos/rastreabilidade</td>
+      <td><code>Description</code>, <code>LegalName</code></td>
+    </tr>
+    <tr>
+      <td><strong>INFORMATIVE</strong></td>
+      <td><span class="badge badge-blue">🔵 Informativo</span></td>
+      <td>Responsabilidade do importador</td>
+      <td><code>CnCode</code>, <code>HsCode</code></td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
 ---
@@ -226,16 +249,47 @@ O schema distingue três tipos de campos com responsabilidades diferentes:
 O CBAM (conforme Anexo I do Regulamento UE 2023/956) cobre os seguintes setores:
 
 <div class="table-wrapper">
-
-| Setor | Produtos Típicos | Códigos CN |
-|-------|------------------|------------|
-| **Ferro e Aço** | Ferro-gusa, aços carbono, inoxidável | 72xx |
-| **Alumínio** | Alumínio primário e ligas | 76xx |
-| **Cimento** | Clínquer e cimento Portland | 2523 |
-| **Fertilizantes** | Amônia, nitratos, ureia | 2808, 3102 |
-| **Hidrogênio** | Hidrogênio | 2804 |
-| **Eletricidade** | Eletricidade importada | 2716 |
-
+<table>
+  <thead>
+    <tr>
+      <th>Setor</th>
+      <th>Produtos Típicos</th>
+      <th>Códigos CN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ferro e Aço</strong></td>
+      <td>Ferro-gusa, aços carbono, inoxidável</td>
+      <td>72xx</td>
+    </tr>
+    <tr>
+      <td><strong>Alumínio</strong></td>
+      <td>Alumínio primário e ligas</td>
+      <td>76xx</td>
+    </tr>
+    <tr>
+      <td><strong>Cimento</strong></td>
+      <td>Clínquer e cimento Portland</td>
+      <td>2523</td>
+    </tr>
+    <tr>
+      <td><strong>Fertilizantes</strong></td>
+      <td>Amônia, nitratos, ureia</td>
+      <td>2808, 3102</td>
+    </tr>
+    <tr>
+      <td><strong>Hidrogênio</strong></td>
+      <td>Hidrogênio</td>
+      <td>2804</td>
+    </tr>
+    <tr>
+      <td><strong>Eletricidade</strong></td>
+      <td>Eletricidade importada</td>
+      <td>2716</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
 ---
@@ -243,14 +297,32 @@ O CBAM (conforme Anexo I do Regulamento UE 2023/956) cobre os seguintes setores:
 ## <i class="fas fa-gavel"></i> Referências Regulatórias
 
 <div class="table-wrapper">
-
-| Documento | Descrição |
-|-----------|-----------|
-| [EU 2023/956](https://eur-lex.europa.eu/eli/reg/2023/956) | Regulamento CBAM principal |
-| [EU 2023/1773](https://eur-lex.europa.eu/eli/reg_impl/2023/1773) | Regulamento de Implementação |
-| [CBAM Registry](https://cbam.ec.europa.eu/) | Portal oficial da Comissão Europeia |
-| [Combined Nomenclature](https://taxation-customs.ec.europa.eu/customs-4/calculation-customs-duties/customs-tariff/combined-nomenclature_en) | Códigos CN oficiais |
-
+<table>
+  <thead>
+    <tr>
+      <th>Documento</th>
+      <th>Descrição</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://eur-lex.europa.eu/eli/reg/2023/956">EU 2023/956</a></td>
+      <td>Regulamento CBAM principal</td>
+    </tr>
+    <tr>
+      <td><a href="https://eur-lex.europa.eu/eli/reg_impl/2023/1773">EU 2023/1773</a></td>
+      <td>Regulamento de Implementação</td>
+    </tr>
+    <tr>
+      <td><a href="https://cbam.ec.europa.eu/">CBAM Registry</a></td>
+      <td>Portal oficial da Comissão Europeia</td>
+    </tr>
+    <tr>
+      <td><a href="https://taxation-customs.ec.europa.eu/customs-4/calculation-customs-duties/customs-tariff/combined-nomenclature_en">Combined Nomenclature</a></td>
+      <td>Códigos CN oficiais</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
 ---
