@@ -1,211 +1,211 @@
 ---
 layout: docs
-title: "Conceito do CBAM Producer Data Package"
-page_title: "Conceito"
-breadcrumb: "Conceito"
-description: "Entenda o que é o CBAM Producer Data Package, seu propósito e como ele se encaixa no contexto regulatório europeu."
+title: "CBAM Producer Data Package Concept"
+page_title: "Concept"
+breadcrumb: "Concept"
+description: "Understanding what the CBAM Producer Data Package is, its purpose, and how it fits into the EU regulatory framework."
 prev_page:
   url: /getting-started
-  title: "Começar"
+  title: "Getting Started"
 next_page:
   url: /docs/structure
-  title: "Estrutura XML"
+  title: "XML Structure"
 ---
 
-## O que é o CBAM?
+## What is CBAM?
 
-O **Carbon Border Adjustment Mechanism** (CBAM) é um instrumento regulatório da União Europeia estabelecido pelo Regulamento (UE) 2023/956, que entrou em vigor em outubro de 2023. Seu objetivo é:
+The **Carbon Border Adjustment Mechanism** (CBAM) is an EU regulatory instrument established by Regulation (EU) 2023/956, which entered into force in October 2023. Its objectives are:
 
-1. Evitar a "fuga de carbono" (relocação de produção industrial para países com menores restrições ambientais)
-2. Nivelar condições de competição entre produtores europeus (sujeitos ao EU ETS) e importadores
-3. Incentivar a descarbonização global da produção industrial
+1. Prevent "carbon leakage" (the relocation of industrial production to countries with less stringent environmental regulations)
+2. Level the playing field between EU producers (subject to EU ETS) and importers
+3. Incentivise global decarbonisation of industrial production
 
 ---
 
-## O que é o CBAM Producer Data Package?
+## What is the CBAM Producer Data Package?
 
-O **CBAM Producer Data Package** é um formato de dados estruturado que permite a comunicação padronizada de informações de emissões entre:
+The **CBAM Producer Data Package** is a structured data format that enables standardised communication of emissions information between:
 
-- **Produtores** localizados em países terceiros (não-UE)
-- **Importadores** europeus que compram e importam esses produtos
+- **Producers** located in third countries (non-EU)
+- **Importers** based in the EU who purchase and import these products
 
-### Propósito
+### Purpose
 
 <div class="info-box">
   <div class="info-box-title">
-    <i class="fas fa-info-circle"></i> Cadeia de Dados CBAM
+    <i class="fas fa-info-circle"></i> CBAM Data Flow
   </div>
-  <p><strong>PRODUTOR</strong> → gera <strong>Producer Data Package</strong> → enviado para <strong>IMPORTADOR</strong> → que submete <strong>QReport</strong> ao <strong>CBAM Registry</strong></p>
+  <p><strong>PRODUCER</strong> → generates <strong>Producer Data Package</strong> → sends to <strong>IMPORTER</strong> → who submits <strong>QReport</strong> to the <strong>CBAM Registry</strong></p>
 </div>
 
-O formato define a estrutura de dados que permite que produtores forneçam informações de emissões de forma padronizada para que importadores possam:
+The format defines the data structure that enables producers to provide emissions information in a standardised way, allowing importers to:
 
-1. **Validar** a consistência dos dados recebidos
-2. **Converter** para o formato oficial do CBAM Registry
-3. **Submeter** relatórios trimestrais (QReport) às autoridades
+1. **Validate** the consistency of received data
+2. **Convert** to the official CBAM Registry format
+3. **Submit** quarterly reports (QReport) to the competent authorities
 
 ---
 
-## Escopo Regulatório vs. Não-Regulatório
+## Regulatory vs. Non-Regulatory Scope
 
-### Campos Regulatórios
+### Regulatory Fields
 
-São campos diretamente exigidos pelo Regulamento EU 2023/956 e seus regulamentos de implementação. Exemplos:
+Fields directly required by Regulation EU 2023/956 and its implementing regulations. Examples:
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Campo</th><th>Descrição</th></tr>
+    <tr><th>Field</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>DeterminationType</code></td><td>Se os dados são reais (01) ou default (02)</td></tr>
-    <tr><td><code>SpecificEmissions</code></td><td>Emissões específicas em tCO2e por tonelada</td></tr>
-    <tr><td><code>RouteCode</code></td><td>Rota produtiva (BF-BOF, EAF, etc.)</td></tr>
-    <tr><td><code>MethodologyCode</code></td><td>Metodologia de cálculo (TOM01, TOM02)</td></tr>
+    <tr><td><code>DeterminationType</code></td><td>Whether data is actual (01) or default (02)</td></tr>
+    <tr><td><code>SpecificEmissions</code></td><td>Specific embedded emissions in tCO2e per tonne</td></tr>
+    <tr><td><code>RouteCode</code></td><td>Production route (BF-BOF, EAF, etc.)</td></tr>
+    <tr><td><code>MethodologyCode</code></td><td>Calculation methodology (TOM01, TOM02)</td></tr>
   </tbody>
 </table>
 </div>
 
-### Campos Não-Regulatórios
+### Non-Regulatory Fields
 
-Campos informativos para facilitar a leitura humana, rastreabilidade ou integração:
+Informational fields for human readability, traceability, or system integration:
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Campo</th><th>Descrição</th></tr>
+    <tr><th>Field</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>Description</code></td><td>Descrição textual do produto</td></tr>
-    <tr><td><code>LegalName</code></td><td>Razão social da empresa</td></tr>
-    <tr><td><code>ConsolidatedSummary</code></td><td>Resumo agregado (apenas informativo)</td></tr>
-    <tr><td><code>PackageMetadata</code></td><td>Metadados de geração do pacote</td></tr>
+    <tr><td><code>Description</code></td><td>Product text description</td></tr>
+    <tr><td><code>LegalName</code></td><td>Company legal name</td></tr>
+    <tr><td><code>ConsolidatedSummary</code></td><td>Aggregated summary (informational only)</td></tr>
+    <tr><td><code>PackageMetadata</code></td><td>Package generation metadata</td></tr>
   </tbody>
 </table>
 </div>
 
-### Campos Informativos
+### Informative Fields
 
-Campos cuja responsabilidade final de classificação é do **importador**:
+Fields where the final classification responsibility lies with the **importer**:
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Campo</th><th>Descrição</th></tr>
+    <tr><th>Field</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>CnCode</code></td><td>Código da Nomenclatura Combinada (8 dígitos)</td></tr>
-    <tr><td><code>HsCode</code></td><td>Código do Sistema Harmonizado (6 dígitos)</td></tr>
+    <tr><td><code>CnCode</code></td><td>Combined Nomenclature code (8 digits)</td></tr>
+    <tr><td><code>HsCode</code></td><td>Harmonised System code (6 digits)</td></tr>
   </tbody>
 </table>
 </div>
 
 <div class="warning-box">
   <div class="warning-box-title">
-    <i class="fas fa-exclamation-triangle"></i> Importante
+    <i class="fas fa-exclamation-triangle"></i> Important
   </div>
-  <p>O produtor fornece sua melhor estimativa, mas a <strong>responsabilidade legal pela classificação aduaneira correta é do importador</strong>.</p>
+  <p>The producer provides their best estimate, but <strong>legal responsibility for correct customs classification lies with the importer</strong>.</p>
 </div>
 
 ---
 
-## O que o Produtor Fornece
+## What the Producer Provides
 
-O produtor é responsável por informar:
+The producer is responsible for supplying:
 
-1. **Identificação da empresa** (operador)
-2. **Dados das instalações** (plantas produtoras)
-3. **Produtos fabricados** e suas quantidades
-4. **Emissões incorporadas**:
-   - Emissões diretas (Scope 1)
-   - Emissões indiretas (Scope 2, consumo de eletricidade)
-   - Emissões de precursores (quando aplicável)
-5. **Metodologia utilizada** para determinação das emissões
-
----
-
-## O que o Importador Faz
-
-O importador europeu recebe o pacote de dados e:
-
-1. **Valida** a consistência e completude dos dados
-2. **Confirma** a classificação aduaneira (códigos CN/HS)
-3. **Converte** os dados para o formato do CBAM Registry
-4. **Submete** o relatório trimestral (QReport) à autoridade competente
-5. **Adquire** os certificados CBAM correspondentes às emissões
+1. **Company identification** (operator)
+2. **Installation data** (production facilities)
+3. **Manufactured products** and their quantities
+4. **Embedded emissions**:
+   - Direct emissions (Scope 1)
+   - Indirect emissions (Scope 2, electricity consumption)
+   - Precursor emissions (where applicable)
+5. **Methodology used** for emissions determination
 
 ---
 
-## Tipos de Emissões
+## What the Importer Does
 
-O CBAM considera três categorias de emissões incorporadas:
+The EU importer receives the data package and:
+
+1. **Validates** data consistency and completeness
+2. **Confirms** customs classification (CN/HS codes)
+3. **Converts** data to the CBAM Registry format
+4. **Submits** the quarterly report (QReport) to the competent authority
+5. **Purchases** CBAM certificates corresponding to the embedded emissions
+
+---
+
+## Types of Emissions
+
+CBAM considers three categories of embedded emissions:
 
 <div class="cards-grid" style="margin: 1.5rem 0;">
   <div class="card">
     <div class="card-icon" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);">
       <i class="fas fa-fire"></i>
     </div>
-    <h3>Emissões Diretas</h3>
-    <p><strong>Scope 1:</strong> Queima de combustíveis, reações químicas, processos industriais.</p>
+    <h3>Direct Emissions</h3>
+    <p><strong>Scope 1:</strong> Fuel combustion, chemical reactions, industrial processes at the installation.</p>
   </div>
   
   <div class="card">
     <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
       <i class="fas fa-bolt"></i>
     </div>
-    <h3>Emissões Indiretas</h3>
-    <p><strong>Scope 2:</strong> Consumo de eletricidade da rede.</p>
+    <h3>Indirect Emissions</h3>
+    <p><strong>Scope 2:</strong> Electricity consumption from the grid.</p>
   </div>
   
   <div class="card">
     <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">
       <i class="fas fa-cubes"></i>
     </div>
-    <h3>Precursores</h3>
-    <p>Emissões de materiais de entrada que são produtos CBAM (ex: ferro-gusa usado em aço).</p>
+    <h3>Precursors</h3>
+    <p>Emissions from input materials that are themselves CBAM goods (e.g., pig iron used in steel production).</p>
   </div>
 </div>
 
-### Emissões Específicas
+### Specific Emissions
 
-O CBAM utiliza primariamente **emissões específicas** (por unidade de produto):
+CBAM primarily uses **specific embedded emissions** (per unit of product):
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Unidade</th><th>Uso</th></tr>
+    <tr><th>Unit</th><th>Usage</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>tCO2e/t</code></td><td>Toneladas de CO2eq por tonelada de produto</td></tr>
-    <tr><td><code>tCO2e/MWh</code></td><td>Para eletricidade</td></tr>
+    <tr><td><code>tCO2e/t</code></td><td>Tonnes of CO2eq per tonne of product</td></tr>
+    <tr><td><code>tCO2e/MWh</code></td><td>For electricity</td></tr>
   </tbody>
 </table>
 </div>
 
 ---
 
-## Período de Reporte
+## Reporting Period
 
-O CBAM opera em ciclos trimestrais:
+CBAM operates on quarterly cycles:
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Trimestre</th><th>Período</th><th>Deadline de Submissão</th></tr>
+    <tr><th>Quarter</th><th>Period</th><th>Submission Deadline</th></tr>
   </thead>
   <tbody>
-    <tr><td>Q1</td><td>Janeiro - Março</td><td>30 de Abril</td></tr>
-    <tr><td>Q2</td><td>Abril - Junho</td><td>31 de Julho</td></tr>
-    <tr><td>Q3</td><td>Julho - Setembro</td><td>31 de Outubro</td></tr>
-    <tr><td>Q4</td><td>Outubro - Dezembro</td><td>31 de Janeiro (ano seguinte)</td></tr>
+    <tr><td>Q1</td><td>January – March</td><td>30 April</td></tr>
+    <tr><td>Q2</td><td>April – June</td><td>31 July</td></tr>
+    <tr><td>Q3</td><td>July – September</td><td>31 October</td></tr>
+    <tr><td>Q4</td><td>October – December</td><td>31 January (following year)</td></tr>
   </tbody>
 </table>
 </div>
 
 ---
 
-## Referências
+## References
 
-- [Regulamento EU 2023/956 (CBAM)](https://eur-lex.europa.eu/eli/reg/2023/956)
-- [Regulamento de Implementação EU 2023/1773](https://eur-lex.europa.eu/eli/reg_impl/2023/1773)
-- [Portal CBAM da Comissão Europeia](https://cbam.ec.europa.eu/)
+- [Regulation EU 2023/956 (CBAM)](https://eur-lex.europa.eu/eli/reg/2023/956)
+- [Implementing Regulation EU 2023/1773](https://eur-lex.europa.eu/eli/reg_impl/2023/1773)
+- [European Commission CBAM Portal](https://cbam.ec.europa.eu/)

@@ -1,38 +1,38 @@
 ---
 layout: docs
-title: "Começando com o CBAM Producer Data Package"
-page_title: "Começando"
-breadcrumb: "Começar"
-description: "Guia rápido para começar a usar o CBAM Producer Data Package em poucos minutos."
+title: "Getting Started with the CBAM Producer Data Package"
+page_title: "Getting Started"
+breadcrumb: "Getting Started"
+description: "A quick guide to creating, validating, and using the CBAM Producer Data Package format."
 prev_page:
   url: /
-  title: "Início"
+  title: "Home"
 next_page:
   url: /docs/concept
-  title: "Conceito"
+  title: "Concept"
 ---
 
-## Visão Geral
+## Overview
 
-Este guia vai ajudá-lo a começar com o **CBAM Producer Data Package** em poucos minutos. Ao final, você terá:
+This guide will help you get started with the **CBAM Producer Data Package** in a few minutes. By the end, you will have:
 
-1. ✅ Baixado o Schema XSD
-2. ✅ Criado seu primeiro arquivo XML
-3. ✅ Validado o arquivo contra o schema
+1. ✅ Downloaded the XSD Schema
+2. ✅ Created your first XML file
+3. ✅ Validated the file against the schema
 
 ---
 
-## Passo 1: Baixar o Schema XSD
+## Step 1: Download the XSD Schema
 
-O schema XSD é o arquivo que define a estrutura válida do pacote de dados. Você precisa dele para validar seus arquivos XML.
+The XSD schema defines the valid structure of the data package. You need it to validate your XML files.
 
-### Download direto
+### Direct Download
 
 <a href="{{ '/schema/cbam-producer-data-package-v2.xsd' | relative_url }}" class="btn btn-primary" style="margin: 1rem 0;">
   <i class="fas fa-download"></i> Download Schema XSD v2.0
 </a>
 
-### Via linha de comando
+### Command Line
 
 ```bash
 # Linux/Mac
@@ -44,9 +44,9 @@ Invoke-WebRequest -Uri "https://rgtmaia.github.io/cbam-spec/schema/cbam-producer
 
 ---
 
-## Passo 2: Estrutura Básica do XML
+## Step 2: Basic XML Structure
 
-Todo arquivo CBAM Producer Data Package segue esta estrutura básica:
+Every CBAM Producer Data Package follows this basic structure:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -58,31 +58,31 @@ Todo arquivo CBAM Producer Data Package segue esta estrutura básica:
     version="2.0"
     schemaVersion="2.0.0">
 
-  <!-- Metadados do Pacote -->
+  <!-- Package Metadata -->
   <PackageMetadata>
     <PackageId>PKG-2024-001</PackageId>
     <GenerationTimestamp>2024-01-15T10:30:00Z</GenerationTimestamp>
     <Status>draft</Status>
   </PackageMetadata>
 
-  <!-- Informações do Operador (Produtor) -->
+  <!-- Operator (Producer) Information -->
   <Operator>
-    <OperatorId>OP-BR-001</OperatorId>
-    <LegalName>Empresa Exemplo LTDA</LegalName>
-    <Country>BR</Country>
+    <OperatorId>OP-XX-001</OperatorId>
+    <LegalName>Example Producer Ltd.</LegalName>
+    <Country>XX</Country>
   </Operator>
 
-  <!-- Instalações -->
+  <!-- Installations -->
   <Installations>
     <Installation>
-      <!-- dados da instalação -->
+      <!-- installation data -->
     </Installation>
   </Installations>
 
-  <!-- Produtos -->
+  <!-- Products -->
   <Products>
     <Product>
-      <!-- dados do produto -->
+      <!-- product data -->
     </Product>
   </Products>
 
@@ -91,59 +91,59 @@ Todo arquivo CBAM Producer Data Package segue esta estrutura básica:
 
 ---
 
-## Passo 3: Usar um Exemplo Pronto
+## Step 3: Use a Ready-Made Example
 
-A maneira mais fácil de começar é usar um dos nossos exemplos como base:
+The easiest way to get started is to use one of our examples as a template:
 
 <div class="cards-grid" style="margin: 1.5rem 0;">
   <a href="{{ '/examples/example-v2-minimal.xml' | relative_url }}" class="card" style="text-decoration: none;">
     <div class="card-icon" style="background: linear-gradient(135deg, var(--color-info) 0%, #1d4ed8 100%);">
       <i class="fas fa-file-alt"></i>
     </div>
-    <h3>Exemplo Mínimo</h3>
-    <p>Estrutura básica com 1 instalação e 1 produto. Ideal para entender o formato.</p>
+    <h3>Minimal Example</h3>
+    <p>Basic structure with 1 installation and 1 product. Ideal for understanding the format.</p>
   </a>
   
   <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}" class="card" style="text-decoration: none;">
     <div class="card-icon" style="background: linear-gradient(135deg, var(--color-success) 0%, #15803d 100%);">
       <i class="fas fa-file-code"></i>
     </div>
-    <h3>Exemplo Completo</h3>
-    <p>2 instalações, 3 produtos, emissões de precursores. Demonstra todas as funcionalidades.</p>
+    <h3>Complete Example</h3>
+    <p>2 installations, 3 products, precursor emissions. Demonstrates all features.</p>
   </a>
 </div>
 
-### Baixar exemplos via terminal
+### Download Examples via Terminal
 
 ```bash
-# Exemplo Mínimo
+# Minimal Example
 curl -O https://rgtmaia.github.io/cbam-spec/examples/example-v2-minimal.xml
 
-# Exemplo Completo
+# Complete Example
 curl -O https://rgtmaia.github.io/cbam-spec/examples/example-v2-complete.xml
 ```
 
 ---
 
-## Passo 4: Validar seu Arquivo
+## Step 4: Validate Your File
 
-Após criar ou modificar seu arquivo XML, você deve validá-lo contra o schema XSD.
+After creating or modifying your XML file, you should validate it against the XSD schema.
 
 ### Linux/Mac (xmllint)
 
 ```bash
-# Instalar xmllint (se não tiver)
+# Install xmllint (if not already installed)
 # Ubuntu/Debian: sudo apt install libxml2-utils
 # Mac: brew install libxml2
 
-# Validar
-xmllint --schema cbam-producer-data-package-v2.xsd seu-arquivo.xml --noout
+# Validate
+xmllint --schema cbam-producer-data-package-v2.xsd your-file.xml --noout
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-# Usando .NET (nativo do Windows)
+# Using .NET (native to Windows)
 $schema = [System.Xml.Schema.XmlSchema]::Read(
     [System.Xml.XmlReader]::Create("cbam-producer-data-package-v2.xsd"), 
     $null
@@ -153,11 +153,11 @@ $settings = New-Object System.Xml.XmlReaderSettings
 $settings.Schemas.Add($schema)
 $settings.ValidationType = [System.Xml.ValidationType]::Schema
 
-$reader = [System.Xml.XmlReader]::Create("seu-arquivo.xml", $settings)
+$reader = [System.Xml.XmlReader]::Create("your-file.xml", $settings)
 while ($reader.Read()) { }
 $reader.Close()
 
-Write-Host "Validação concluída com sucesso!"
+Write-Host "Validation completed successfully!"
 ```
 
 ### Python
@@ -165,53 +165,53 @@ Write-Host "Validação concluída com sucesso!"
 ```python
 from lxml import etree
 
-# Carregar schema
+# Load schema
 with open('cbam-producer-data-package-v2.xsd', 'rb') as f:
     schema_doc = etree.parse(f)
     schema = etree.XMLSchema(schema_doc)
 
-# Carregar e validar XML
-with open('seu-arquivo.xml', 'rb') as f:
+# Load and validate XML
+with open('your-file.xml', 'rb') as f:
     doc = etree.parse(f)
 
 if schema.validate(doc):
-    print("✅ XML válido!")
+    print("✅ XML is valid!")
 else:
-    print("❌ Erros encontrados:")
+    print("❌ Validation errors:")
     for error in schema.error_log:
-        print(f"  Linha {error.line}: {error.message}")
+        print(f"  Line {error.line}: {error.message}")
 ```
 
 ---
 
-## Passo 5: Entender os Campos Obrigatórios
+## Step 5: Understanding Field Categories
 
-Os campos são classificados em três categorias:
+Fields are classified into three categories:
 
 <div class="table-wrapper">
 <table>
   <thead>
     <tr>
-      <th>Categoria</th>
+      <th>Category</th>
       <th>Badge</th>
-      <th>O que significa</th>
+      <th>What it means</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>REGULATORY</strong></td>
-      <td><span class="badge badge-red">🔴 Regulatório</span></td>
-      <td>Campos exigidos pelo regulamento EU 2023/956. Obrigatórios.</td>
+      <td><span class="badge badge-red">🔴 Regulatory</span></td>
+      <td>Required by Regulation EU 2023/956. Mandatory.</td>
     </tr>
     <tr>
       <td><strong>NON-REGULATORY</strong></td>
-      <td><span class="badge badge-yellow">🟡 Não-Regulatório</span></td>
-      <td>Campos para rastreabilidade e leitura humana. Recomendados.</td>
+      <td><span class="badge badge-yellow">🟡 Non-Regulatory</span></td>
+      <td>For traceability and human readability. Recommended.</td>
     </tr>
     <tr>
       <td><strong>INFORMATIVE</strong></td>
-      <td><span class="badge badge-blue">🔵 Informativo</span></td>
-      <td>Campos cuja responsabilidade é do importador. Opcionais.</td>
+      <td><span class="badge badge-blue">🔵 Informative</span></td>
+      <td>Importer responsibility. Optional for producers.</td>
     </tr>
   </tbody>
 </table>
@@ -219,40 +219,39 @@ Os campos são classificados em três categorias:
 
 <div class="info-box">
   <div class="info-box-title">
-    <i class="fas fa-info-circle"></i> Dica
+    <i class="fas fa-info-circle"></i> Tip
   </div>
-  <p>Para uma implementação rápida, foque primeiro nos campos <strong>REGULATORY</strong>. Os demais podem ser adicionados posteriormente.</p>
+  <p>For rapid implementation, focus first on <strong>REGULATORY</strong> fields. Other fields can be added later.</p>
 </div>
 
 ---
 
-## Próximos Passos
+## Next Steps
 
-Agora que você criou e validou seu primeiro arquivo, explore a documentação completa:
+Now that you have created and validated your first file, explore the full documentation:
 
 <div class="cards-grid" style="margin: 1.5rem 0;">
   <a href="{{ '/docs/concept' | relative_url }}" class="card" style="text-decoration: none;">
     <div class="card-icon">
       <i class="fas fa-lightbulb"></i>
     </div>
-    <h3>Conceito</h3>
-    <p>Entenda o contexto regulatório e o propósito do formato.</p>
+    <h3>Concept</h3>
+    <p>Understand the regulatory context and the purpose of the format.</p>
   </a>
   
   <a href="{{ '/docs/structure' | relative_url }}" class="card" style="text-decoration: none;">
     <div class="card-icon">
       <i class="fas fa-sitemap"></i>
     </div>
-    <h3>Estrutura XML</h3>
-    <p>Referência completa de todos os elementos e atributos.</p>
+    <h3>XML Structure</h3>
+    <p>Complete reference of all elements and attributes.</p>
   </a>
 </div>
 
 ---
 
-## Precisa de Ajuda?
+## Need Help?
 
-- 📖 Leia a [documentação completa]({{ '/docs/concept' | relative_url }})
-- 🐛 Reporte problemas no [GitHub Issues]({{ site.github.repository_url }}/issues)
-- 💬 Dúvidas? Abra uma [Discussion]({{ site.github.repository_url }}/discussions)
-
+- 📖 Read the [full documentation]({{ '/docs/concept' | relative_url }})
+- 🐛 Report issues on [GitHub Issues]({{ site.github.repository_url }}/issues)
+- 💬 Questions? Open a [Discussion]({{ site.github.repository_url }}/discussions)

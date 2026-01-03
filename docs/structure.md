@@ -1,62 +1,58 @@
 ---
 layout: docs
-title: "Estrutura do CBAM Producer Data Package"
-page_title: "Estrutura XML"
-breadcrumb: "Estrutura"
-description: "Documentação detalhada da estrutura XML do CBAM Producer Data Package, incluindo hierarquia, tipos de dados e enumerações."
+title: "CBAM Producer Data Package Structure"
+page_title: "XML Structure"
+breadcrumb: "Structure"
+description: "Detailed documentation of the XML structure of the CBAM Producer Data Package, including hierarchy, data types, and enumerations."
 prev_page:
   url: /docs/concept
-  title: "Conceito"
+  title: "Concept"
 next_page:
   url: /docs/lifecycle
-  title: "Ciclo de Vida"
+  title: "Lifecycle"
 ---
 
-Este documento descreve a estrutura conceitual do documento XML do CBAM Producer Data Package.
-
----
-
-## Visão Hierárquica
+## Hierarchical Overview
 
 ```
 CBAMProducerDataPackage (root)
 │
-├── @version                    # Versão do pacote (ex: "2.0")
-├── @schemaVersion              # Versão do schema (ex: "2.0.0")
+├── @version                    # Package version (e.g., "2.0")
+├── @schemaVersion              # Schema version (e.g., "2.0.0")
 │
-├── DatasetIdentification       # Identificação única do dataset
-│   ├── DatasetId               # UUID único
-│   ├── Version                 # Versão do dataset (incrementa a cada revisão)
-│   ├── GenerationDate          # Data de geração
+├── DatasetIdentification       # Unique dataset identifier
+│   ├── DatasetId               # Unique UUID
+│   ├── Version                 # Dataset version (increments with each revision)
+│   ├── GenerationDate          # Generation date
 │   └── DatasetStatus           # draft | final
 │
 ├── ReportingPeriod [REGULATORY]
-│   ├── Year                    # Ano (ex: 2026)
-│   ├── Quarter                 # Trimestre (1-4)
-│   ├── PeriodId                # Identificador legível (ex: "2026-Q1")
-│   └── SubmissionDeadline      # Prazo de submissão (opcional)
+│   ├── Year                    # Year (e.g., 2026)
+│   ├── Quarter                 # Quarter (1-4)
+│   ├── PeriodId                # Human-readable identifier (e.g., "2026-Q1")
+│   └── SubmissionDeadline      # Submission deadline (optional)
 │
 ├── Operator [REGULATORY]
-│   ├── OperatorId              # Identificador único (ex: CNPJ)
-│   ├── OperatorName            # Nome comercial
-│   ├── LegalName               # Razão social [NON-REGULATORY]
+│   ├── OperatorId              # Unique identifier (e.g., tax ID)
+│   ├── OperatorName            # Trade name
+│   ├── LegalName               # Legal name [NON-REGULATORY]
 │   ├── Address
 │   │   ├── Country             # ISO 3166-1 alpha-2 [REGULATORY]
-│   │   ├── SubDivision         # Estado/Província [NON-REGULATORY]
-│   │   ├── City                # Cidade [NON-REGULATORY]
-│   │   └── Street              # Endereço [NON-REGULATORY]
+│   │   ├── SubDivision         # State/Province [NON-REGULATORY]
+│   │   ├── City                # City [NON-REGULATORY]
+│   │   └── Street              # Address [NON-REGULATORY]
 │   └── ContactDetails          # [NON-REGULATORY]
 │
-├── Installations               # Lista de instalações
+├── Installations               # List of installations
 │   └── Installation[]
-│       ├── @index              # Índice (1-based)
-│       ├── InstallationId      # ID único da instalação [REGULATORY]
-│       ├── InstallationName    # Nome da instalação [REGULATORY]
-│       ├── Address             # (mesma estrutura do operador)
+│       ├── @index              # Index (1-based)
+│       ├── InstallationId      # Unique installation ID [REGULATORY]
+│       ├── InstallationName    # Installation name [REGULATORY]
+│       ├── Address             # (same structure as operator)
 │       ├── ProductionProcess   # [REGULATORY]
-│       │   ├── RouteCode       # Rota produtiva (BF-BOF, EAF, etc.)
-│       │   ├── MethodologyCode # Metodologia (TOM01, TOM02)
-│       │   └── RegulatoryBasis # Referência regulatória [NON-REGULATORY]
+│       │   ├── RouteCode       # Production route (BF-BOF, EAF, etc.)
+│       │   ├── MethodologyCode # Methodology (TOM01, TOM02)
+│       │   └── RegulatoryBasis # Regulatory reference [NON-REGULATORY]
 │       └── Products
 │           └── Product[]
 │               ├── @index
@@ -67,144 +63,144 @@ CBAMProducerDataPackage (root)
 │               ├── Production        # [REGULATORY]
 │               └── EmbeddedEmissions # [REGULATORY]
 │
-├── ConsolidatedSummary         # [NON-REGULATORY] (opcional)
+├── ConsolidatedSummary         # [NON-REGULATORY] (optional)
 │
-└── PackageMetadata             # [NON-REGULATORY] (opcional)
+└── PackageMetadata             # [NON-REGULATORY] (optional)
 ```
 
 ---
 
-## Seções Principais
+## Main Sections
 
 ### 1. DatasetIdentification
 
-Identifica unicamente o pacote de dados.
+Uniquely identifies the data package.
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Campo</th><th>Tipo</th><th>Descrição</th></tr>
+    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>DatasetId</code></td><td>UUID</td><td>Identificador global único</td></tr>
-    <tr><td><code>Version</code></td><td>String</td><td>Versão do dataset (ex: "1.0", "1.1")</td></tr>
-    <tr><td><code>GenerationDate</code></td><td>Date</td><td>Data de geração (YYYY-MM-DD)</td></tr>
-    <tr><td><code>DatasetStatus</code></td><td>Enum</td><td><code>draft</code> ou <code>final</code></td></tr>
+    <tr><td><code>DatasetId</code></td><td>UUID</td><td>Globally unique identifier</td></tr>
+    <tr><td><code>Version</code></td><td>String</td><td>Dataset version (e.g., "1.0", "1.1")</td></tr>
+    <tr><td><code>GenerationDate</code></td><td>Date</td><td>Generation date (YYYY-MM-DD)</td></tr>
+    <tr><td><code>DatasetStatus</code></td><td>Enum</td><td><code>draft</code> or <code>final</code></td></tr>
   </tbody>
 </table>
 </div>
 
 ### 2. ReportingPeriod
 
-Define o trimestre de referência dos dados.
+Defines the reference quarter for the data.
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Campo</th><th>Tipo</th><th>Descrição</th></tr>
+    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>Year</code></td><td>gYear</td><td>Ano de referência</td></tr>
-    <tr><td><code>Quarter</code></td><td>1-4</td><td>Trimestre (Q1, Q2, Q3, Q4)</td></tr>
-    <tr><td><code>PeriodId</code></td><td>String</td><td>Identificador legível (ex: "2026-Q1")</td></tr>
-    <tr><td><code>SubmissionDeadline</code></td><td>Date</td><td>Prazo para submissão CBAM</td></tr>
+    <tr><td><code>Year</code></td><td>gYear</td><td>Reference year</td></tr>
+    <tr><td><code>Quarter</code></td><td>1-4</td><td>Quarter (Q1, Q2, Q3, Q4)</td></tr>
+    <tr><td><code>PeriodId</code></td><td>String</td><td>Human-readable identifier (e.g., "2026-Q1")</td></tr>
+    <tr><td><code>SubmissionDeadline</code></td><td>Date</td><td>CBAM submission deadline</td></tr>
   </tbody>
 </table>
 </div>
 
 ### 3. Operator
 
-Informações sobre a empresa produtora.
+Information about the producing company.
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Campo</th><th>Classificação</th><th>Descrição</th></tr>
+    <tr><th>Field</th><th>Classification</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>OperatorId</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>CNPJ (Brasil), CIN (Índia), etc.</td></tr>
-    <tr><td><code>OperatorName</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Nome comercial</td></tr>
-    <tr><td><code>LegalName</code></td><td><span class="badge badge-yellow">NON-REGULATORY</span></td><td>Razão social</td></tr>
-    <tr><td><code>Address.Country</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>País (ISO 3166-1)</td></tr>
+    <tr><td><code>OperatorId</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Tax ID (e.g., VAT number)</td></tr>
+    <tr><td><code>OperatorName</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Trade name</td></tr>
+    <tr><td><code>LegalName</code></td><td><span class="badge badge-yellow">NON-REGULATORY</span></td><td>Registered legal name</td></tr>
+    <tr><td><code>Address.Country</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Country (ISO 3166-1)</td></tr>
   </tbody>
 </table>
 </div>
 
 ### 4. Installation
 
-Dados de cada planta produtora.
+Data for each production facility.
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Campo</th><th>Classificação</th><th>Descrição</th></tr>
+    <tr><th>Field</th><th>Classification</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>InstallationId</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Identificador único da instalação</td></tr>
-    <tr><td><code>InstallationName</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Nome da instalação</td></tr>
-    <tr><td><code>ProductionProcess</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Rota e metodologia de produção</td></tr>
+    <tr><td><code>InstallationId</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Unique installation identifier</td></tr>
+    <tr><td><code>InstallationName</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Installation name</td></tr>
+    <tr><td><code>ProductionProcess</code></td><td><span class="badge badge-red">REGULATORY</span></td><td>Production route and methodology</td></tr>
   </tbody>
 </table>
 </div>
 
 ### 5. Product
 
-Dados de cada produto fabricado.
+Data for each manufactured product.
 
 ```
 Product
-├── ProductId           # Identificador único do produto
-├── Description         # Descrição textual
-├── Category            # Categoria CBAM (aco, aluminio, etc.)
-├── CommodityCode       # Códigos CN/HS [INFORMATIVE]
-│   ├── CnCode          # 8 dígitos
-│   └── HsCode          # 6 dígitos
-├── Production          # Dados de produção
+├── ProductId           # Unique product identifier
+├── Description         # Text description
+├── Category            # CBAM category (steel, aluminium, etc.)
+├── CommodityCode       # CN/HS codes [INFORMATIVE]
+│   ├── CnCode          # 8 digits
+│   └── HsCode          # 6 digits
+├── Production          # Production data
 │   ├── QuantityType    # TOTAL_PRODUCTION | EU_EXPORT | REPORTED_BATCH
-│   ├── Quantity        # Quantidade produzida
+│   ├── Quantity        # Produced quantity
 │   └── MeasurementUnit # t | kg | MWh
-└── EmbeddedEmissions   # Emissões incorporadas
+└── EmbeddedEmissions   # Embedded emissions
     ├── DirectEmissions
     ├── IndirectEmissions
-    ├── PrecursorEmissions (opcional)
+    ├── PrecursorEmissions (optional)
     └── TotalSpecificEmissions
 ```
 
 ### 6. EmbeddedEmissions
 
-Estrutura das emissões de cada tipo:
+Structure of each emission type:
 
 ```
 DirectEmissions / IndirectEmissions
-├── DeterminationType    # 01 (real) | 02 (default)
-├── MethodologyCode      # TOM01 | TOM02 (opcional)
-├── DeterminationDetails # Detalhes textuais (opcional)
-├── Justification        # Justificativa para default (opcional)
-├── ElectricityFactor    # Apenas para IndirectEmissions
+├── DeterminationType    # 01 (actual) | 02 (default)
+├── MethodologyCode      # TOM01 | TOM02 (optional)
+├── DeterminationDetails # Text details (optional)
+├── Justification        # Justification for default values (optional)
+├── ElectricityFactor    # For IndirectEmissions only
 │   ├── SourceCode       # SOE01 | SOE02 | SOE03
-│   ├── Value            # Valor do fator
-│   └── Unit             # Unidade (tCO2e/MWh)
+│   ├── Value            # Factor value
+│   └── Unit             # Unit (tCO2e/MWh)
 └── SpecificEmissions
-    ├── Value            # Valor numérico
-    └── Unit             # tCO2e/t ou tCO2e/MWh
+    ├── Value            # Numeric value
+    └── Unit             # tCO2e/t or tCO2e/MWh
 ```
 
 ---
 
-## Tipos de Dados
+## Data Types
 
-### Enumerações
+### Enumerations
 
 #### DeterminationType
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Código</th><th>Descrição</th></tr>
+    <tr><th>Code</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>01</code></td><td>Dados reais (medidos/calculados)</td></tr>
-    <tr><td><code>02</code></td><td>Valores default (período transitório)</td></tr>
+    <tr><td><code>01</code></td><td>Actual data (measured/calculated)</td></tr>
+    <tr><td><code>02</code></td><td>Default values (transitional period)</td></tr>
   </tbody>
 </table>
 </div>
@@ -214,15 +210,15 @@ DirectEmissions / IndirectEmissions
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Código</th><th>Descrição</th></tr>
+    <tr><th>Code</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>BF-BOF</code></td><td>Alto-forno + Convertedor</td></tr>
-    <tr><td><code>EAF</code></td><td>Forno elétrico a arco</td></tr>
-    <tr><td><code>DRI-EAF</code></td><td>Redução direta + EAF</td></tr>
-    <tr><td><code>DRI-BOF</code></td><td>Redução direta + BOF</td></tr>
-    <tr><td><code>COREX</code></td><td>Redução por fusão</td></tr>
-    <tr><td><code>OTHER</code></td><td>Outra rota</td></tr>
+    <tr><td><code>BF-BOF</code></td><td>Blast Furnace – Basic Oxygen Furnace</td></tr>
+    <tr><td><code>EAF</code></td><td>Electric Arc Furnace</td></tr>
+    <tr><td><code>DRI-EAF</code></td><td>Direct Reduced Iron + EAF</td></tr>
+    <tr><td><code>DRI-BOF</code></td><td>Direct Reduced Iron + BOF</td></tr>
+    <tr><td><code>COREX</code></td><td>Smelting reduction</td></tr>
+    <tr><td><code>OTHER</code></td><td>Other route</td></tr>
   </tbody>
 </table>
 </div>
@@ -232,11 +228,11 @@ DirectEmissions / IndirectEmissions
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Código</th><th>Descrição</th></tr>
+    <tr><th>Code</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>TOM01</code></td><td>Balanço de massa</td></tr>
-    <tr><td><code>TOM02</code></td><td>Monitoramento contínuo (CEMS)</td></tr>
+    <tr><td><code>TOM01</code></td><td>Mass balance</td></tr>
+    <tr><td><code>TOM02</code></td><td>Continuous emissions monitoring system (CEMS)</td></tr>
   </tbody>
 </table>
 </div>
@@ -246,12 +242,12 @@ DirectEmissions / IndirectEmissions
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Código</th><th>Descrição</th></tr>
+    <tr><th>Code</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>SOE01</code></td><td>Contrato específico (PPA)</td></tr>
-    <tr><td><code>SOE02</code></td><td>Fator médio do grid nacional</td></tr>
-    <tr><td><code>SOE03</code></td><td>Outra fonte</td></tr>
+    <tr><td><code>SOE01</code></td><td>Specific contract (PPA)</td></tr>
+    <tr><td><code>SOE02</code></td><td>National grid average factor</td></tr>
+    <tr><td><code>SOE03</code></td><td>Other source</td></tr>
   </tbody>
 </table>
 </div>
@@ -261,62 +257,62 @@ DirectEmissions / IndirectEmissions
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Valor</th><th>Descrição</th></tr>
+    <tr><th>Value</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>draft</code></td><td>Rascunho, sujeito a alterações</td></tr>
-    <tr><td><code>final</code></td><td>Final, período fechado</td></tr>
+    <tr><td><code>draft</code></td><td>Draft, subject to changes</td></tr>
+    <tr><td><code>final</code></td><td>Final, period closed</td></tr>
   </tbody>
 </table>
 </div>
 
 ---
 
-## Cardinalidade
+## Cardinality
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Elemento</th><th>Min</th><th>Max</th><th>Descrição</th></tr>
+    <tr><th>Element</th><th>Min</th><th>Max</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>CBAMProducerDataPackage</code></td><td>1</td><td>1</td><td>Elemento raiz</td></tr>
-    <tr><td><code>Installation</code></td><td>1</td><td>∞</td><td>Pelo menos uma instalação</td></tr>
-    <tr><td><code>Product</code></td><td>1</td><td>∞</td><td>Pelo menos um produto por instalação</td></tr>
-    <tr><td><code>ConsolidatedSummary</code></td><td>0</td><td>1</td><td>Opcional</td></tr>
-    <tr><td><code>PackageMetadata</code></td><td>0</td><td>1</td><td>Opcional</td></tr>
+    <tr><td><code>CBAMProducerDataPackage</code></td><td>1</td><td>1</td><td>Root element</td></tr>
+    <tr><td><code>Installation</code></td><td>1</td><td>∞</td><td>At least one installation required</td></tr>
+    <tr><td><code>Product</code></td><td>1</td><td>∞</td><td>At least one product per installation</td></tr>
+    <tr><td><code>ConsolidatedSummary</code></td><td>0</td><td>1</td><td>Optional</td></tr>
+    <tr><td><code>PackageMetadata</code></td><td>0</td><td>1</td><td>Optional</td></tr>
   </tbody>
 </table>
 </div>
 
 ---
 
-## Atributos Especiais
+## Special Attributes
 
-### Campos NON-REGULATORY
+### NON-REGULATORY Fields
 
 ```xml
 <LegalName regulatory="false" optional="true">...</LegalName>
 ```
 
-### Campos INFORMATIVE
+### INFORMATIVE Fields
 
 ```xml
 <CnCode informative="true" status="to_be_confirmed_by_importer">72083900</CnCode>
 ```
 
-Os atributos `status` possíveis para códigos não fornecidos:
+Possible `status` values for unprovided codes:
 - `to_be_confirmed_by_importer`
 - `not_provided`
 
 ---
 
-## Validação
+## Validation
 
-O schema XSD garante:
+The XSD schema ensures:
 
-1. **Tipos de dados** corretos (strings, números, datas)
-2. **Enumerações** com valores permitidos
-3. **Formatos** (CN Code = 8 dígitos, Country = 2 letras)
-4. **Unicidade** de IDs (Installation e Product)
-5. **Cardinalidade** mínima e máxima de elementos
+1. **Correct data types** (strings, numbers, dates)
+2. **Enumerations** with permitted values
+3. **Formats** (CN Code = 8 digits, Country = 2 letters)
+4. **Uniqueness** of IDs (Installation and Product)
+5. **Cardinality** (minimum and maximum element counts)

@@ -1,95 +1,91 @@
 ---
 layout: docs
-title: "Ciclo de Vida do Dataset"
-page_title: "Ciclo de Vida"
-breadcrumb: "Ciclo de Vida"
-description: "Como um CBAM Producer Data Package é criado, versionado, transmitido e arquivado ao longo do tempo."
+title: "Dataset Lifecycle"
+page_title: "Lifecycle"
+breadcrumb: "Lifecycle"
+description: "How a CBAM Producer Data Package is created, versioned, transmitted, and archived over time."
 prev_page:
   url: /docs/structure
-  title: "Estrutura XML"
+  title: "XML Structure"
 next_page:
   url: /docs/legal-notices
-  title: "Avisos Legais"
+  title: "Legal Notices"
 ---
 
-Este documento descreve o ciclo de vida completo de um CBAM Producer Data Package, desde sua criação até o arquivamento.
-
----
-
-## Visão Geral
+## Overview
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   CRIAÇÃO   │───►│  REVISÃO    │───►│ TRANSMISSÃO │───►│ ARQUIVAMENTO│
-│   (draft)   │    │  (draft)    │    │   (final)   │    │   (final)   │
+│  CREATION   │───►│  REVISION   │───►│ TRANSMISSION│───►│  ARCHIVAL   │
+│   (draft)   │    │   (draft)   │    │   (final)   │    │   (final)   │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
      │                   │                   │                   │
      ▼                   ▼                   ▼                   ▼
-  Dataset v1.0       Dataset v1.x       Dataset final      Retenção 10a
+  Dataset v1.0       Dataset v1.x       Dataset final      10yr retention
 ```
 
 ---
 
-## Estados do Dataset
+## Dataset States
 
 ### DatasetStatus
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Status</th><th>Descrição</th><th>Editável</th></tr>
+    <tr><th>Status</th><th>Description</th><th>Editable</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>draft</code></td><td>Em elaboração, sujeito a alterações</td><td>✅ Sim</td></tr>
-    <tr><td><code>final</code></td><td>Fechado, apenas para referência</td><td>❌ Não</td></tr>
+    <tr><td><code>draft</code></td><td>In progress, subject to changes</td><td>✅ Yes</td></tr>
+    <tr><td><code>final</code></td><td>Closed, for reference only</td><td>❌ No</td></tr>
   </tbody>
 </table>
 </div>
 
-### Transição de Estados
+### State Transitions
 
 ```
           ┌──────────────┐
           │    DRAFT     │◄────────────────┐
           └──────┬───────┘                 │
                  │                         │
-        [revisão]│                         │
+        [revision]                         │
                  │                         │
                  ▼                         │
           ┌──────────────┐                 │
-          │    DRAFT     │────────────────►│ (nova versão)
+          │    DRAFT     │────────────────►│ (new version)
           │   (v1.x)     │                 │
           └──────┬───────┘                 │
                  │                         │
-       [fechamento]                        │
+          [finalisation]                   │
                  │                         │
                  ▼                         │
           ┌──────────────┐                 │
-          │    FINAL     │ ───────────────►│ (correção pós-fechamento)
+          │    FINAL     │ ───────────────►│ (post-final correction)
           │   (vN.0)     │                 │
           └──────────────┘                 │
 ```
 
 ---
 
-## Versionamento
+## Versioning
 
-### Regras de Versão
+### Version Rules
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Tipo de Alteração</th><th>Versão</th><th>Exemplo</th></tr>
+    <tr><th>Change Type</th><th>Version</th><th>Example</th></tr>
   </thead>
   <tbody>
-    <tr><td>Criação inicial</td><td><code>1.0</code></td><td>Primeiro dataset do período</td></tr>
-    <tr><td>Revisão em draft</td><td><code>1.x</code></td><td>1.1, 1.2, 1.3...</td></tr>
-    <tr><td>Correção pós-final</td><td><code>N.0</code></td><td>2.0, 3.0 (substitui anterior)</td></tr>
+    <tr><td>Initial creation</td><td><code>1.0</code></td><td>First dataset for the period</td></tr>
+    <tr><td>Draft revision</td><td><code>1.x</code></td><td>1.1, 1.2, 1.3...</td></tr>
+    <tr><td>Post-final correction</td><td><code>N.0</code></td><td>2.0, 3.0 (supersedes previous)</td></tr>
   </tbody>
 </table>
 </div>
 
-### Campos de Versionamento
+### Versioning Fields
 
 ```xml
 <DatasetIdentification>
@@ -100,7 +96,7 @@ Este documento descreve o ciclo de vida completo de um CBAM Producer Data Packag
 </DatasetIdentification>
 ```
 
-### Histórico de Versões
+### Version History
 
 ```xml
 <PackageMetadata>
@@ -115,14 +111,14 @@ Este documento descreve o ciclo de vida completo de um CBAM Producer Data Packag
 
 ---
 
-## Fluxo de Dados
+## Data Flow
 
-### Atores
+### Actors
 
 ```
 ┌──────────────┐        ┌──────────────┐        ┌──────────────┐
-│   PRODUTOR   │        │  IMPORTADOR  │        │   COMISSÃO   │
-│   (3º país)  │        │     (UE)     │        │   EUROPEIA   │
+│   PRODUCER   │        │   IMPORTER   │        │   EUROPEAN   │
+│ (3rd country)│        │     (EU)     │        │  COMMISSION  │
 └──────┬───────┘        └──────┬───────┘        └──────┬───────┘
        │                       │                       │
        │   XML Package         │                       │
@@ -136,43 +132,43 @@ Este documento descreve o ciclo de vida completo de um CBAM Producer Data Packag
        │                       │                       │
 ```
 
-### Responsabilidades
+### Responsibilities
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Ator</th><th>Responsabilidade</th></tr>
+    <tr><th>Actor</th><th>Responsibility</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>Produtor</strong></td><td>Gerar XML com dados de emissão</td></tr>
-    <tr><td><strong>Importador</strong></td><td>Validar e complementar dados (CN/HS codes)</td></tr>
-    <tr><td><strong>Importador</strong></td><td>Submeter relatório CBAM ao registro transitório</td></tr>
-    <tr><td><strong>Comissão</strong></td><td>Verificar e processar declarações</td></tr>
+    <tr><td><strong>Producer</strong></td><td>Generate XML with emissions data</td></tr>
+    <tr><td><strong>Importer</strong></td><td>Validate and supplement data (CN/HS codes)</td></tr>
+    <tr><td><strong>Importer</strong></td><td>Submit CBAM report to the transitional registry</td></tr>
+    <tr><td><strong>Commission</strong></td><td>Verify and process declarations</td></tr>
   </tbody>
 </table>
 </div>
 
 ---
 
-## Trimestres de Referência
+## Reporting Quarters
 
-### Prazos CBAM (Período Transitório)
+### CBAM Deadlines (Transitional Period)
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Trimestre</th><th>Período</th><th>Deadline</th></tr>
+    <tr><th>Quarter</th><th>Period</th><th>Deadline</th></tr>
   </thead>
   <tbody>
-    <tr><td>Q1</td><td>Jan–Mar</td><td>30 de Abril</td></tr>
-    <tr><td>Q2</td><td>Abr–Jun</td><td>31 de Julho</td></tr>
-    <tr><td>Q3</td><td>Jul–Set</td><td>31 de Outubro</td></tr>
-    <tr><td>Q4</td><td>Out–Dez</td><td>31 de Janeiro (ano seguinte)</td></tr>
+    <tr><td>Q1</td><td>Jan–Mar</td><td>30 April</td></tr>
+    <tr><td>Q2</td><td>Apr–Jun</td><td>31 July</td></tr>
+    <tr><td>Q3</td><td>Jul–Sep</td><td>31 October</td></tr>
+    <tr><td>Q4</td><td>Oct–Dec</td><td>31 January (following year)</td></tr>
   </tbody>
 </table>
 </div>
 
-### Exemplo de ReportingPeriod
+### ReportingPeriod Example
 
 ```xml
 <ReportingPeriod>
@@ -185,43 +181,43 @@ Este documento descreve o ciclo de vida completo de um CBAM Producer Data Packag
 
 ---
 
-## Correções e Retificações
+## Corrections and Amendments
 
-### Antes do Fechamento (draft)
+### Before Finalisation (draft)
 
-1. Criar nova versão do dataset (`Version` +0.1)
-2. Atualizar `GenerationDate`
-3. Manter mesmo `DatasetId`
-4. Atualizar `VersionHistory`
+1. Create a new dataset version (`Version` +0.1)
+2. Update `GenerationDate`
+3. Keep the same `DatasetId`
+4. Update `VersionHistory`
 
-### Após o Fechamento (final)
+### After Finalisation (final)
 
-1. Criar **novo** dataset com `Version` +1.0
-2. Gerar **novo** `DatasetId`
-3. Referenciar dataset anterior em `PreviousVersion`
-4. Marcar como `draft` até aprovação do importador
+1. Create a **new** dataset with `Version` +1.0
+2. Generate a **new** `DatasetId`
+3. Reference the previous dataset in `PreviousVersion`
+4. Mark as `draft` until importer approval
 
 ---
 
-## Arquivamento
+## Archival
 
-### Requisitos
+### Requirements
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Aspecto</th><th>Requisito</th></tr>
+    <tr><th>Aspect</th><th>Requirement</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>Retenção</strong></td><td>Mínimo 10 anos após geração</td></tr>
-    <tr><td><strong>Integridade</strong></td><td>Hash SHA-256 do arquivo XML</td></tr>
-    <tr><td><strong>Rastreabilidade</strong></td><td>Histórico de versões preservado</td></tr>
-    <tr><td><strong>Acessibilidade</strong></td><td>Disponível para auditorias</td></tr>
+    <tr><td><strong>Retention</strong></td><td>Minimum 10 years from generation</td></tr>
+    <tr><td><strong>Integrity</strong></td><td>SHA-256 hash of the XML file</td></tr>
+    <tr><td><strong>Traceability</strong></td><td>Version history preserved</td></tr>
+    <tr><td><strong>Accessibility</strong></td><td>Available for audits</td></tr>
   </tbody>
 </table>
 </div>
 
-### Metadados de Arquivamento
+### Archival Metadata
 
 ```xml
 <PackageMetadata>
@@ -238,29 +234,29 @@ Este documento descreve o ciclo de vida completo de um CBAM Producer Data Packag
 
 ---
 
-## Exemplo Completo
+## Complete Example
 
-### Cenário
+### Scenario
 
-1. Produtor cria dataset Q1/2026 em 10/Mar
-2. Revisão em 20/Mar após verificação interna
-3. Envio ao importador em 25/Mar
-4. Importador complementa e fecha em 15/Abr
-5. Arquivamento para auditoria
+1. Producer creates Q1/2026 dataset on 10 Mar
+2. Revision on 20 Mar after internal review
+3. Sent to importer on 25 Mar
+4. Importer completes and finalises on 15 Apr
+5. Archived for audit purposes
 
-### Evolução do Dataset
+### Dataset Evolution
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Etapa</th><th>Versão</th><th>Status</th><th>Data</th></tr>
+    <tr><th>Stage</th><th>Version</th><th>Status</th><th>Date</th></tr>
   </thead>
   <tbody>
-    <tr><td>Criação</td><td>1.0</td><td>draft</td><td>2026-03-10</td></tr>
-    <tr><td>Revisão</td><td>1.1</td><td>draft</td><td>2026-03-20</td></tr>
-    <tr><td>Envio</td><td>1.1</td><td>draft</td><td>2026-03-25</td></tr>
-    <tr><td>Fechamento</td><td>1.1</td><td>final</td><td>2026-04-15</td></tr>
-    <tr><td>Arquivamento</td><td>1.1</td><td>final</td><td>2026-04-15</td></tr>
+    <tr><td>Creation</td><td>1.0</td><td>draft</td><td>2026-03-10</td></tr>
+    <tr><td>Revision</td><td>1.1</td><td>draft</td><td>2026-03-20</td></tr>
+    <tr><td>Transmission</td><td>1.1</td><td>draft</td><td>2026-03-25</td></tr>
+    <tr><td>Finalisation</td><td>1.1</td><td>final</td><td>2026-04-15</td></tr>
+    <tr><td>Archival</td><td>1.1</td><td>final</td><td>2026-04-15</td></tr>
   </tbody>
 </table>
 </div>

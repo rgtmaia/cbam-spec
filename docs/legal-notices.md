@@ -1,23 +1,23 @@
 ---
 layout: docs
-title: "Avisos Legais"
-page_title: "Avisos Legais"
-breadcrumb: "Avisos Legais"
-description: "Informações sobre licenciamento, responsabilidades e compliance relacionados ao CBAM Producer Data Package."
+title: "Legal Notices"
+page_title: "Legal Notices"
+breadcrumb: "Legal Notices"
+description: "Licensing, responsibilities, and compliance information relating to the CBAM Producer Data Package."
 prev_page:
   url: /docs/lifecycle
-  title: "Ciclo de Vida"
+  title: "Lifecycle"
 ---
 
-Este documento contém informações legais e de compliance relacionadas ao CBAM Producer Data Package.
+This document contains legal and compliance information relating to the CBAM Producer Data Package.
 
 ---
 
-## Licenciamento
+## Licensing
 
-### Especificação e Schema
+### Specification and Schema
 
-O CBAM Producer Data Package Specification e seus arquivos associados são disponibilizados sob a licença **Apache 2.0**.
+The CBAM Producer Data Package Specification and its associated files are made available under the **Apache 2.0** licence.
 
 ```
 Copyright 2024-2026 CBAM Spec Contributors
@@ -35,17 +35,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-### Arquivos Cobertos
+### Covered Files
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Arquivo</th><th>Licença</th></tr>
+    <tr><th>File</th><th>Licence</th></tr>
   </thead>
   <tbody>
     <tr><td><code>cbam-producer-data-package-v2.xsd</code></td><td>Apache 2.0</td></tr>
-    <tr><td>Documentação (Markdown)</td><td>Apache 2.0</td></tr>
-    <tr><td>Exemplos (XML)</td><td>Apache 2.0</td></tr>
+    <tr><td>Documentation (Markdown)</td><td>Apache 2.0</td></tr>
+    <tr><td>Examples (XML)</td><td>Apache 2.0</td></tr>
   </tbody>
 </table>
 </div>
@@ -54,158 +54,158 @@ limitations under the License.
 
 ## Disclaimer
 
-### Propósito
+### Purpose
 
-Esta especificação foi desenvolvida com o objetivo de:
+This specification was developed to:
 
-1. **Padronizar** a comunicação de dados de emissões entre produtores e importadores
-2. **Facilitar** o cumprimento das obrigações CBAM durante o período transitório
-3. **Promover** interoperabilidade entre sistemas de diferentes organizações
+1. **Standardise** the communication of emissions data between producers and importers
+2. **Facilitate** compliance with CBAM obligations during the transitional period
+3. **Promote** interoperability between systems of different organisations
 
-### Limitações
+### Limitations
 
-> **AVISO IMPORTANTE**
-> 
-> Esta especificação é uma iniciativa comunitária e **NÃO** é um documento oficial da União Europeia ou de qualquer autoridade reguladora.
+> **IMPORTANT NOTICE**
+>
+> This specification is a community initiative and is **NOT** an official document of the European Union or any regulatory authority.
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Aspecto</th><th>Status</th></tr>
+    <tr><th>Aspect</th><th>Status</th></tr>
   </thead>
   <tbody>
-    <tr><td>Reconhecimento oficial pela UE</td><td>❌ Não</td></tr>
-    <tr><td>Validação pela Comissão Europeia</td><td>❌ Não</td></tr>
-    <tr><td>Substituição de formulários oficiais</td><td>❌ Não</td></tr>
-    <tr><td>Uso como formato auxiliar</td><td>✅ Sim</td></tr>
+    <tr><td>Official recognition by the EU</td><td>❌ No</td></tr>
+    <tr><td>Validation by the European Commission</td><td>❌ No</td></tr>
+    <tr><td>Replacement of official forms</td><td>❌ No</td></tr>
+    <tr><td>Use as an auxiliary format</td><td>✅ Yes</td></tr>
   </tbody>
 </table>
 </div>
 
-### Responsabilidade
+### Responsibility
 
-- Os **usuários** são responsáveis por verificar a conformidade de seus dados com os requisitos regulatórios
-- Os **importadores** devem utilizar os formulários e sistemas oficiais do CBAM Transitional Registry para submissões
-- Os **desenvolvedores** desta especificação não garantem adequação para propósitos específicos
+- **Users** are responsible for verifying the compliance of their data with regulatory requirements
+- **Importers** must use the official CBAM Transitional Registry forms and systems for submissions
+- **Developers** of this specification make no warranty of fitness for particular purposes
 
 ---
 
-## Referências Regulatórias
+## Regulatory References
 
-### Base Legal
+### Legal Basis
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Documento</th><th>Referência</th></tr>
+    <tr><th>Document</th><th>Reference</th></tr>
   </thead>
   <tbody>
-    <tr><td>Regulamento CBAM</td><td>EU 2023/956</td></tr>
-    <tr><td>Regulamento de Implementação</td><td>EU 2023/1773</td></tr>
-    <tr><td>Orientações da Comissão</td><td>C(2023) 5512</td></tr>
+    <tr><td>CBAM Regulation</td><td>EU 2023/956</td></tr>
+    <tr><td>Implementing Regulation</td><td>EU 2023/1773</td></tr>
+    <tr><td>Commission Guidance</td><td>C(2023) 5512</td></tr>
   </tbody>
 </table>
 </div>
 
-### Links Oficiais
+### Official Links
 
-- [CBAM - Taxation and Customs Union](https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism_en)
+- [CBAM – Taxation and Customs Union](https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism_en)
 - [CBAM Transitional Registry](https://cbam.ec.europa.eu/)
 - [EU Climate Action](https://climate.ec.europa.eu/eu-action/carbon-border-adjustment-mechanism_en)
 
 ---
 
-## Contribuição
+## Contributing
 
-### Como Contribuir
+### How to Contribute
 
-1. **Issues**: Reporte problemas ou sugestões via GitHub Issues
-2. **Pull Requests**: Envie correções ou melhorias
-3. **Discussões**: Participe das discussões no repositório
+1. **Issues**: Report problems or suggestions via GitHub Issues
+2. **Pull Requests**: Submit corrections or improvements
+3. **Discussions**: Participate in repository discussions
 
-### Código de Conduta
+### Code of Conduct
 
-Contribuidores devem seguir o [Contributor Covenant](https://www.contributor-covenant.org/) versão 2.1.
+Contributors must follow the [Contributor Covenant](https://www.contributor-covenant.org/) version 2.1.
 
-### Processo de Revisão
+### Review Process
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Tipo</th><th>Aprovação</th><th>Prazo</th></tr>
+    <tr><th>Type</th><th>Approval</th><th>Timeframe</th></tr>
   </thead>
   <tbody>
-    <tr><td>Typo/Correção simples</td><td>1 maintainer</td><td>~3 dias</td></tr>
-    <tr><td>Melhoria de documentação</td><td>1 maintainer</td><td>~7 dias</td></tr>
-    <tr><td>Alteração no schema</td><td>2 maintainers</td><td>~14 dias</td></tr>
-    <tr><td>Breaking change</td><td>Consenso + RFC</td><td>~30 dias</td></tr>
+    <tr><td>Typo / minor fix</td><td>1 maintainer</td><td>~3 days</td></tr>
+    <tr><td>Documentation improvement</td><td>1 maintainer</td><td>~7 days</td></tr>
+    <tr><td>Schema change</td><td>2 maintainers</td><td>~14 days</td></tr>
+    <tr><td>Breaking change</td><td>Consensus + RFC</td><td>~30 days</td></tr>
   </tbody>
 </table>
 </div>
 
 ---
 
-## Versionamento do Schema
+## Schema Versioning
 
-### Política de Versão
+### Version Policy
 
-Esta especificação segue [Semantic Versioning 2.0.0](https://semver.org/):
+This specification follows [Semantic Versioning 2.0.0](https://semver.org/):
 
-- **MAJOR** (X.0.0): Mudanças incompatíveis
-- **MINOR** (2.X.0): Adições retrocompatíveis
-- **PATCH** (2.0.X): Correções retrocompatíveis
+- **MAJOR** (X.0.0): Incompatible changes
+- **MINOR** (2.X.0): Backwards-compatible additions
+- **PATCH** (2.0.X): Backwards-compatible fixes
 
-### Histórico de Versões
+### Version History
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Versão</th><th>Data</th><th>Descrição</th></tr>
+    <tr><th>Version</th><th>Date</th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td>2.0.0</td><td>Jan 2026</td><td>Versão atual com classificação de campos</td></tr>
-    <tr><td>1.0.0</td><td>Out 2024</td><td>Versão inicial</td></tr>
+    <tr><td>2.0.0</td><td>Jan 2026</td><td>Current version with field classification</td></tr>
+    <tr><td>1.0.0</td><td>Oct 2024</td><td>Initial release</td></tr>
   </tbody>
 </table>
 </div>
 
-### Suporte a Versões
+### Version Support
 
 <div class="table-wrapper">
 <table>
   <thead>
-    <tr><th>Versão</th><th>Status</th><th>Suporte até</th></tr>
+    <tr><th>Version</th><th>Status</th><th>Supported Until</th></tr>
   </thead>
   <tbody>
-    <tr><td>2.x</td><td>✅ Ativa</td><td>—</td></tr>
-    <tr><td>1.x</td><td>⚠️ Legado</td><td>Dez 2026</td></tr>
+    <tr><td>2.x</td><td>✅ Active</td><td>—</td></tr>
+    <tr><td>1.x</td><td>⚠️ Legacy</td><td>Dec 2026</td></tr>
   </tbody>
 </table>
 </div>
 
 ---
 
-## Contato
+## Contact
 
 ### Maintainers
 
-Para questões relacionadas à especificação:
+For questions relating to the specification:
 
 - **GitHub**: [rgtmaia/cbam-spec](https://github.com/rgtmaia/cbam-spec)
-- **Issues**: Utilize o sistema de Issues do GitHub
+- **Issues**: Use the GitHub Issues system
 
-### Suporte Comercial
+### Commercial Support
 
-Esta especificação é mantida pela comunidade. Para suporte comercial ou implementação corporativa, entre em contato com os maintainers.
+This specification is community-maintained. For commercial support or enterprise implementation, please contact the maintainers.
 
 ---
 
-## Agradecimentos
+## Acknowledgements
 
-Este projeto foi inspirado por:
+This project was inspired by:
 
-- Iniciativas de padronização de dados ambientais
-- Comunidade de compliance CBAM
-- Contribuidores open source
+- Environmental data standardisation initiatives
+- The CBAM compliance community
+- Open-source contributors
 
-Agradecemos a todos que contribuíram com feedback e melhorias.
+We thank all who have contributed feedback and improvements.

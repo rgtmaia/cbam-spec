@@ -3,14 +3,14 @@
 
 title: "CBAM Producer Data Package Specification"
 description: >-
-  Especificação técnica pública do formato de troca de dados de emissões 
-  entre produtores de países terceiros e importadores europeus no contexto 
-  do CBAM (Carbon Border Adjustment Mechanism) da União Europeia.
+  An open technical specification for standardised exchange of embedded emissions 
+  data between third-country producers and EU importers under the Carbon Border 
+  Adjustment Mechanism (CBAM).
 
-# Tagline para o hero
-tagline: "Padronize a comunicação de emissões e simplifique sua conformidade CBAM"
+# Tagline for the hero section
+tagline: "Standardise emissions data exchange and simplify your CBAM compliance"
 
-# Versão atual
+# Current version
 version: "2.0.0"
 schema_version: "2.0.0"
 
@@ -27,7 +27,7 @@ plugins:
 
 # SEO
 author: "CBAM Spec Contributors"
-lang: "pt-BR"
+lang: "en-GB"
 
 # Social / Open Graph
 twitter:
@@ -44,7 +44,7 @@ kramdown:
   hard_wrap: false
   syntax_highlighter: rouge
 
-# Defaults - páginas principais usam layout default, docs usam layout docs
+# Defaults - main pages use default layout, docs use docs layout
 defaults:
   - scope:
       path: ""
