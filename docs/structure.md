@@ -316,3 +316,22 @@ The XSD schema ensures:
 3. **Formats** (CN Code = 8 digits, Country = 2 letters)
 4. **Uniqueness** of IDs (Installation and Product)
 5. **Cardinality** (minimum and maximum element counts)
+
+---
+
+## Need Implementation Support?
+
+<div class="info-box">
+  <div class="info-box-title">
+    <i class="fas fa-info-circle"></i>
+    Enterprise Implementation
+  </div>
+  <p>We're developing tools to automate CBAM Producer Data Package generation and validation for organizations. If you need support implementing this specification in your organization, we'd like to hear from you.</p>
+  <a href="https://forms.gle/YOUR_FORM_ID_HERE" 
+     class="btn btn-primary"
+     target="_blank"
+     onclick="gtag('event', 'cta_click', {'event_category': 'bridge', 'event_label': 'structure'});">
+    <i class="fas fa-envelope"></i>
+    Contact Us
+  </a>
+</div>

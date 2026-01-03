@@ -185,6 +185,22 @@ else:
 
 ---
 
+## Automatize sua Validação
+
+<div class="bridge-section">
+  <h3>Interessado em automatizar validação XML e geração de relatórios CBAM?</h3>
+  <p>Estamos desenvolvendo ferramentas para ajudar organizações a otimizar workflows de compliance CBAM, incluindo validação automatizada, geração de pacotes e integração com sistemas existentes.</p>
+  <a href="https://forms.gle/YOUR_FORM_ID_HERE" 
+     class="btn btn-primary"
+     target="_blank"
+     onclick="gtag('event', 'cta_click', {'event_category': 'bridge', 'event_label': 'getting-started'});">
+    <i class="fas fa-rocket"></i>
+    Solicitar Acesso Beta
+  </a>
+</div>
+
+---
+
 ## Passo 5: Entender os Campos Obrigatórios
 
 Os campos são classificados em três categorias:

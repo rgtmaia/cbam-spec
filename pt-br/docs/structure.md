@@ -318,3 +318,22 @@ O schema XSD garante:
 4. **Unicidade** de IDs (Installation e Product)
 5. **Cardinalidade** mínima e máxima de elementos
 
+---
+
+## Precisa de Suporte para Implementação?
+
+<div class="info-box">
+  <div class="info-box-title">
+    <i class="fas fa-info-circle"></i>
+    Implementação Empresarial
+  </div>
+  <p>Estamos desenvolvendo ferramentas para automatizar a geração e validação de pacotes CBAM Producer Data Package para organizações. Se você precisa de suporte para implementar esta especificação na sua organização, gostaríamos de ouvir de você.</p>
+  <a href="https://forms.gle/YOUR_FORM_ID_HERE" 
+     class="btn btn-primary"
+     target="_blank"
+     onclick="gtag('event', 'cta_click', {'event_category': 'bridge', 'event_label': 'structure'});">
+    <i class="fas fa-envelope"></i>
+    Entre em Contato
+  </a>
+</div>
+
