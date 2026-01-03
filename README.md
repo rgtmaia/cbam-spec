@@ -1,33 +1,39 @@
 ---
 title: "CBAM Producer Data Package Specification"
-description: "Especificação técnica pública do formato de troca de dados de emissões entre produtores de países terceiros e importadores europeus no contexto do CBAM (Carbon Border Adjustment Mechanism)."
-keywords: "CBAM, Carbon Border Adjustment Mechanism, emissions data, EU regulation, XML schema, producer data package, embedded emissions, carbon footprint, international trade"
+description: "CBAM Producer Data Package Specification - open technical standard for emissions data exchange under EU CBAM regulation between third-country producers and European importers."
+keywords: "CBAM, Carbon Border Adjustment Mechanism, emissions data, EU regulation, XML schema, producer data package, embedded emissions, carbon footprint, international trade, EU 2023/956"
 lang: pt-BR
 ---
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="CBAM Producer Data Package Specification - open technical standard for emissions data exchange under EU CBAM regulation.">
+<meta name="keywords" content="CBAM, Carbon Border Adjustment Mechanism, emissions data, XML schema, EU regulation, embedded emissions">
+<meta name="author" content="CBAM Spec Contributors">
+<meta property="og:title" content="CBAM Producer Data Package Specification">
+<meta property="og:description" content="Especificação técnica pública do formato de troca de dados de emissões no contexto do CBAM europeu.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rgtmaia.github.io/cbam-spec/">
 
 # CBAM Producer Data Package Specification
 
 > **Versão:** 2.0  
 > **Última Atualização:** Janeiro 2026  
-> **Licença:** MIT
+> **Licença:** MIT  
+> **Namespace:** `https://rgtmaia.github.io/cbam-spec/schema/package/v2`
 
 ---
 
-## 📑 Sumário
+## 📑 Navegação Rápida
 
-- [Sobre](#sobre)
-- [Aviso Legal](#️-aviso-legal-importante)
-- [Contexto Regulatório](#contexto-regulatório)
-- [Recursos Rápidos](#-recursos-rápidos)
-- [Documentação](#-documentação)
-- [Uso Rápido](#uso-rápido)
-- [Público-Alvo](#público-alvo)
-- [Setores Cobertos](#setores-cobertos)
-- [Classificação de Campos](#classificação-de-campos)
-- [Exemplos](#exemplos)
-- [Referências Regulatórias](#referências-regulatórias)
-- [Contribuições](#contribuições)
-- [Licença](#licença)
+| Seção | Descrição |
+|-------|-----------|
+| [📘 Conceito](docs/concept.md) | O que é o formato e seu propósito |
+| [🎯 Escopo](docs/concept.md#escopo-regulatório-vs-não-regulatório) | Campos regulatórios vs informativos |
+| [👥 Papéis](docs/concept.md#o-que-o-produtor-fornece) | Responsabilidades produtor vs importador |
+| [🏗️ Estrutura XML](docs/structure.md) | Hierarquia e tipos de dados |
+| [🔄 Versionamento](docs/lifecycle.md) | Ciclo de vida draft → final |
+| [📖 Glossário](docs/concept.md#tipos-de-emissões) | Termos e definições |
+| [📄 Exemplos](#-download-de-exemplos) | Arquivos XML de exemplo |
 
 ---
 
@@ -76,76 +82,33 @@ O CBAM (Regulamento UE 2023/956) estabelece que importadores europeus devem repo
 
 ---
 
-## 🔗 Recursos Rápidos
+## 📥 Download do Schema (XSD)
 
-| Recurso | Link Direto | Descrição |
-|---------|-------------|-----------|
-| 📐 **Schema XSD** | [cbam-producer-data-package-v2.xsd](schema/cbam-producer-data-package-v2.xsd) | Schema XML para validação |
-| 📄 **Exemplo Mínimo** | [example-v2-minimal.xml](examples/example-v2-minimal.xml) | Estrutura básica válida |
-| 📄 **Exemplo Completo** | [example-v2-complete.xml](examples/example-v2-complete.xml) | Múltiplas instalações e produtos |
+### Link Direto Público
 
-### Download Direto
+| Arquivo | URL Pública |
+|---------|-------------|
+| **Schema XSD v2** | [https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd](https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd) |
 
-```bash
-# Schema XSD
-curl -O https://raw.githubusercontent.com/SEU-USUARIO/cbam-spec/main/schema/cbam-producer-data-package-v2.xsd
-
-# Exemplo Mínimo
-curl -O https://raw.githubusercontent.com/SEU-USUARIO/cbam-spec/main/examples/example-v2-minimal.xml
-
-# Exemplo Completo
-curl -O https://raw.githubusercontent.com/SEU-USUARIO/cbam-spec/main/examples/example-v2-complete.xml
-```
-
----
-
-## 📚 Documentação
-
-| Documento | Descrição |
-|-----------|-----------|
-| 📘 [Conceito](docs/concept.md) | O que é o CBAM Producer Data Package e seu propósito |
-| 🏗️ [Estrutura](docs/structure.md) | Visão geral da estrutura do documento XML |
-| 🔄 [Ciclo de Vida](docs/lifecycle.md) | Versionamento, estados (draft/final) e governança |
-| ⚖️ [Avisos Legais](docs/legal-notices.md) | Disclaimers e limitações de responsabilidade |
-
-### Estrutura do Repositório
-
-```
-cbam-spec/
-├── README.md                                    # Este arquivo
-├── docs/
-│   ├── concept.md                               # Conceito e propósito
-│   ├── structure.md                             # Estrutura do XML
-│   ├── lifecycle.md                             # Versionamento
-│   └── legal-notices.md                         # Avisos legais
-├── schema/
-│   └── cbam-producer-data-package-v2.xsd        # Schema XSD
-└── examples/
-    ├── example-v2-minimal.xml                   # Exemplo mínimo
-    └── example-v2-complete.xml                  # Exemplo completo
-```
-
----
-
-## Uso Rápido
-
-### Validação de um arquivo XML
+### Download via Terminal
 
 ```bash
-# Usando xmllint (Linux/macOS/WSL)
-xmllint --schema schema/cbam-producer-data-package-v2.xsd seu-arquivo.xml --noout
+# Download do Schema XSD
+curl -O https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd
 
-# Usando xmllint (Windows com Chocolatey)
-choco install libxml2
-xmllint --schema schema/cbam-producer-data-package-v2.xsd seu-arquivo.xml --noout
+# Ou via wget
+wget https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd
 ```
 
-### Namespace e Atributos
+### Referência no XML
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <CBAMProducerDataPackage 
-    xmlns="https://cbam-spec.github.io/schema/package/v2"
+    xmlns="https://rgtmaia.github.io/cbam-spec/schema/package/v2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://rgtmaia.github.io/cbam-spec/schema/package/v2 
+                        https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd"
     version="2.0"
     schemaVersion="2.0.0">
   <!-- conteúdo -->
@@ -154,7 +117,105 @@ xmllint --schema schema/cbam-producer-data-package-v2.xsd seu-arquivo.xml --noou
 
 ---
 
-## Público-Alvo
+## 📄 Download de Exemplos
+
+### Exemplo Mínimo (`example-v2-minimal.xml`)
+
+| | |
+|---|---|
+| **Arquivo** | [example-v2-minimal.xml](examples/example-v2-minimal.xml) |
+| **URL Pública** | [https://rgtmaia.github.io/cbam-spec/examples/example-v2-minimal.xml](https://rgtmaia.github.io/cbam-spec/examples/example-v2-minimal.xml) |
+| **Descrição** | Estrutura mínima válida com 1 instalação e 1 produto |
+| **Uso** | Ideal para compreender a estrutura básica do formato |
+
+```bash
+curl -O https://rgtmaia.github.io/cbam-spec/examples/example-v2-minimal.xml
+```
+
+### Exemplo Completo (`example-v2-complete.xml`)
+
+| | |
+|---|---|
+| **Arquivo** | [example-v2-complete.xml](examples/example-v2-complete.xml) |
+| **URL Pública** | [https://rgtmaia.github.io/cbam-spec/examples/example-v2-complete.xml](https://rgtmaia.github.io/cbam-spec/examples/example-v2-complete.xml) |
+| **Descrição** | Exemplo completo demonstrando todas as funcionalidades |
+| **Uso** | Referência para implementações completas |
+
+**O exemplo completo demonstra:**
+- ✅ 2 instalações com rotas diferentes (BF-BOF integrada e EAF elétrica)
+- ✅ 3 produtos com diferentes características
+- ✅ Uso de dados reais (`DeterminationType: 01`) e valores default (`02`)
+- ✅ Emissões de precursores (materiais de entrada)
+- ✅ Resumo consolidado (`ConsolidatedSummary`)
+- ✅ Metadados completos com disclaimers legais em PT e EN
+- ✅ Fatores de emissão de eletricidade (grid nacional)
+
+```bash
+curl -O https://rgtmaia.github.io/cbam-spec/examples/example-v2-complete.xml
+```
+
+---
+
+## 📚 Documentação Completa
+
+| Seção | Documento | Descrição |
+|-------|-----------|-----------|
+| **Conceito** | [📘 concept.md](docs/concept.md) | O que é o CBAM Producer Data Package e seu propósito |
+| **Escopo** | [📘 concept.md#escopo](docs/concept.md#escopo-regulatório-vs-não-regulatório) | Campos regulatórios vs não-regulatórios |
+| **Papéis** | [📘 concept.md#papéis](docs/concept.md#o-que-o-produtor-fornece) | Responsabilidades produtor vs importador |
+| **Estrutura** | [🏗️ structure.md](docs/structure.md) | Hierarquia do XML e tipos de dados |
+| **Versionamento** | [🔄 lifecycle.md](docs/lifecycle.md) | Estados draft/final e ciclo de vida |
+| **Avisos Legais** | [⚖️ legal-notices.md](docs/legal-notices.md) | Disclaimers e limitações |
+
+### Estrutura do Repositório
+
+```
+cbam-spec/
+├── README.md                                    # Este arquivo
+├── _config.yml                                  # Configuração GitHub Pages
+├── docs/
+│   ├── concept.md                               # Conceito e propósito
+│   ├── structure.md                             # Estrutura do XML
+│   ├── lifecycle.md                             # Versionamento
+│   └── legal-notices.md                         # Avisos legais
+├── schema/
+│   └── cbam-producer-data-package-v2.xsd        # Schema XSD público
+└── examples/
+    ├── example-v2-minimal.xml                   # Exemplo mínimo
+    └── example-v2-complete.xml                  # Exemplo completo
+```
+
+---
+
+## 🔧 Uso Rápido
+
+### Validação de um arquivo XML
+
+```bash
+# Linux/macOS/WSL
+xmllint --schema https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd seu-arquivo.xml --noout
+
+# Windows (com schema local)
+choco install libxml2
+curl -O https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd
+xmllint --schema cbam-producer-data-package-v2.xsd seu-arquivo.xml --noout
+```
+
+### Validação Programática (exemplo)
+
+```python
+# Python com lxml
+from lxml import etree
+
+schema_url = "https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd"
+schema = etree.XMLSchema(etree.parse(schema_url))
+doc = etree.parse("seu-arquivo.xml")
+schema.validate(doc)  # True se válido
+```
+
+---
+
+## 👥 Público-Alvo
 
 - 🏭 **Produtores** de países terceiros que exportam para a UE
 - 🚢 **Importadores** europeus que precisam reportar emissões ao CBAM Registry
@@ -164,7 +225,7 @@ xmllint --schema schema/cbam-producer-data-package-v2.xsd seu-arquivo.xml --noou
 
 ---
 
-## Setores Cobertos
+## 🏭 Setores Cobertos
 
 O CBAM (conforme Anexo I do Regulamento UE 2023/956) cobre os seguintes setores:
 
@@ -179,7 +240,7 @@ O CBAM (conforme Anexo I do Regulamento UE 2023/956) cobre os seguintes setores:
 
 ---
 
-## Classificação de Campos
+## 🏷️ Classificação de Campos
 
 O schema distingue claramente três tipos de campos:
 
@@ -198,63 +259,11 @@ Campos cuja responsabilidade final é do **importador**, não do produtor.
 
 **Exemplos:** `CnCode`, `HsCode` (códigos aduaneiros)
 
-➡️ Veja detalhes em [docs/structure.md](docs/structure.md)
+➡️ Veja detalhes completos em [docs/structure.md](docs/structure.md)
 
 ---
 
-## Exemplos
-
-### Exemplo Mínimo
-
-📄 **Arquivo:** [examples/example-v2-minimal.xml](examples/example-v2-minimal.xml)
-
-```xml
-<CBAMProducerDataPackage 
-    xmlns="https://cbam-spec.github.io/schema/package/v2"
-    version="2.0" schemaVersion="2.0.0">
-  
-  <DatasetIdentification>
-    <DatasetId>a1b2c3d4-e5f6-7890-abcd-ef1234567890</DatasetId>
-    <Version>1.0</Version>
-    <GenerationDate>2026-01-15</GenerationDate>
-  </DatasetIdentification>
-  
-  <ReportingPeriod>
-    <Year>2026</Year>
-    <Quarter>1</Quarter>
-    <PeriodId>2026-Q1</PeriodId>
-  </ReportingPeriod>
-  
-  <Operator>
-    <OperatorId>00.000.000/0001-00</OperatorId>
-    <OperatorName>Exemplo Metalúrgica S.A.</OperatorName>
-    <Address><Country>BR</Country></Address>
-  </Operator>
-  
-  <Installations count="1">
-    <Installation index="1">
-      <!-- ... dados da instalação ... -->
-    </Installation>
-  </Installations>
-  
-</CBAMProducerDataPackage>
-```
-
-### Exemplo Completo
-
-📄 **Arquivo:** [examples/example-v2-complete.xml](examples/example-v2-complete.xml)
-
-Inclui:
-- 2 instalações (BF-BOF e EAF)
-- 3 produtos
-- Uso de dados reais e valores default
-- Emissões de precursores
-- Resumo consolidado
-- Disclaimers legais em PT/EN
-
----
-
-## Referências Regulatórias
+## 📜 Referências Regulatórias
 
 | Documento | Descrição |
 |-----------|-----------|
@@ -265,7 +274,7 @@ Inclui:
 
 ---
 
-## Contribuições
+## 🤝 Contribuições
 
 Este é um formato aberto destinado a facilitar a comunicação de dados de emissões no contexto do CBAM. Sugestões de melhoria são bem-vindas através de Issues.
 
@@ -277,17 +286,16 @@ Este é um formato aberto destinado a facilitar a comunicação de dados de emis
 
 ---
 
-## Licença
+## 📄 Licença
 
 MIT License - Uso livre para implementação e integração.
 
 ---
 
 <p align="center">
-  <strong>CBAM Producer Data Package Specification</strong><br>
-  <em>Facilitando a comunicação de dados de emissões no contexto do CBAM</em>
+  <strong>CBAM Producer Data Package Specification v2.0</strong><br>
+  <em>Facilitando a comunicação de dados de emissões no contexto do CBAM</em><br><br>
+  <a href="https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd">📥 Download XSD</a> •
+  <a href="docs/concept.md">📘 Documentação</a> •
+  <a href="examples/example-v2-complete.xml">📄 Exemplo</a>
 </p>
-
----
-
-**Nota:** Este repositório contém apenas a especificação do formato de dados. Implementações específicas, ferramentas de cálculo e sistemas são mantidos separadamente.

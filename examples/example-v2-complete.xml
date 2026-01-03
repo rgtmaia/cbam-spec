@@ -21,9 +21,10 @@
   ═══════════════════════════════════════════════════════════════════════════════
 -->
 <CBAMProducerDataPackage 
-    xmlns="https://cbam-spec.github.io/schema/package/v2"
+    xmlns="https://rgtmaia.github.io/cbam-spec/schema/package/v2"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://cbam-spec.github.io/schema/package/v2 ../schema/cbam-producer-data-package-v2.xsd"
+    xsi:schemaLocation="https://rgtmaia.github.io/cbam-spec/schema/package/v2 
+                        https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd"
     version="2.0"
     schemaVersion="2.0.0">
   

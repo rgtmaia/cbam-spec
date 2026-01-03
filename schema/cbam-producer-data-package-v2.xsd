@@ -4,7 +4,7 @@
   CBAM Producer Data Package XML Schema Definition (XSD) v2.0.0
   ═══════════════════════════════════════════════════════════════════════════════
   
-  Namespace:    https://cbam-spec.github.io/schema/package/v2
+  Namespace:    https://rgtmaia.github.io/cbam-spec/schema/package/v2
   Target:       CBAMProducerDataPackage
   Version:      2.0.0
   License:      MIT
@@ -36,8 +36,8 @@
 -->
 <xs:schema 
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:cbam="https://cbam-spec.github.io/schema/package/v2"
-    targetNamespace="https://cbam-spec.github.io/schema/package/v2"
+    xmlns:cbam="https://rgtmaia.github.io/cbam-spec/schema/package/v2"
+    targetNamespace="https://rgtmaia.github.io/cbam-spec/schema/package/v2"
     elementFormDefault="qualified"
     attributeFormDefault="unqualified"
     version="2.0.0">
