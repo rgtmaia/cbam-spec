@@ -189,13 +189,32 @@ else:
 Os campos são classificados em três categorias:
 
 <div class="table-wrapper">
-
-| Categoria | Badge | O que significa |
-|-----------|-------|-----------------|
-| **REGULATORY** | <span class="badge badge-red">🔴 Regulatório</span> | Campos exigidos pelo regulamento EU 2023/956. Obrigatórios. |
-| **NON-REGULATORY** | <span class="badge badge-yellow">🟡 Não-Regulatório</span> | Campos para rastreabilidade e leitura humana. Recomendados. |
-| **INFORMATIVE** | <span class="badge badge-blue">🔵 Informativo</span> | Campos cuja responsabilidade é do importador. Opcionais. |
-
+<table>
+  <thead>
+    <tr>
+      <th>Categoria</th>
+      <th>Badge</th>
+      <th>O que significa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>REGULATORY</strong></td>
+      <td><span class="badge badge-red">🔴 Regulatório</span></td>
+      <td>Campos exigidos pelo regulamento EU 2023/956. Obrigatórios.</td>
+    </tr>
+    <tr>
+      <td><strong>NON-REGULATORY</strong></td>
+      <td><span class="badge badge-yellow">🟡 Não-Regulatório</span></td>
+      <td>Campos para rastreabilidade e leitura humana. Recomendados.</td>
+    </tr>
+    <tr>
+      <td><strong>INFORMATIVE</strong></td>
+      <td><span class="badge badge-blue">🔵 Informativo</span></td>
+      <td>Campos cuja responsabilidade é do importador. Opcionais.</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
 <div class="info-box">
