@@ -876,29 +876,29 @@
     <div class="nav-container">
       <div class="nav-links">
         <a href="{{ '/' | relative_url }}" class="nav-link">
-          <i class="fas fa-home"></i> Início
+          <i class="fas fa-home"></i> Home
         </a>
         <a href="{{ '/getting-started' | relative_url }}" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">
-          <i class="fas fa-rocket"></i> Começar
+          <i class="fas fa-rocket"></i> Getting Started
         </a>
         <a href="{{ '/docs/concept' | relative_url }}" class="nav-link {% if page.url contains '/docs/concept' %}active{% endif %}">
-          <i class="fas fa-book"></i> Conceito
+          <i class="fas fa-book"></i> Concept
         </a>
         <a href="{{ '/docs/structure' | relative_url }}" class="nav-link {% if page.url contains '/docs/structure' %}active{% endif %}">
-          <i class="fas fa-sitemap"></i> Estrutura
+          <i class="fas fa-sitemap"></i> Structure
         </a>
         <a href="{{ '/docs/lifecycle' | relative_url }}" class="nav-link {% if page.url contains '/docs/lifecycle' %}active{% endif %}">
-          <i class="fas fa-sync-alt"></i> Ciclo de Vida
+          <i class="fas fa-sync-alt"></i> Lifecycle
         </a>
         <a href="{{ '/docs/legal-notices' | relative_url }}" class="nav-link {% if page.url contains '/docs/legal-notices' %}active{% endif %}">
-          <i class="fas fa-balance-scale"></i> Avisos Legais
+          <i class="fas fa-balance-scale"></i> Legal Notices
         </a>
       </div>
       <div class="nav-right">
         <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}" class="nav-link">
-          <i class="fas fa-file-code"></i> Exemplos
+          <i class="fas fa-file-code"></i> Examples
         </a>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
           <i class="fas fa-moon"></i>
           <i class="fas fa-sun"></i>
         </button>
@@ -926,7 +926,7 @@
       {% if page.prev_page %}
       <a href="{{ page.prev_page.url | relative_url }}" class="docs-nav-link">
         <div class="docs-nav-label">
-          <i class="fas fa-arrow-left"></i> Anterior
+          <i class="fas fa-arrow-left"></i> Previous
         </div>
         <div class="docs-nav-title">{{ page.prev_page.title }}</div>
       </a>
@@ -937,7 +937,7 @@
       {% if page.next_page %}
       <a href="{{ page.next_page.url | relative_url }}" class="docs-nav-link next">
         <div class="docs-nav-label">
-          Próximo <i class="fas fa-arrow-right"></i>
+          Next <i class="fas fa-arrow-right"></i>
         </div>
         <div class="docs-nav-title">{{ page.next_page.title }}</div>
       </a>
@@ -958,7 +958,7 @@
   </footer>
 
   <!-- Scroll to Top Button -->
-  <button class="scroll-top" onclick="scrollToTop()" title="Voltar ao topo">
+  <button class="scroll-top" onclick="scrollToTop()" title="Back to top">
     <i class="fas fa-chevron-up"></i>
   </button>
 

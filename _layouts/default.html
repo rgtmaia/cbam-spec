@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'pt-BR' }}" data-theme="dark">
+<html lang="{{ site.lang | default: 'en-GB' }}" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -997,10 +997,10 @@
         <span>Open Standard v2.0</span>
       </div>
       <h1>CBAM Producer Data Package</h1>
-      <p class="hero-tagline">Padronize a comunicação de emissões e simplifique sua conformidade CBAM</p>
+      <p class="hero-tagline">Standardise emissions data exchange and simplify your CBAM compliance</p>
       <p class="hero-subtitle">
-        Especificação técnica pública para troca de dados de emissões entre produtores 
-        de países terceiros e importadores europeus no contexto do Carbon Border Adjustment Mechanism.
+        An open technical specification for exchanging embedded emissions data between 
+        third-country producers and EU importers under the Carbon Border Adjustment Mechanism.
       </p>
       <div class="hero-buttons">
         <a href="{{ '/schema/cbam-producer-data-package-v2.xsd' | relative_url }}" class="btn btn-primary">
@@ -1009,7 +1009,7 @@
         </a>
         <a href="{{ site.github.repository_url }}" class="btn btn-secondary">
           <i class="fab fa-github"></i>
-          Ver no GitHub
+          View on GitHub
         </a>
       </div>
     </div>
@@ -1020,29 +1020,29 @@
     <div class="nav-container">
       <div class="nav-links">
         <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' or page.url == '/index.html' %}active{% endif %}">
-          <i class="fas fa-home"></i> Início
+          <i class="fas fa-home"></i> Home
         </a>
         <a href="{{ '/getting-started' | relative_url }}" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">
-          <i class="fas fa-rocket"></i> Começar
+          <i class="fas fa-rocket"></i> Getting Started
         </a>
         <a href="{{ '/docs/concept' | relative_url }}" class="nav-link {% if page.url contains '/docs/concept' %}active{% endif %}">
-          <i class="fas fa-book"></i> Conceito
+          <i class="fas fa-book"></i> Concept
         </a>
         <a href="{{ '/docs/structure' | relative_url }}" class="nav-link {% if page.url contains '/docs/structure' %}active{% endif %}">
-          <i class="fas fa-sitemap"></i> Estrutura
+          <i class="fas fa-sitemap"></i> Structure
         </a>
         <a href="{{ '/docs/lifecycle' | relative_url }}" class="nav-link {% if page.url contains '/docs/lifecycle' %}active{% endif %}">
-          <i class="fas fa-sync-alt"></i> Ciclo de Vida
+          <i class="fas fa-sync-alt"></i> Lifecycle
         </a>
         <a href="{{ '/docs/legal-notices' | relative_url }}" class="nav-link {% if page.url contains '/docs/legal-notices' %}active{% endif %}">
-          <i class="fas fa-balance-scale"></i> Avisos Legais
+          <i class="fas fa-balance-scale"></i> Legal Notices
         </a>
       </div>
       <div class="nav-right">
         <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}" class="nav-link">
-          <i class="fas fa-file-code"></i> Exemplos
+          <i class="fas fa-file-code"></i> Examples
         </a>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
           <i class="fas fa-moon"></i>
           <i class="fas fa-sun"></i>
         </button>
@@ -1059,42 +1059,42 @@
   <footer>
     <div class="footer-content">
       <div class="footer-section">
-        <h4>Documentação</h4>
-        <a href="{{ '/getting-started' | relative_url }}">Começando</a>
-        <a href="{{ '/docs/concept' | relative_url }}">Conceito</a>
-        <a href="{{ '/docs/structure' | relative_url }}">Estrutura XML</a>
-        <a href="{{ '/docs/lifecycle' | relative_url }}">Ciclo de Vida</a>
+        <h4>Documentation</h4>
+        <a href="{{ '/getting-started' | relative_url }}">Getting Started</a>
+        <a href="{{ '/docs/concept' | relative_url }}">Concept</a>
+        <a href="{{ '/docs/structure' | relative_url }}">XML Structure</a>
+        <a href="{{ '/docs/lifecycle' | relative_url }}">Lifecycle</a>
       </div>
       <div class="footer-section">
-        <h4>Recursos</h4>
+        <h4>Resources</h4>
         <a href="{{ '/schema/cbam-producer-data-package-v2.xsd' | relative_url }}">Download Schema XSD</a>
-        <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}">Exemplo Completo</a>
-        <a href="{{ '/examples/example-v2-minimal.xml' | relative_url }}">Exemplo Mínimo</a>
+        <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}">Complete Example</a>
+        <a href="{{ '/examples/example-v2-minimal.xml' | relative_url }}">Minimal Example</a>
       </div>
       <div class="footer-section">
-        <h4>Referências</h4>
+        <h4>References</h4>
         <a href="https://eur-lex.europa.eu/eli/reg/2023/956" target="_blank">EU 2023/956</a>
         <a href="https://eur-lex.europa.eu/eli/reg_impl/2023/1773" target="_blank">EU 2023/1773</a>
         <a href="https://cbam.ec.europa.eu/" target="_blank">CBAM Registry</a>
       </div>
       <div class="footer-section">
-        <h4>Comunidade</h4>
+        <h4>Community</h4>
         <a href="{{ site.github.repository_url }}">GitHub</a>
-        <a href="{{ site.github.repository_url }}/issues">Reportar Issue</a>
-        <a href="{{ site.github.repository_url }}/blob/main/LICENSE">Licença MIT</a>
+        <a href="{{ site.github.repository_url }}/issues">Report Issue</a>
+        <a href="{{ site.github.repository_url }}/blob/main/LICENSE">MIT Licence</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p><strong>CBAM Producer Data Package Specification v2.0</strong> · Mantido por <a href="{{ site.github.owner_url }}">{{ site.github.owner_name | default: 'rgtmaia' }}</a></p>
+      <p><strong>CBAM Producer Data Package Specification v2.0</strong> · Maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name | default: 'rgtmaia' }}</a></p>
       <div class="footer-meta">
         <span><i class="fas fa-code-branch"></i> v2.0.0</span>
-        <span><i class="fas fa-calendar-alt"></i> Atualizado: {{ site.time | date: "%b %Y" }}</span>
+        <span><i class="fas fa-calendar-alt"></i> Updated: {{ site.time | date: "%b %Y" }}</span>
       </div>
     </div>
   </footer>
 
   <!-- Scroll to Top Button -->
-  <button class="scroll-top" onclick="scrollToTop()" title="Voltar ao topo">
+  <button class="scroll-top" onclick="scrollToTop()" title="Back to top">
     <i class="fas fa-chevron-up"></i>
   </button>
 
