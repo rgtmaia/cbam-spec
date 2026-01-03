@@ -9,7 +9,7 @@
   
   Uso didático: Ideal para compreender a estrutura básica do formato.
   
-  Validação: xmllint -schema ../schema/cbam-producer-data-package-v2.xsd example-v2-minimal.xml -noout
+  Validação: xmllint [schema] ../schema/cbam-producer-data-package-v2.xsd example-v2-minimal.xml [noout]
   
   ═══════════════════════════════════════════════════════════════════════════════
 -->
