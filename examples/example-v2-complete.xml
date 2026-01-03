@@ -14,7 +14,7 @@
   
   Uso didático: Demonstra todas as funcionalidades do formato.
   
-  Validação: xmllint --schema ../schema/cbam-producer-data-package-v2.xsd example-v2-complete.xml --noout
+  Validação: xmllint -schema ../schema/cbam-producer-data-package-v2.xsd example-v2-complete.xml -noout
   
   AVISO: Todos os dados são FICTÍCIOS para fins de demonstração.
   
