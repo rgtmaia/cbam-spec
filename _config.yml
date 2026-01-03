@@ -1,0 +1,65 @@
+# GitHub Pages Configuration
+# ═══════════════════════════════════════════════════════════════════════════════
+# CBAM Producer Data Package Specification
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Site Settings
+title: "CBAM Producer Data Package Specification"
+description: >-
+  Especificação técnica pública do formato de troca de dados de emissões 
+  entre produtores de países terceiros e importadores europeus no contexto 
+  do CBAM (Carbon Border Adjustment Mechanism) da União Europeia.
+
+# URL Settings (ajuste para seu domínio)
+baseurl: "/cbam-spec"
+url: "https://rgtmaia.github.io"
+
+# Theme
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# SEO
+author: "CBAM Spec Contributors"
+locale: "pt_BR"
+lang: "pt-BR"
+
+# Social
+twitter:
+  card: summary
+social:
+  name: CBAM Producer Data Package
+  links:
+    - https://github.com/rgtmaia/cbam-spec
+
+# Google Analytics (opcional - adicione seu ID)
+google_analytics: G-GFBFPPKRGR
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .gitignore
+

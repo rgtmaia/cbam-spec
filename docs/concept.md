@@ -1,4 +1,17 @@
+---
+title: "Conceito do CBAM Producer Data Package"
+description: "Entenda o que é o CBAM Producer Data Package, seu propósito e como ele se encaixa no contexto regulatório europeu."
+---
+
 # Conceito do CBAM Producer Data Package
+
+[← Voltar ao README](../README.md) | [Estrutura →](structure.md)
+
+---
+
+**Navegação:** [Início](../README.md) • **Conceito** • [Estrutura](structure.md) • [Ciclo de Vida](lifecycle.md) • [Avisos Legais](legal-notices.md)
+
+---
 
 ## O que é o CBAM?
 
@@ -157,4 +170,8 @@ O CBAM opera em ciclos trimestrais:
 - [Regulamento EU 2023/956 (CBAM)](https://eur-lex.europa.eu/eli/reg/2023/956)
 - [Regulamento de Implementação EU 2023/1773](https://eur-lex.europa.eu/eli/reg_impl/2023/1773)
 - [Portal CBAM da Comissão Europeia](https://cbam.ec.europa.eu/)
+
+---
+
+**Próximo:** [Estrutura do Documento →](structure.md)
 
