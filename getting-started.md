@@ -189,10 +189,9 @@ else:
 <div class="bridge-section">
   <h3>Interested in automating XML validation and CBAM report generation?</h3>
   <p>We're developing tools to help organizations streamline CBAM compliance workflows, including automated validation, package generation, and integration with existing systems.</p>
-  <a href="https://forms.gle/YOUR_FORM_ID_HERE" 
+  <a href="#" 
      class="btn btn-primary"
-     target="_blank"
-     onclick="gtag('event', 'cta_click', {'event_category': 'bridge', 'event_label': 'getting-started'});">
+     onclick="redirectToBridgeForm('getting-started'); return false;">
     <i class="fas fa-rocket"></i>
     Request Beta Access
   </a>

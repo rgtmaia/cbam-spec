@@ -1145,10 +1145,9 @@
           <i class="fab fa-github"></i>
           {% if is_pt %}Ver no GitHub{% else %}View on GitHub{% endif %}
         </a>
-        <a href="https://forms.gle/YOUR_FORM_ID_HERE" 
+        <a href="#" 
            class="btn btn-secondary cta-bridge"
-           target="_blank"
-           onclick="gtag('event', 'cta_click', {'event_category': 'bridge', 'event_label': 'hero'});">
+           onclick="redirectToBridgeForm('hero'); return false;">
           <i class="fas fa-bell"></i>
           {% if is_pt %}Receber Acesso Antecipado{% else %}Get Early Access{% endif %}
         </a>
@@ -1331,6 +1330,42 @@
         });
       });
     })();
+
+    // Product Bridge Form Redirection
+    function redirectToBridgeForm(source) {
+      // Form URLs
+      const formUrls = {
+        'pt-BR': 'https://forms.gle/4eTQavDj6G6bMBSz5',
+        'en': 'https://forms.gle/VkHRazTARcaAPzJq9'
+      };
+
+      // Detect language: first check page language, then browser
+      const currentPath = window.location.pathname;
+      const isPortuguese = currentPath.includes('/pt-br/');
+      const browserLang = navigator.language || navigator.userLanguage;
+      const isPortugueseBrowser = browserLang.toLowerCase().startsWith('pt');
+      
+      // Determine target language
+      let targetLang = 'en'; // default
+      if (isPortuguese || (isPortugueseBrowser && !currentPath.includes('/'))) {
+        targetLang = 'pt-BR';
+      }
+
+      // Get form URL
+      const formUrl = formUrls[targetLang] || formUrls['en'];
+
+      // Track event
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'cta_click', {
+          'event_category': 'bridge',
+          'event_label': source,
+          'event_value': targetLang === 'pt-BR' ? 1 : 0
+        });
+      }
+
+      // Open form in new tab
+      window.open(formUrl, '_blank');
+    }
   </script>
 </body>
 </html>

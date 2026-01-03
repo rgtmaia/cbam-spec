@@ -328,10 +328,9 @@ O schema XSD garante:
     Implementação Empresarial
   </div>
   <p>Estamos desenvolvendo ferramentas para automatizar a geração e validação de pacotes CBAM Producer Data Package para organizações. Se você precisa de suporte para implementar esta especificação na sua organização, gostaríamos de ouvir de você.</p>
-  <a href="https://forms.gle/YOUR_FORM_ID_HERE" 
+  <a href="#" 
      class="btn btn-primary"
-     target="_blank"
-     onclick="gtag('event', 'cta_click', {'event_category': 'bridge', 'event_label': 'structure'});">
+     onclick="redirectToBridgeForm('structure'); return false;">
     <i class="fas fa-envelope"></i>
     Entre em Contato
   </a>
