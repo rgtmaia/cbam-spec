@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ═══════════════════════════════════════════════════════════════════════════════
+  CBAM Producer Data Package v2.0.0 - Exemplo Completo
+  ═══════════════════════════════════════════════════════════════════════════════
+  
+  Este exemplo demonstra um pacote completo com:
+  - Duas instalações (uma integrada BF-BOF e uma aciaria elétrica EAF)
+  - Múltiplos produtos por instalação
+  - Uso de dados reais (01) e valores default (02)
+  - Emissões de precursores
+  - Resumo consolidado
+  - Metadados completos com disclaimers legais
+  
+  Uso didático: Demonstra todas as funcionalidades do formato.
+  
+  Validação: xmllint --schema ../schema/cbam-producer-data-package-v2.xsd example-v2-complete.xml --noout
+  
+  AVISO: Todos os dados são FICTÍCIOS para fins de demonstração.
+  
+  ═══════════════════════════════════════════════════════════════════════════════
+-->
+<CBAMProducerDataPackage 
+    xmlns="https://cbam-spec.github.io/schema/package/v2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://cbam-spec.github.io/schema/package/v2 ../schema/cbam-producer-data-package-v2.xsd"
+    version="2.0"
+    schemaVersion="2.0.0">
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       DATASET IDENTIFICATION
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <DatasetIdentification>
+    <DatasetId>550e8400-e29b-41d4-a716-446655440000</DatasetId>
+    <Version>1.0</Version>
+    <GenerationDate>2026-01-15</GenerationDate>
+    <DatasetStatus>final</DatasetStatus>
+  </DatasetIdentification>
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       REPORTING PERIOD [REGULATORY]
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <ReportingPeriod>
+    <Year>2026</Year>
+    <Quarter>1</Quarter>
+    <PeriodId>2026-Q1</PeriodId>
+    <SubmissionDeadline>2026-04-30</SubmissionDeadline>
+  </ReportingPeriod>
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       OPERATOR [REGULATORY]
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <Operator>
+    <OperatorId>12.345.678/0001-90</OperatorId>
+    <OperatorName>Siderúrgica Exemplo S.A.</OperatorName>
+    <LegalName regulatory="false" optional="true">Siderúrgica Exemplo S.A.</LegalName>
+    <Address>
+      <Country>BR</Country>
+      <SubDivision>SP</SubDivision>
+      <City>São Paulo</City>
+      <Street regulatory="false" optional="true">Av. Industrial, 1000</Street>
+    </Address>
+    <ContactDetails regulatory="false" optional="true">
+      <Name>Departamento de Sustentabilidade</Name>
+    </ContactDetails>
+  </Operator>
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       INSTALLATIONS
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <Installations count="2">
+    
+    <!-- ─────────────────────────────────────────────────────────────────────
+         INSTALAÇÃO 1: Usina Integrada (BF-BOF)
+         Alto-forno + Convertedor a oxigênio - rota tradicional de aço
+         ───────────────────────────────────────────────────────────────────── -->
+    <Installation index="1">
+      <InstallationId>INST-001-INTEGRADA</InstallationId>
+      <InstallationName>Usina Integrada Litoral</InstallationName>
+      <Address>
+        <Country>BR</Country>
+        <SubDivision>SP</SubDivision>
+        <City>Cubatão</City>
+      </Address>
+      <ProductionProcess>
+        <RouteCode>BF-BOF</RouteCode>
+        <MethodologyCode>TOM01</MethodologyCode>
+        <RegulatoryBasis regulatory="false" optional="true">EU Regulation 2023/956 (CBAM) Annex III</RegulatoryBasis>
+      </ProductionProcess>
+      
+      <Products count="2">
+        
+        <!-- Produto 1: Bobina Laminada a Quente -->
+        <Product index="1">
+          <ProductId>PROD-001-HRC</ProductId>
+          <Description regulatory="false" optional="true">Bobina de Aço Laminada a Quente</Description>
+          <Category regulatory="false" optional="true">steel</Category>
+          <CommodityCode>
+            <CnCode informative="true">72083900</CnCode>
+            <HsCode informative="true">720839</HsCode>
+          </CommodityCode>
+          <Production>
+            <QuantityType>TOTAL_PRODUCTION</QuantityType>
+            <Quantity>1000.00</Quantity>
+            <MeasurementUnit>t</MeasurementUnit>
+          </Production>
+          <EmbeddedEmissions>
+            <DirectEmissions>
+              <DeterminationType>01</DeterminationType>
+              <MethodologyCode>TOM01</MethodologyCode>
+              <DeterminationDetails regulatory="false" optional="true">
+                <DataType>Calculated</DataType>
+                <Method>Mass balance based on fuel and material inputs</Method>
+              </DeterminationDetails>
+              <SpecificEmissions>
+                <Value>1.850000</Value>
+                <Unit>tCO2e/t</Unit>
+              </SpecificEmissions>
+            </DirectEmissions>
+            <IndirectEmissions>
+              <DeterminationType>01</DeterminationType>
+              <ElectricityFactor>
+                <SourceCode>SOE02</SourceCode>
+                <Value>0.0860</Value>
+                <Unit>tCO2e/MWh</Unit>
+              </ElectricityFactor>
+              <SpecificEmissions>
+                <Value>0.172000</Value>
+                <Unit>tCO2e/t</Unit>
+              </SpecificEmissions>
+            </IndirectEmissions>
+            <TotalSpecificEmissions>
+              <Value>2.022000</Value>
+              <Unit>tCO2e/t</Unit>
+            </TotalSpecificEmissions>
+          </EmbeddedEmissions>
+          <CalculationMetadata regulatory="false" optional="true">
+            <Version>1</Version>
+            <Status>verified</Status>
+          </CalculationMetadata>
+        </Product>
+        
+        <!-- Produto 2: Vergalhão -->
+        <Product index="2">
+          <ProductId>PROD-002-REBAR</ProductId>
+          <Description regulatory="false" optional="true">Vergalhão CA-50</Description>
+          <Category regulatory="false" optional="true">steel</Category>
+          <CommodityCode>
+            <CnCode informative="true">72142000</CnCode>
+            <HsCode informative="true">721420</HsCode>
+          </CommodityCode>
+          <Production>
+            <QuantityType>EU_EXPORT</QuantityType>
+            <Quantity>500.00</Quantity>
+            <MeasurementUnit>t</MeasurementUnit>
+          </Production>
+          <EmbeddedEmissions>
+            <DirectEmissions>
+              <DeterminationType>01</DeterminationType>
+              <MethodologyCode>TOM01</MethodologyCode>
+              <SpecificEmissions>
+                <Value>1.750000</Value>
+                <Unit>tCO2e/t</Unit>
+              </SpecificEmissions>
+            </DirectEmissions>
+            <IndirectEmissions>
+              <DeterminationType>01</DeterminationType>
+              <ElectricityFactor>
+                <SourceCode>SOE02</SourceCode>
+                <Value>0.0860</Value>
+                <Unit>tCO2e/MWh</Unit>
+              </ElectricityFactor>
+              <SpecificEmissions>
+                <Value>0.215000</Value>
+                <Unit>tCO2e/t</Unit>
+              </SpecificEmissions>
+            </IndirectEmissions>
+            <TotalSpecificEmissions>
+              <Value>1.965000</Value>
+              <Unit>tCO2e/t</Unit>
+            </TotalSpecificEmissions>
+          </EmbeddedEmissions>
+          <CalculationMetadata regulatory="false" optional="true">
+            <Version>1</Version>
+            <Status>verified</Status>
+          </CalculationMetadata>
+        </Product>
+        
+      </Products>
+    </Installation>
+    
+    <!-- ─────────────────────────────────────────────────────────────────────
+         INSTALAÇÃO 2: Aciaria Elétrica (EAF)
+         Forno elétrico a arco - usa sucata e DRI como insumos
+         Demonstra uso de valores default e emissões de precursores
+         ───────────────────────────────────────────────────────────────────── -->
+    <Installation index="2">
+      <InstallationId>INST-002-EAF</InstallationId>
+      <InstallationName>Aciaria Elétrica Interior</InstallationName>
+      <Address>
+        <Country>BR</Country>
+        <SubDivision>MG</SubDivision>
+        <City>Contagem</City>
+      </Address>
+      <ProductionProcess>
+        <RouteCode>EAF</RouteCode>
+        <MethodologyCode>TOM01</MethodologyCode>
+      </ProductionProcess>
+      
+      <Products count="1">
+        
+        <!-- Produto 3: Tarugo de Aço (usa valores default) -->
+        <Product index="1">
+          <ProductId>PROD-003-BILLET</ProductId>
+          <Description regulatory="false" optional="true">Tarugo de Aço</Description>
+          <Category regulatory="false" optional="true">steel</Category>
+          <CommodityCode>
+            <!-- CN Code não disponível - importador deve confirmar -->
+            <CnCode informative="true" status="to_be_confirmed_by_importer"/>
+          </CommodityCode>
+          <Production>
+            <QuantityType>TOTAL_PRODUCTION</QuantityType>
+            <Quantity>2000.00</Quantity>
+            <MeasurementUnit>t</MeasurementUnit>
+          </Production>
+          <EmbeddedEmissions>
+            <!-- Emissões diretas usando valores default (período transitório) -->
+            <DirectEmissions>
+              <DeterminationType>02</DeterminationType>
+              <MethodologyCode>TOM01</MethodologyCode>
+              <Justification regulatory="false" optional="true">Valores default utilizados conforme período transitório CBAM. Sistema de medição em implantação com previsão de dados reais para Q3/2026.</Justification>
+              <SpecificEmissions>
+                <Value>0.520000</Value>
+                <Unit>tCO2e/t</Unit>
+              </SpecificEmissions>
+            </DirectEmissions>
+            <!-- Emissões indiretas usando fator médio do grid -->
+            <IndirectEmissions>
+              <DeterminationType>01</DeterminationType>
+              <ElectricityFactor>
+                <SourceCode>SOE02</SourceCode>
+                <Value>0.0860</Value>
+                <Unit>tCO2e/MWh</Unit>
+              </ElectricityFactor>
+              <Justification regulatory="false" optional="true">Fator de emissão médio do Sistema Interligado Nacional (SIN) brasileiro.</Justification>
+              <SpecificEmissions>
+                <Value>0.340000</Value>
+                <Unit>tCO2e/t</Unit>
+              </SpecificEmissions>
+            </IndirectEmissions>
+            <!-- Emissões de precursores (ex: ferro-gusa comprado) -->
+            <PrecursorEmissions>
+              <SpecificEmissions>
+                <Value>0.050000</Value>
+                <Unit>tCO2e/t</Unit>
+              </SpecificEmissions>
+            </PrecursorEmissions>
+            <TotalSpecificEmissions>
+              <Value>0.910000</Value>
+              <Unit>tCO2e/t</Unit>
+            </TotalSpecificEmissions>
+          </EmbeddedEmissions>
+          <CalculationMetadata regulatory="false" optional="true">
+            <Version>2</Version>
+            <Status>calculated</Status>
+          </CalculationMetadata>
+        </Product>
+        
+      </Products>
+    </Installation>
+    
+  </Installations>
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       CONSOLIDATED SUMMARY [NON-REGULATORY]
+       
+       ATENÇÃO: Esta seção é apenas INFORMATIVA.
+       Os dados individuais de produtos são os dados oficiais.
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <ConsolidatedSummary regulatory="false" optional="true">
+    <TotalInstallations>2</TotalInstallations>
+    <TotalProducts>3</TotalProducts>
+    <TotalProduction>
+      <Value>3500.00</Value>
+      <Unit>t</Unit>
+    </TotalProduction>
+    <TotalEmissions>
+      <Direct>
+        <Value>4812.50</Value>
+        <Unit>tCO2e</Unit>
+      </Direct>
+      <Indirect>
+        <Value>1059.50</Value>
+        <Unit>tCO2e</Unit>
+      </Indirect>
+      <Total>
+        <Value>5972.00</Value>
+        <Unit>tCO2e</Unit>
+      </Total>
+    </TotalEmissions>
+    <WeightedAverageSpecificEmissions>
+      <Value>1.706286</Value>
+      <Unit>tCO2e/t</Unit>
+    </WeightedAverageSpecificEmissions>
+    <DataQuality>
+      <ProductsWithActualData>2</ProductsWithActualData>
+      <ProductsWithDefaultData>1</ProductsWithDefaultData>
+    </DataQuality>
+  </ConsolidatedSummary>
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       PACKAGE METADATA [NON-REGULATORY]
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <PackageMetadata regulatory="false" optional="true">
+    <GeneratingSoftware>
+      <Name>CBAM Data System</Name>
+      <Version>2.0.0</Version>
+      <SchemaVersion>2.0.0</SchemaVersion>
+    </GeneratingSoftware>
+    <GeneratedAt>2026-01-15T14:30:00Z</GeneratedAt>
+    <ClosedAt>2026-01-15T14:25:00Z</ClosedAt>
+    <IntegrityHash>sha256:a3f8c2d1e5b9f7a2c4d6e8f0a1b3c5d7e9f1a2b4c6d8e0f2a4b6c8d0e2f4a6b8</IntegrityHash>
+    
+    <!-- Avisos legais em múltiplos idiomas -->
+    <LegalDisclaimer language="en">
+IMPORTANT NOTICE: This document is NOT a CBAM submission report (QReport) and 
+cannot be submitted directly to the EU CBAM Registry. It is a CBAM Producer 
+Data Package containing emission data for use by EU importers in completing 
+their quarterly CBAM reports.
+
+The importer is solely responsible for:
+- Final verification and validation of all data
+- Commodity code classification (CN/HS codes)
+- Submission to the CBAM Registry
+- Acquisition of CBAM certificates
+
+This document does not constitute certification of emissions and is provided 
+for informational and data exchange purposes only.
+    </LegalDisclaimer>
+    
+    <LegalDisclaimer language="pt">
+AVISO IMPORTANTE: Este documento NÃO é um relatório de submissão CBAM (QReport) 
+e não pode ser submetido diretamente ao CBAM Registry da União Europeia. É um 
+CBAM Producer Data Package contendo dados de emissões para uso por importadores 
+europeus na elaboração de seus relatórios trimestrais CBAM.
+
+O importador é exclusivamente responsável por:
+- Verificação e validação final de todos os dados
+- Classificação de códigos aduaneiros (códigos CN/HS)
+- Submissão ao CBAM Registry
+- Aquisição de certificados CBAM
+
+Este documento não constitui certificação de emissões e é fornecido apenas 
+para fins informativos e de troca de dados.
+    </LegalDisclaimer>
+    
+  </PackageMetadata>
+  
+</CBAMProducerDataPackage>
+

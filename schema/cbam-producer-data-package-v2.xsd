@@ -1,0 +1,1356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ═══════════════════════════════════════════════════════════════════════════════
+  CBAM Producer Data Package XML Schema Definition (XSD) v2.0.0
+  ═══════════════════════════════════════════════════════════════════════════════
+  
+  Namespace:    https://cbam-spec.github.io/schema/package/v2
+  Target:       CBAMProducerDataPackage
+  Version:      2.0.0
+  License:      MIT
+  
+  ═══════════════════════════════════════════════════════════════════════════════
+  IMPORTANT DISCLAIMER
+  ═══════════════════════════════════════════════════════════════════════════════
+  
+  This XSD defines the CBAM Producer Data Package format - a structured data 
+  exchange format for producer-to-importer communication of emissions data 
+  under EU CBAM regulation.
+  
+  ⚠️ THIS IS NOT THE OFFICIAL EU CBAM SCHEMA
+  
+  This schema is NOT a substitute for official EU CBAM reporting requirements 
+  and cannot be submitted directly to the EU CBAM Registry.
+  
+  Purpose:
+  - Standardize data exchange between third-country producers and EU importers
+  - Enable automatic validation of exported data packages
+  - Facilitate integration with ERPs, audit tools, and third-party systems
+  
+  Field Classification:
+  - REGULATORY fields are directly required by EU 2023/956 (CBAM regulation)
+  - NON-REGULATORY fields are informative or for system metadata
+  - INFORMATIVE fields require final classification by the importer (e.g., CN codes)
+  
+  ═══════════════════════════════════════════════════════════════════════════════
+-->
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:cbam="https://cbam-spec.github.io/schema/package/v2"
+    targetNamespace="https://cbam-spec.github.io/schema/package/v2"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="2.0.0">
+
+  <!-- ═════════════════════════════════════════════════════════════════════════
+       ANNOTATIONS - Schema Documentation
+       ═════════════════════════════════════════════════════════════════════════ -->
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+      CBAM Producer Data Package Schema v2.0.0
+      
+      This schema defines the structure for exchanging CBAM emissions data
+      between third-country producers and EU importers.
+      
+      For validation: xmllint --schema cbam-producer-data-package-v2.xsd your-file.xml
+    </xs:documentation>
+    <xs:documentation xml:lang="pt">
+      Schema do CBAM Producer Data Package v2.0.0
+      
+      Este schema define a estrutura para troca de dados de emissões CBAM
+      entre produtores de países terceiros e importadores da UE.
+      
+      Para validação: xmllint --schema cbam-producer-data-package-v2.xsd seu-arquivo.xml
+    </xs:documentation>
+  </xs:annotation>
+
+  <!-- ═════════════════════════════════════════════════════════════════════════
+       SIMPLE TYPES - Constrained Value Types
+       ═════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- CN Code (Combined Nomenclature - 8 digits) -->
+  <xs:simpleType name="CNCodeType">
+    <xs:annotation>
+      <xs:documentation>
+        Combined Nomenclature code (8 digits). Used for EU customs classification.
+        Example: 72061000 (Iron and non-alloy steel)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{8}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- HS Code (Harmonized System - 6 digits) -->
+  <xs:simpleType name="HSCodeType">
+    <xs:annotation>
+      <xs:documentation>
+        Harmonized System code (6 digits). International trade classification.
+        Example: 720610
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{6}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Determination Type (01=actual, 02=default) -->
+  <xs:simpleType name="DeterminationTypeCode">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Emission determination type as per CBAM Annex III.
+        - 01: Actual data (measured/calculated from real production data)
+        - 02: Default values (transitional period fallback values)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01">
+        <xs:annotation>
+          <xs:documentation>Actual data from measurements or calculations</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="02">
+        <xs:annotation>
+          <xs:documentation>Default values (transitional period)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Quantity Type -->
+  <xs:simpleType name="QuantityTypeCode">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Type of quantity being reported.
+        - TOTAL_PRODUCTION: Total production at installation
+        - EU_EXPORT: Quantity exported to EU only
+        - REPORTED_BATCH: Specific batch reported
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TOTAL_PRODUCTION"/>
+      <xs:enumeration value="EU_EXPORT"/>
+      <xs:enumeration value="REPORTED_BATCH"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Methodology Code (CBAM Annex III) -->
+  <xs:simpleType name="MethodologyCodeType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Official CBAM methodology code as per Annex III.
+        - TOM01: Mass balance methodology
+        - TOM02: Direct emissions measurement (CEMS)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TOM01">
+        <xs:annotation>
+          <xs:documentation>Mass balance methodology</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TOM02">
+        <xs:annotation>
+          <xs:documentation>Continuous Emissions Monitoring System (CEMS)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Electricity Source Code -->
+  <xs:simpleType name="ElectricitySourceCodeType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Source of electricity emission factor.
+        - SOE01: Specific contract (PPA, renewable energy certificate)
+        - SOE02: National grid average factor
+        - SOE03: Other source (regional, specific calculation)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SOE01">
+        <xs:annotation>
+          <xs:documentation>Specific electricity purchase contract</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SOE02">
+        <xs:annotation>
+          <xs:documentation>National grid average emission factor</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SOE03">
+        <xs:annotation>
+          <xs:documentation>Other source (regional, specific)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Production Route Code -->
+  <xs:simpleType name="RouteCodeType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Production route code as per CBAM categorization.
+        Identifies the steelmaking/production process used.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BF-BOF">
+        <xs:annotation>
+          <xs:documentation>Blast Furnace + Basic Oxygen Furnace (integrated route)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EAF">
+        <xs:annotation>
+          <xs:documentation>Electric Arc Furnace (scrap-based)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DRI-EAF">
+        <xs:annotation>
+          <xs:documentation>Direct Reduced Iron + Electric Arc Furnace</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DRI-BOF">
+        <xs:annotation>
+          <xs:documentation>Direct Reduced Iron + Basic Oxygen Furnace</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="COREX">
+        <xs:annotation>
+          <xs:documentation>Smelting reduction process</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OTHER">
+        <xs:annotation>
+          <xs:documentation>Other production route</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Dataset Status -->
+  <xs:simpleType name="DatasetStatusType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Status of the data package.
+        - draft: Subject to change, period not closed
+        - final: Locked, period closed, data immutable
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="draft"/>
+      <xs:enumeration value="final"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Country Code (ISO 3166-1 alpha-2) -->
+  <xs:simpleType name="CountryCodeType">
+    <xs:annotation>
+      <xs:documentation>
+        ISO 3166-1 alpha-2 country code (2 uppercase letters).
+        Example: BR (Brazil), DE (Germany), CN (China)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z]{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Quarter (1-4) -->
+  <xs:simpleType name="QuarterType">
+    <xs:annotation>
+      <xs:documentation>
+        Reporting quarter (1-4).
+        Q1: Jan-Mar, Q2: Apr-Jun, Q3: Jul-Sep, Q4: Oct-Dec
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- CBAM Category -->
+  <xs:simpleType name="CBAMCategoryType">
+    <xs:annotation>
+      <xs:documentation>
+        CBAM goods category as per EU 2023/956 Annex I.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="iron"/>
+      <xs:enumeration value="steel"/>
+      <xs:enumeration value="aluminium"/>
+      <xs:enumeration value="cement"/>
+      <xs:enumeration value="fertiliser"/>
+      <xs:enumeration value="hydrogen"/>
+      <xs:enumeration value="electricity"/>
+      <xs:enumeration value="other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Calculation Status -->
+  <xs:simpleType name="CalculationStatusType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Status of the emission calculation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="not_calculated"/>
+      <xs:enumeration value="draft"/>
+      <xs:enumeration value="calculated"/>
+      <xs:enumeration value="verified"/>
+      <xs:enumeration value="locked"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Positive Decimal (for quantities and emissions) -->
+  <xs:simpleType name="PositiveDecimalType">
+    <xs:annotation>
+      <xs:documentation>
+        Non-negative decimal number with up to 6 decimal places.
+        Used for emissions and quantities.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:fractionDigits value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Version String -->
+  <xs:simpleType name="VersionStringType">
+    <xs:annotation>
+      <xs:documentation>
+        Version string in semantic versioning format (e.g., 2.0.0 or 2.0).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]+(\.[0-9]+)*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Measurement Unit -->
+  <xs:simpleType name="MeasurementUnitType">
+    <xs:annotation>
+      <xs:documentation>
+        Unit of measurement for production quantities.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="t">
+        <xs:annotation>
+          <xs:documentation>Metric tonnes (default)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kg">
+        <xs:annotation>
+          <xs:documentation>Kilograms</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MWh">
+        <xs:annotation>
+          <xs:documentation>Megawatt-hours (for electricity)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Emissions Unit -->
+  <xs:simpleType name="EmissionsUnitType">
+    <xs:annotation>
+      <xs:documentation>
+        Unit for absolute emissions values.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="tCO2e">
+        <xs:annotation>
+          <xs:documentation>Tonnes of CO2 equivalent</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kgCO2e">
+        <xs:annotation>
+          <xs:documentation>Kilograms of CO2 equivalent</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Specific Emissions Unit -->
+  <xs:simpleType name="SpecificEmissionsUnitType">
+    <xs:annotation>
+      <xs:documentation>
+        Unit for specific (intensity) emissions values.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="tCO2e/t">
+        <xs:annotation>
+          <xs:documentation>Tonnes CO2e per tonne of product (default)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tCO2e/MWh">
+        <xs:annotation>
+          <xs:documentation>Tonnes CO2e per MWh (for electricity)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kgCO2e/kg">
+        <xs:annotation>
+          <xs:documentation>Kilograms CO2e per kilogram of product</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- ═════════════════════════════════════════════════════════════════════════
+       ATTRIBUTE GROUPS - Common Attributes
+       ═════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Non-Regulatory Field Attributes -->
+  <xs:attributeGroup name="NonRegulatoryAttributes">
+    <xs:annotation>
+      <xs:documentation>
+        Attributes marking a field as non-regulatory (informative only).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="regulatory" type="xs:boolean" fixed="false"/>
+    <xs:attribute name="optional" type="xs:boolean" default="true"/>
+  </xs:attributeGroup>
+
+  <!-- Informative Field Attributes -->
+  <xs:attributeGroup name="InformativeAttributes">
+    <xs:annotation>
+      <xs:documentation>
+        Attributes marking a field as informative (e.g., CN codes that must be verified by importer).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="informative" type="xs:boolean" fixed="true"/>
+    <xs:attribute name="status" type="xs:string"/>
+  </xs:attributeGroup>
+
+  <!-- ═════════════════════════════════════════════════════════════════════════
+       COMPLEX TYPES - Structured Data Types
+       ═════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Address Type -->
+  <xs:complexType name="AddressType">
+    <xs:annotation>
+      <xs:documentation>
+        Address information for operators and installations.
+        Country is REGULATORY; other fields are NON-REGULATORY.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Country" type="cbam:CountryCodeType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: ISO 3166-1 alpha-2 country code</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubDivision" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: State, province, or region</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="City" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: City name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Street" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: Street address</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Contact Details Type -->
+  <xs:complexType name="ContactDetailsType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Contact information (minimal personal data).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Contact name or department</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+  </xs:complexType>
+
+  <!-- Dataset Identification Type -->
+  <xs:complexType name="DatasetIdentificationType">
+    <xs:annotation>
+      <xs:documentation>
+        Unique identification of the data package including versioning.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DatasetId" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Unique identifier for this dataset (UUID recommended)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Version" type="cbam:VersionStringType">
+        <xs:annotation>
+          <xs:documentation>Package version. Increments on recalculation, revision, or correction.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GenerationDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Date the package was generated</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DatasetStatus" type="cbam:DatasetStatusType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>draft = subject to change, final = locked (period closed)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Reporting Period Type -->
+  <xs:complexType name="ReportingPeriodType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Defines the reporting quarter and year.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Year" type="xs:gYear">
+        <xs:annotation>
+          <xs:documentation>Reporting year (e.g., 2026)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Quarter" type="cbam:QuarterType">
+        <xs:annotation>
+          <xs:documentation>Reporting quarter (1-4)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PeriodId" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Human-readable period identifier (e.g., "2026-Q1")</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubmissionDeadline" type="xs:date" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Deadline for CBAM report submission</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Operator Type -->
+  <xs:complexType name="OperatorType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Information about the operator (producing company).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OperatorId" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Unique operator identifier (e.g., CNPJ, CIN)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OperatorName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Operator name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LegalName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: Legal/registered name</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Address" type="cbam:AddressType">
+        <xs:annotation>
+          <xs:documentation>Operator address</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ContactDetails" type="cbam:ContactDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: Contact information</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Commodity Code Type -->
+  <xs:complexType name="CommodityCodeType">
+    <xs:annotation>
+      <xs:documentation>
+        INFORMATIVE: Commodity classification codes.
+        NOTE: Final classification responsibility lies with the EU importer.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CnCode">
+        <xs:annotation>
+          <xs:documentation>
+            INFORMATIVE: Combined Nomenclature 8-digit code.
+            If not provided, status attribute indicates reason.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attributeGroup ref="cbam:InformativeAttributes"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="HsCode" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>INFORMATIVE: Harmonized System 6-digit code</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attributeGroup ref="cbam:InformativeAttributes"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Production Type -->
+  <xs:complexType name="ProductionType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Production data for a product.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="QuantityType" type="cbam:QuantityTypeCode">
+        <xs:annotation>
+          <xs:documentation>Type of quantity being reported</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Quantity" type="cbam:PositiveDecimalType">
+        <xs:annotation>
+          <xs:documentation>Production quantity</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MeasurementUnit" type="cbam:MeasurementUnitType">
+        <xs:annotation>
+          <xs:documentation>Unit of measurement (default: t = metric tonnes)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Specific Emissions Value Type -->
+  <xs:complexType name="SpecificEmissionsValueType">
+    <xs:annotation>
+      <xs:documentation>
+        Specific emissions value with unit.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Value" type="cbam:PositiveDecimalType">
+        <xs:annotation>
+          <xs:documentation>Emissions value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Unit" type="cbam:SpecificEmissionsUnitType">
+        <xs:annotation>
+          <xs:documentation>Unit (default: tCO2e/t)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Determination Details Type -->
+  <xs:complexType name="DeterminationDetailsType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Human-readable details about determination methodology.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DataType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Type of data (Calculated, Measured, Default)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Method" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Method description</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+  </xs:complexType>
+
+  <!-- Electricity Factor Type -->
+  <xs:complexType name="ElectricityFactorType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Electricity emission factor details.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SourceCode" type="cbam:ElectricitySourceCodeType">
+        <xs:annotation>
+          <xs:documentation>Official CBAM source code (SOE01, SOE02, SOE03)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Value" type="cbam:PositiveDecimalType">
+        <xs:annotation>
+          <xs:documentation>Factor value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Unit" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Unit (typically tCO2e/MWh)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Direct Emissions Type -->
+  <xs:complexType name="DirectEmissionsType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Direct (Scope 1) emissions data.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DeterminationType" type="cbam:DeterminationTypeCode">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: 01=actual data, 02=default values</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MethodologyCode" type="cbam:MethodologyCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Official CBAM methodology code (TOM01, TOM02)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DeterminationDetails" type="cbam:DeterminationDetailsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: Human-readable methodology details</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Justification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: Justification for default values or methodology choices</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SpecificEmissions" type="cbam:SpecificEmissionsValueType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Specific direct emissions value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Indirect Emissions Type -->
+  <xs:complexType name="IndirectEmissionsType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Indirect (Scope 2) emissions data from electricity consumption.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DeterminationType" type="cbam:DeterminationTypeCode">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: 01=actual data, 02=default values</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ElectricityFactor" type="cbam:ElectricityFactorType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Electricity emission factor details</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Justification" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: Justification for default values or factor choices</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SpecificEmissions" type="cbam:SpecificEmissionsValueType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Specific indirect emissions value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Precursor Emissions Type -->
+  <xs:complexType name="PrecursorEmissionsType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Emissions from precursor materials (e.g., pig iron for steel).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SpecificEmissions" type="cbam:SpecificEmissionsValueType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Specific precursor emissions value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Embedded Emissions Type -->
+  <xs:complexType name="EmbeddedEmissionsType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Complete embedded emissions breakdown for a product.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DirectEmissions" type="cbam:DirectEmissionsType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Direct (Scope 1) emissions</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IndirectEmissions" type="cbam:IndirectEmissionsType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Indirect (Scope 2) emissions</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PrecursorEmissions" type="cbam:PrecursorEmissionsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Precursor material emissions (if applicable)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TotalSpecificEmissions" type="cbam:SpecificEmissionsValueType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Total specific embedded emissions</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Calculation Metadata Type -->
+  <xs:complexType name="CalculationMetadataType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Metadata about the calculation for traceability.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Version" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>Calculation version number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Status" type="cbam:CalculationStatusType">
+        <xs:annotation>
+          <xs:documentation>Calculation status</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+  </xs:complexType>
+
+  <!-- Product Type -->
+  <xs:complexType name="ProductType">
+    <xs:annotation>
+      <xs:documentation>
+        Complete product data including identification, production, and emissions.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ProductId" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Unique product identifier</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Description">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: Product description for human readability</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Category">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: CBAM goods category</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="cbam:CBAMCategoryType">
+              <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CommodityCode" type="cbam:CommodityCodeType">
+        <xs:annotation>
+          <xs:documentation>INFORMATIVE: Commodity classification codes (CN, HS)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Production" type="cbam:ProductionType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Production data</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EmbeddedEmissions" type="cbam:EmbeddedEmissionsType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Embedded emissions breakdown</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CalculationMetadata" type="cbam:CalculationMetadataType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: Calculation versioning and status</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="index" type="xs:positiveInteger" use="required">
+      <xs:annotation>
+        <xs:documentation>Product index within installation (1-based)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- Products Collection Type -->
+  <xs:complexType name="ProductsCollectionType">
+    <xs:annotation>
+      <xs:documentation>
+        Collection of products at an installation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Product" type="cbam:ProductType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Individual product data</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="count" type="xs:nonNegativeInteger" use="required">
+      <xs:annotation>
+        <xs:documentation>Number of products in this collection</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- Production Process Type -->
+  <xs:complexType name="ProductionProcessType">
+    <xs:annotation>
+      <xs:documentation>
+        REGULATORY: Production process information for an installation.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RouteCode" type="cbam:RouteCodeType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Official CBAM route code</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MethodologyCode" type="cbam:MethodologyCodeType">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Default methodology for the installation</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RegulatoryBasis" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>NON-REGULATORY: Regulatory reference for human readability</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Installation Type -->
+  <xs:complexType name="InstallationType">
+    <xs:annotation>
+      <xs:documentation>
+        Complete installation data including address, process, and products.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="InstallationId" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Unique installation identifier</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="InstallationName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Installation name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Address" type="cbam:AddressType">
+        <xs:annotation>
+          <xs:documentation>Installation address</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductionProcess" type="cbam:ProductionProcessType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>REGULATORY: Production process details</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Products" type="cbam:ProductsCollectionType">
+        <xs:annotation>
+          <xs:documentation>Products manufactured at this installation</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="index" type="xs:positiveInteger" use="required">
+      <xs:annotation>
+        <xs:documentation>Installation index within package (1-based)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- Installations Collection Type -->
+  <xs:complexType name="InstallationsCollectionType">
+    <xs:annotation>
+      <xs:documentation>
+        Collection of installations in the package.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Installation" type="cbam:InstallationType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Individual installation data</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="count" type="xs:nonNegativeInteger" use="required">
+      <xs:annotation>
+        <xs:documentation>Number of installations in this collection</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- Absolute Emissions Value Type -->
+  <xs:complexType name="AbsoluteEmissionsValueType">
+    <xs:annotation>
+      <xs:documentation>
+        Absolute emissions value with unit (for totals).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Value" type="cbam:PositiveDecimalType">
+        <xs:annotation>
+          <xs:documentation>Emissions value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Unit" type="cbam:EmissionsUnitType">
+        <xs:annotation>
+          <xs:documentation>Unit (default: tCO2e)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Production Value Type -->
+  <xs:complexType name="ProductionValueType">
+    <xs:annotation>
+      <xs:documentation>
+        Production value with unit (for totals).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Value" type="cbam:PositiveDecimalType">
+        <xs:annotation>
+          <xs:documentation>Production value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Unit" type="cbam:MeasurementUnitType">
+        <xs:annotation>
+          <xs:documentation>Unit (default: t)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Total Emissions Type -->
+  <xs:complexType name="TotalEmissionsType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Aggregated emissions totals for summary.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Direct" type="cbam:AbsoluteEmissionsValueType">
+        <xs:annotation>
+          <xs:documentation>Total direct emissions</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Indirect" type="cbam:AbsoluteEmissionsValueType">
+        <xs:annotation>
+          <xs:documentation>Total indirect emissions</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Total" type="cbam:AbsoluteEmissionsValueType">
+        <xs:annotation>
+          <xs:documentation>Combined total emissions</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Data Quality Type -->
+  <xs:complexType name="DataQualityType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Data quality indicators for the package.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ProductsWithActualData" type="xs:nonNegativeInteger">
+        <xs:annotation>
+          <xs:documentation>Number of products using actual (measured) data</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductsWithDefaultData" type="xs:nonNegativeInteger">
+        <xs:annotation>
+          <xs:documentation>Number of products using default values</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Consolidated Summary Type -->
+  <xs:complexType name="ConsolidatedSummaryType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Aggregated summary data for the entire package.
+        WARNING: This section is INFORMATIVE ONLY. Individual product data is authoritative.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TotalInstallations" type="xs:nonNegativeInteger">
+        <xs:annotation>
+          <xs:documentation>Total number of installations</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TotalProducts" type="xs:nonNegativeInteger">
+        <xs:annotation>
+          <xs:documentation>Total number of products</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TotalProduction" type="cbam:ProductionValueType">
+        <xs:annotation>
+          <xs:documentation>Total production quantity</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TotalEmissions" type="cbam:TotalEmissionsType">
+        <xs:annotation>
+          <xs:documentation>Total emissions breakdown</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WeightedAverageSpecificEmissions" type="cbam:SpecificEmissionsValueType">
+        <xs:annotation>
+          <xs:documentation>Production-weighted average specific emissions</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DataQuality" type="cbam:DataQualityType">
+        <xs:annotation>
+          <xs:documentation>Data quality indicators</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+  </xs:complexType>
+
+  <!-- Generating Software Type -->
+  <xs:complexType name="GeneratingSoftwareType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Information about the software that generated the package.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Software name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Version" type="cbam:VersionStringType">
+        <xs:annotation>
+          <xs:documentation>Software version</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SchemaVersion" type="cbam:VersionStringType">
+        <xs:annotation>
+          <xs:documentation>Schema version used</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Legal Disclaimer Type -->
+  <xs:complexType name="LegalDisclaimerType">
+    <xs:annotation>
+      <xs:documentation>
+        Legal disclaimer text with language attribute.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="language" type="xs:language" use="required">
+          <xs:annotation>
+            <xs:documentation>Language code (e.g., "en", "pt")</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- Package Metadata Type -->
+  <xs:complexType name="PackageMetadataType">
+    <xs:annotation>
+      <xs:documentation>
+        NON-REGULATORY: Package metadata for traceability and audit purposes.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="GeneratingSoftware" type="cbam:GeneratingSoftwareType">
+        <xs:annotation>
+          <xs:documentation>Software that generated this package</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GeneratedAt" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Timestamp when package was generated</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ClosedAt" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Timestamp when period was closed (if final)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IntegrityHash" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Hash for data immutability verification</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LegalDisclaimer" type="cbam:LegalDisclaimerType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Legal disclaimers in various languages</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="cbam:NonRegulatoryAttributes"/>
+  </xs:complexType>
+
+  <!-- ═════════════════════════════════════════════════════════════════════════
+       ROOT ELEMENT - CBAMProducerDataPackage
+       ═════════════════════════════════════════════════════════════════════════ -->
+
+  <xs:element name="CBAMProducerDataPackage">
+    <xs:annotation>
+      <xs:documentation>
+        Root element for CBAM Producer Data Package.
+        
+        This document contains emissions data from a third-country producer
+        for use by EU importers in completing their CBAM quarterly reports.
+        
+        ⚠️ THIS IS NOT A CBAM SUBMISSION REPORT (QReport).
+        It cannot be submitted directly to the EU CBAM Registry.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="DatasetIdentification" type="cbam:DatasetIdentificationType">
+          <xs:annotation>
+            <xs:documentation>Unique identification and versioning of this dataset</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ReportingPeriod" type="cbam:ReportingPeriodType">
+          <xs:annotation>
+            <xs:documentation>REGULATORY: Reporting quarter and year</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Operator" type="cbam:OperatorType">
+          <xs:annotation>
+            <xs:documentation>REGULATORY: Operator (producing company) information</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Installations" type="cbam:InstallationsCollectionType">
+          <xs:annotation>
+            <xs:documentation>Collection of installations and their products</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ConsolidatedSummary" type="cbam:ConsolidatedSummaryType" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>NON-REGULATORY: Aggregated summary (informative only)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="PackageMetadata" type="cbam:PackageMetadataType" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>NON-REGULATORY: Package metadata for traceability</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="version" type="cbam:VersionStringType" use="required">
+        <xs:annotation>
+          <xs:documentation>Package version (e.g., "2.0")</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="schemaVersion" type="cbam:VersionStringType" use="required">
+        <xs:annotation>
+          <xs:documentation>Schema version (e.g., "2.0.0")</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         UNIQUE CONSTRAINTS
+         ═══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Installation IDs must be unique within the package -->
+    <xs:unique name="uniqueInstallationId">
+      <xs:selector xpath="cbam:Installations/cbam:Installation"/>
+      <xs:field xpath="cbam:InstallationId"/>
+    </xs:unique>
+
+    <!-- Product IDs must be unique within the entire package -->
+    <xs:unique name="uniqueProductId">
+      <xs:selector xpath="cbam:Installations/cbam:Installation/cbam:Products/cbam:Product"/>
+      <xs:field xpath="cbam:ProductId"/>
+    </xs:unique>
+
+  </xs:element>
+
+</xs:schema>
+

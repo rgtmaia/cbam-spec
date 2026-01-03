@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ═══════════════════════════════════════════════════════════════════════════════
+  CBAM Producer Data Package v2.0.0 - Exemplo Mínimo
+  ═══════════════════════════════════════════════════════════════════════════════
+  
+  Este exemplo demonstra a estrutura mínima válida de um CBAM Producer Data Package.
+  Contém apenas os campos obrigatórios e uma instalação com um único produto.
+  
+  Uso didático: Ideal para compreender a estrutura básica do formato.
+  
+  Validação: xmllint --schema ../schema/cbam-producer-data-package-v2.xsd example-v2-minimal.xml --noout
+  
+  ═══════════════════════════════════════════════════════════════════════════════
+-->
+<CBAMProducerDataPackage 
+    xmlns="https://cbam-spec.github.io/schema/package/v2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://cbam-spec.github.io/schema/package/v2 ../schema/cbam-producer-data-package-v2.xsd"
+    version="2.0"
+    schemaVersion="2.0.0">
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       DATASET IDENTIFICATION
+       Identificação única do pacote de dados
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <DatasetIdentification>
+    <DatasetId>a1b2c3d4-e5f6-7890-abcd-ef1234567890</DatasetId>
+    <Version>1.0</Version>
+    <GenerationDate>2026-01-15</GenerationDate>
+    <DatasetStatus>draft</DatasetStatus>
+  </DatasetIdentification>
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       REPORTING PERIOD [REGULATORY]
+       Define o trimestre de referência
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <ReportingPeriod>
+    <Year>2026</Year>
+    <Quarter>1</Quarter>
+    <PeriodId>2026-Q1</PeriodId>
+  </ReportingPeriod>
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       OPERATOR [REGULATORY]
+       Informações da empresa produtora
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <Operator>
+    <OperatorId>00.000.000/0001-00</OperatorId>
+    <OperatorName>Exemplo Metalúrgica S.A.</OperatorName>
+    <Address>
+      <Country>BR</Country>
+    </Address>
+  </Operator>
+  
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       INSTALLATIONS
+       Uma instalação com um produto (mínimo válido)
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <Installations count="1">
+    <Installation index="1">
+      <InstallationId>INST-001</InstallationId>
+      <InstallationName>Planta Industrial</InstallationName>
+      <Address>
+        <Country>BR</Country>
+      </Address>
+      
+      <!-- Processo produtivo (opcional mas recomendado) -->
+      <ProductionProcess>
+        <RouteCode>EAF</RouteCode>
+        <MethodologyCode>TOM01</MethodologyCode>
+      </ProductionProcess>
+      
+      <Products count="1">
+        <Product index="1">
+          <ProductId>PROD-001</ProductId>
+          <Description regulatory="false" optional="true">Aço Carbono</Description>
+          <Category regulatory="false" optional="true">steel</Category>
+          
+          <!-- Código CN informativo (responsabilidade do importador) -->
+          <CommodityCode>
+            <CnCode informative="true">72163100</CnCode>
+          </CommodityCode>
+          
+          <!-- Dados de produção [REGULATORY] -->
+          <Production>
+            <QuantityType>TOTAL_PRODUCTION</QuantityType>
+            <Quantity>500.00</Quantity>
+            <MeasurementUnit>t</MeasurementUnit>
+          </Production>
+          
+          <!-- Emissões incorporadas [REGULATORY] -->
+          <EmbeddedEmissions>
+            <!-- Emissões diretas (Scope 1) -->
+            <DirectEmissions>
+              <DeterminationType>01</DeterminationType>
+              <MethodologyCode>TOM01</MethodologyCode>
+              <SpecificEmissions>
+                <Value>0.650000</Value>
+                <Unit>tCO2e/t</Unit>
+              </SpecificEmissions>
+            </DirectEmissions>
+            
+            <!-- Emissões indiretas (Scope 2 - eletricidade) -->
+            <IndirectEmissions>
+              <DeterminationType>01</DeterminationType>
+              <SpecificEmissions>
+                <Value>0.180000</Value>
+                <Unit>tCO2e/t</Unit>
+              </SpecificEmissions>
+            </IndirectEmissions>
+            
+            <!-- Total de emissões específicas -->
+            <TotalSpecificEmissions>
+              <Value>0.830000</Value>
+              <Unit>tCO2e/t</Unit>
+            </TotalSpecificEmissions>
+          </EmbeddedEmissions>
+        </Product>
+      </Products>
+    </Installation>
+  </Installations>
+  
+</CBAMProducerDataPackage>
+
