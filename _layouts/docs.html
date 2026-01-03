@@ -923,10 +923,18 @@
   </style>
 </head>
 <body>
+  {% assign is_pt = false %}
+  {% if page.lang == 'pt-BR' %}
+    {% assign is_pt = true %}
+    {% assign lang_prefix = '/pt-br' %}
+  {% else %}
+    {% assign lang_prefix = '' %}
+  {% endif %}
+
   <!-- Compact Header -->
   <header class="header-compact">
     <div class="header-compact-content">
-      <a href="{{ '/' | relative_url }}" class="header-brand">
+      <a href="{{ lang_prefix | append: '/' | relative_url }}" class="header-brand">
         <div class="header-logo">
           <i class="fas fa-leaf"></i>
         </div>
@@ -950,47 +958,47 @@
   <nav class="nav-bar">
     <div class="nav-container">
       <div class="nav-links">
-        <a href="{{ '/' | relative_url }}" class="nav-link">
-          <i class="fas fa-home"></i> Home
+        <a href="{{ lang_prefix | append: '/' | relative_url }}" class="nav-link">
+          <i class="fas fa-home"></i> {% if is_pt %}Início{% else %}Home{% endif %}
         </a>
-        <a href="{{ '/getting-started' | relative_url }}" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">
-          <i class="fas fa-rocket"></i> Getting Started
+        <a href="{{ lang_prefix | append: '/getting-started' | relative_url }}" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">
+          <i class="fas fa-rocket"></i> {% if is_pt %}Começar{% else %}Getting Started{% endif %}
         </a>
-        <a href="{{ '/docs/concept' | relative_url }}" class="nav-link {% if page.url contains '/docs/concept' %}active{% endif %}">
-          <i class="fas fa-book"></i> Concept
+        <a href="{{ lang_prefix | append: '/docs/concept' | relative_url }}" class="nav-link {% if page.url contains '/docs/concept' %}active{% endif %}">
+          <i class="fas fa-book"></i> {% if is_pt %}Conceito{% else %}Concept{% endif %}
         </a>
-        <a href="{{ '/docs/structure' | relative_url }}" class="nav-link {% if page.url contains '/docs/structure' %}active{% endif %}">
-          <i class="fas fa-sitemap"></i> Structure
+        <a href="{{ lang_prefix | append: '/docs/structure' | relative_url }}" class="nav-link {% if page.url contains '/docs/structure' %}active{% endif %}">
+          <i class="fas fa-sitemap"></i> {% if is_pt %}Estrutura{% else %}Structure{% endif %}
         </a>
-        <a href="{{ '/docs/lifecycle' | relative_url }}" class="nav-link {% if page.url contains '/docs/lifecycle' %}active{% endif %}">
-          <i class="fas fa-sync-alt"></i> Lifecycle
+        <a href="{{ lang_prefix | append: '/docs/lifecycle' | relative_url }}" class="nav-link {% if page.url contains '/docs/lifecycle' %}active{% endif %}">
+          <i class="fas fa-sync-alt"></i> {% if is_pt %}Ciclo de Vida{% else %}Lifecycle{% endif %}
         </a>
-        <a href="{{ '/docs/legal-notices' | relative_url }}" class="nav-link {% if page.url contains '/docs/legal-notices' %}active{% endif %}">
-          <i class="fas fa-balance-scale"></i> Legal Notices
+        <a href="{{ lang_prefix | append: '/docs/legal-notices' | relative_url }}" class="nav-link {% if page.url contains '/docs/legal-notices' %}active{% endif %}">
+          <i class="fas fa-balance-scale"></i> {% if is_pt %}Avisos Legais{% else %}Legal Notices{% endif %}
         </a>
       </div>
       <div class="nav-right">
         <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}" class="nav-link">
-          <i class="fas fa-file-code"></i> Examples
+          <i class="fas fa-file-code"></i> {% if is_pt %}Exemplos{% else %}Examples{% endif %}
         </a>
         <div class="lang-switcher">
-          <button class="lang-btn" title="Change language">
+          <button class="lang-btn" title="{% if is_pt %}Mudar idioma{% else %}Change language{% endif %}">
             <i class="fas fa-globe"></i>
-            <span id="current-lang">EN</span>
+            <span id="current-lang">{% if is_pt %}PT{% else %}EN{% endif %}</span>
             <i class="fas fa-chevron-down" style="font-size: 0.5rem;"></i>
           </button>
           <div class="lang-dropdown">
-            <a href="{{ '/' | relative_url }}" class="lang-option {% unless page.lang == 'pt-BR' %}active{% endunless %}" data-lang="en">
+            <a href="{{ '/' | relative_url }}" class="lang-option {% unless is_pt %}active{% endunless %}" data-lang="en">
               <span class="lang-flag">🇬🇧</span>
               <span>English</span>
             </a>
-            <a href="{{ '/pt-br/' | relative_url }}" class="lang-option {% if page.lang == 'pt-BR' %}active{% endif %}" data-lang="pt-BR">
+            <a href="{{ '/pt-br/' | relative_url }}" class="lang-option {% if is_pt %}active{% endif %}" data-lang="pt-BR">
               <span class="lang-flag">🇧🇷</span>
               <span>Português (BR)</span>
             </a>
           </div>
         </div>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <button class="theme-toggle" onclick="toggleTheme()" title="{% if is_pt %}Alternar tema{% else %}Toggle theme{% endif %}">
           <i class="fas fa-moon"></i>
           <i class="fas fa-sun"></i>
         </button>
@@ -1018,7 +1026,7 @@
       {% if page.prev_page %}
       <a href="{{ page.prev_page.url | relative_url }}" class="docs-nav-link">
         <div class="docs-nav-label">
-          <i class="fas fa-arrow-left"></i> Previous
+          <i class="fas fa-arrow-left"></i> {% if is_pt %}Anterior{% else %}Previous{% endif %}
         </div>
         <div class="docs-nav-title">{{ page.prev_page.title }}</div>
       </a>
@@ -1029,7 +1037,7 @@
       {% if page.next_page %}
       <a href="{{ page.next_page.url | relative_url }}" class="docs-nav-link next">
         <div class="docs-nav-label">
-          Next <i class="fas fa-arrow-right"></i>
+          {% if is_pt %}Próximo{% else %}Next{% endif %} <i class="fas fa-arrow-right"></i>
         </div>
         <div class="docs-nav-title">{{ page.next_page.title }}</div>
       </a>

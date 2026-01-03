@@ -1064,6 +1064,14 @@
   </style>
 </head>
 <body>
+  {% assign is_pt = false %}
+  {% if page.lang == 'pt-BR' %}
+    {% assign is_pt = true %}
+    {% assign lang_prefix = '/pt-br' %}
+  {% else %}
+    {% assign lang_prefix = '' %}
+  {% endif %}
+
   <!-- Hero Section -->
   <header class="hero">
     <div class="hero-content">
@@ -1072,11 +1080,19 @@
         <span>Open Standard v2.0</span>
       </div>
       <h1>CBAM Producer Data Package</h1>
+      {% if is_pt %}
+      <p class="hero-tagline">Padronize a comunicação de emissões e simplifique sua conformidade CBAM</p>
+      <p class="hero-subtitle">
+        Especificação técnica pública para troca de dados de emissões entre produtores 
+        de países terceiros e importadores europeus no contexto do Carbon Border Adjustment Mechanism.
+      </p>
+      {% else %}
       <p class="hero-tagline">Standardise emissions data exchange and simplify your CBAM compliance</p>
       <p class="hero-subtitle">
         An open technical specification for exchanging embedded emissions data between 
         third-country producers and EU importers under the Carbon Border Adjustment Mechanism.
       </p>
+      {% endif %}
       <div class="hero-buttons">
         <a href="{{ '/schema/cbam-producer-data-package-v2.xsd' | relative_url }}" class="btn btn-primary">
           <i class="fas fa-download"></i>
@@ -1084,7 +1100,7 @@
         </a>
         <a href="{{ site.github.repository_url }}" class="btn btn-secondary">
           <i class="fab fa-github"></i>
-          View on GitHub
+          {% if is_pt %}Ver no GitHub{% else %}View on GitHub{% endif %}
         </a>
       </div>
     </div>
@@ -1094,47 +1110,47 @@
   <nav class="nav-bar">
     <div class="nav-container">
       <div class="nav-links">
-        <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' or page.url == '/index.html' %}active{% endif %}">
-          <i class="fas fa-home"></i> Home
+        <a href="{{ lang_prefix | append: '/' | relative_url }}" class="nav-link {% if page.url == '/' or page.url == '/index.html' or page.url == '/pt-br/' or page.url == '/pt-br/index.html' %}active{% endif %}">
+          <i class="fas fa-home"></i> {% if is_pt %}Início{% else %}Home{% endif %}
         </a>
-        <a href="{{ '/getting-started' | relative_url }}" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">
-          <i class="fas fa-rocket"></i> Getting Started
+        <a href="{{ lang_prefix | append: '/getting-started' | relative_url }}" class="nav-link {% if page.url contains 'getting-started' %}active{% endif %}">
+          <i class="fas fa-rocket"></i> {% if is_pt %}Começar{% else %}Getting Started{% endif %}
         </a>
-        <a href="{{ '/docs/concept' | relative_url }}" class="nav-link {% if page.url contains '/docs/concept' %}active{% endif %}">
-          <i class="fas fa-book"></i> Concept
+        <a href="{{ lang_prefix | append: '/docs/concept' | relative_url }}" class="nav-link {% if page.url contains '/docs/concept' %}active{% endif %}">
+          <i class="fas fa-book"></i> {% if is_pt %}Conceito{% else %}Concept{% endif %}
         </a>
-        <a href="{{ '/docs/structure' | relative_url }}" class="nav-link {% if page.url contains '/docs/structure' %}active{% endif %}">
-          <i class="fas fa-sitemap"></i> Structure
+        <a href="{{ lang_prefix | append: '/docs/structure' | relative_url }}" class="nav-link {% if page.url contains '/docs/structure' %}active{% endif %}">
+          <i class="fas fa-sitemap"></i> {% if is_pt %}Estrutura{% else %}Structure{% endif %}
         </a>
-        <a href="{{ '/docs/lifecycle' | relative_url }}" class="nav-link {% if page.url contains '/docs/lifecycle' %}active{% endif %}">
-          <i class="fas fa-sync-alt"></i> Lifecycle
+        <a href="{{ lang_prefix | append: '/docs/lifecycle' | relative_url }}" class="nav-link {% if page.url contains '/docs/lifecycle' %}active{% endif %}">
+          <i class="fas fa-sync-alt"></i> {% if is_pt %}Ciclo de Vida{% else %}Lifecycle{% endif %}
         </a>
-        <a href="{{ '/docs/legal-notices' | relative_url }}" class="nav-link {% if page.url contains '/docs/legal-notices' %}active{% endif %}">
-          <i class="fas fa-balance-scale"></i> Legal Notices
+        <a href="{{ lang_prefix | append: '/docs/legal-notices' | relative_url }}" class="nav-link {% if page.url contains '/docs/legal-notices' %}active{% endif %}">
+          <i class="fas fa-balance-scale"></i> {% if is_pt %}Avisos Legais{% else %}Legal Notices{% endif %}
         </a>
       </div>
       <div class="nav-right">
         <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}" class="nav-link">
-          <i class="fas fa-file-code"></i> Examples
+          <i class="fas fa-file-code"></i> {% if is_pt %}Exemplos{% else %}Examples{% endif %}
         </a>
         <div class="lang-switcher">
-          <button class="lang-btn" title="Change language">
+          <button class="lang-btn" title="{% if is_pt %}Mudar idioma{% else %}Change language{% endif %}">
             <i class="fas fa-globe"></i>
-            <span id="current-lang">EN</span>
+            <span id="current-lang">{% if is_pt %}PT{% else %}EN{% endif %}</span>
             <i class="fas fa-chevron-down" style="font-size: 0.625rem;"></i>
           </button>
           <div class="lang-dropdown">
-            <a href="{{ '/' | relative_url }}" class="lang-option {% unless page.lang == 'pt-BR' %}active{% endunless %}" data-lang="en">
+            <a href="{{ '/' | relative_url }}" class="lang-option {% unless is_pt %}active{% endunless %}" data-lang="en">
               <span class="lang-flag">🇬🇧</span>
               <span>English</span>
             </a>
-            <a href="{{ '/pt-br/' | relative_url }}" class="lang-option {% if page.lang == 'pt-BR' %}active{% endif %}" data-lang="pt-BR">
+            <a href="{{ '/pt-br/' | relative_url }}" class="lang-option {% if is_pt %}active{% endif %}" data-lang="pt-BR">
               <span class="lang-flag">🇧🇷</span>
               <span>Português (BR)</span>
             </a>
           </div>
         </div>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <button class="theme-toggle" onclick="toggleTheme()" title="{% if is_pt %}Alternar tema{% else %}Toggle theme{% endif %}">
           <i class="fas fa-moon"></i>
           <i class="fas fa-sun"></i>
         </button>
@@ -1151,42 +1167,42 @@
   <footer>
     <div class="footer-content">
       <div class="footer-section">
-        <h4>Documentation</h4>
-        <a href="{{ '/getting-started' | relative_url }}">Getting Started</a>
-        <a href="{{ '/docs/concept' | relative_url }}">Concept</a>
-        <a href="{{ '/docs/structure' | relative_url }}">XML Structure</a>
-        <a href="{{ '/docs/lifecycle' | relative_url }}">Lifecycle</a>
+        <h4>{% if is_pt %}Documentação{% else %}Documentation{% endif %}</h4>
+        <a href="{{ lang_prefix | append: '/getting-started' | relative_url }}">{% if is_pt %}Começar{% else %}Getting Started{% endif %}</a>
+        <a href="{{ lang_prefix | append: '/docs/concept' | relative_url }}">{% if is_pt %}Conceito{% else %}Concept{% endif %}</a>
+        <a href="{{ lang_prefix | append: '/docs/structure' | relative_url }}">{% if is_pt %}Estrutura XML{% else %}XML Structure{% endif %}</a>
+        <a href="{{ lang_prefix | append: '/docs/lifecycle' | relative_url }}">{% if is_pt %}Ciclo de Vida{% else %}Lifecycle{% endif %}</a>
       </div>
       <div class="footer-section">
-        <h4>Resources</h4>
+        <h4>{% if is_pt %}Recursos{% else %}Resources{% endif %}</h4>
         <a href="{{ '/schema/cbam-producer-data-package-v2.xsd' | relative_url }}">Download Schema XSD</a>
-        <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}">Complete Example</a>
-        <a href="{{ '/examples/example-v2-minimal.xml' | relative_url }}">Minimal Example</a>
+        <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}">{% if is_pt %}Exemplo Completo{% else %}Complete Example{% endif %}</a>
+        <a href="{{ '/examples/example-v2-minimal.xml' | relative_url }}">{% if is_pt %}Exemplo Mínimo{% else %}Minimal Example{% endif %}</a>
       </div>
       <div class="footer-section">
-        <h4>References</h4>
+        <h4>{% if is_pt %}Referências{% else %}References{% endif %}</h4>
         <a href="https://eur-lex.europa.eu/eli/reg/2023/956" target="_blank">EU 2023/956</a>
         <a href="https://eur-lex.europa.eu/eli/reg_impl/2023/1773" target="_blank">EU 2023/1773</a>
         <a href="https://cbam.ec.europa.eu/" target="_blank">CBAM Registry</a>
       </div>
       <div class="footer-section">
-        <h4>Community</h4>
+        <h4>{% if is_pt %}Comunidade{% else %}Community{% endif %}</h4>
         <a href="{{ site.github.repository_url }}">GitHub</a>
-        <a href="{{ site.github.repository_url }}/issues">Report Issue</a>
-        <a href="{{ site.github.repository_url }}/blob/main/LICENSE">MIT Licence</a>
+        <a href="{{ site.github.repository_url }}/issues">{% if is_pt %}Reportar Problema{% else %}Report Issue{% endif %}</a>
+        <a href="{{ site.github.repository_url }}/blob/main/LICENSE">{% if is_pt %}Licença MIT{% else %}MIT Licence{% endif %}</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p><strong>CBAM Producer Data Package Specification v2.0</strong> · Maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name | default: 'rgtmaia' }}</a></p>
+      <p><strong>CBAM Producer Data Package Specification v2.0</strong> · {% if is_pt %}Mantido por{% else %}Maintained by{% endif %} <a href="{{ site.github.owner_url }}">{{ site.github.owner_name | default: 'rgtmaia' }}</a></p>
       <div class="footer-meta">
         <span><i class="fas fa-code-branch"></i> v2.0.0</span>
-        <span><i class="fas fa-calendar-alt"></i> Updated: {{ site.time | date: "%b %Y" }}</span>
+        <span><i class="fas fa-calendar-alt"></i> {% if is_pt %}Atualizado:{% else %}Updated:{% endif %} {{ site.time | date: "%b %Y" }}</span>
       </div>
     </div>
   </footer>
 
   <!-- Scroll to Top Button -->
-  <button class="scroll-top" onclick="scrollToTop()" title="Back to top">
+  <button class="scroll-top" onclick="scrollToTop()" title="{% if is_pt %}Voltar ao topo{% else %}Back to top{% endif %}">
     <i class="fas fa-chevron-up"></i>
   </button>
 
