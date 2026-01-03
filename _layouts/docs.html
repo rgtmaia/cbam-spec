@@ -773,6 +773,78 @@
     .scroll-top:hover {
       transform: translateY(-3px);
     }
+
+    /* ========================================
+       CARDS GRID
+       ======================================== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      background: var(--color-bg-light);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-border-light);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+      color: var(--color-text);
+    }
+
+    .card p {
+      color: var(--color-text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -833,21 +905,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- Breadcrumbs -->
-  <div class="breadcrumbs">
-    <div class="breadcrumbs-content">
-      <a href="{{ '/' | relative_url }}" class="breadcrumb-link">
-        <i class="fas fa-home"></i> Início
-      </a>
-      <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-      {% if page.url contains '/docs/' %}
-        <a href="{{ '/docs/concept' | relative_url }}" class="breadcrumb-link">Documentação</a>
-        <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-      {% endif %}
-      <span class="breadcrumb-current">{{ page.breadcrumb | default: page.title }}</span>
-    </div>
-  </div>
 
   <!-- Page Header -->
   <div class="page-header">
