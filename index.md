@@ -1,67 +1,124 @@
 ---
 layout: default
 title: "CBAM Producer Data Package Specification"
-description: "CBAM Producer Data Package Specification - open technical standard for emissions data exchange under EU CBAM regulation between third-country producers and European importers."
+description: "Especificação técnica pública para troca de dados de emissões no contexto do CBAM europeu."
 ---
 
-# CBAM Producer Data Package Specification
+<!-- Alert Box -->
+<div class="alert">
+  <div class="alert-title">
+    <i class="fas fa-exclamation-triangle"></i>
+    Aviso Legal Importante
+  </div>
+  <p><strong>Este documento NÃO é um relatório de submissão CBAM (QReport).</strong></p>
+  <ul>
+    <li>❌ <strong>NÃO pode</strong> ser submetido diretamente ao CBAM Registry da UE</li>
+    <li>❌ <strong>NÃO substitui</strong> os formulários oficiais da Comissão Europeia</li>
+    <li>❌ <strong>NÃO contém</strong> metodologias de cálculo ou algoritmos proprietários</li>
+  </ul>
+</div>
 
-> **Versão:** 2.0  
-> **Última Atualização:** Janeiro 2026  
-> **Licença:** MIT  
-> **Namespace:** `https://rgtmaia.github.io/cbam-spec/schema/package/v2`
+## <i class="fas fa-book-open"></i> Documentação
+
+<div class="cards-grid">
+  <a href="{{ '/docs/concept' | relative_url }}" class="card" style="text-decoration: none;">
+    <div class="card-icon">
+      <i class="fas fa-lightbulb"></i>
+    </div>
+    <h3>Conceito</h3>
+    <p>O que é o CBAM Producer Data Package, seu propósito e contexto regulatório.</p>
+  </a>
+  
+  <a href="{{ '/docs/structure' | relative_url }}" class="card" style="text-decoration: none;">
+    <div class="card-icon">
+      <i class="fas fa-sitemap"></i>
+    </div>
+    <h3>Estrutura XML</h3>
+    <p>Hierarquia do documento, tipos de dados e enumerações disponíveis.</p>
+  </a>
+  
+  <a href="{{ '/docs/lifecycle' | relative_url }}" class="card" style="text-decoration: none;">
+    <div class="card-icon">
+      <i class="fas fa-sync-alt"></i>
+    </div>
+    <h3>Ciclo de Vida</h3>
+    <p>Estados draft → final, versionamento e governança de dados.</p>
+  </a>
+  
+  <a href="{{ '/docs/legal-notices' | relative_url }}" class="card" style="text-decoration: none;">
+    <div class="card-icon">
+      <i class="fas fa-balance-scale"></i>
+    </div>
+    <h3>Avisos Legais</h3>
+    <p>Disclaimers, responsabilidades e limitações do formato.</p>
+  </a>
+</div>
 
 ---
 
-## 📑 Navegação Rápida
+## <i class="fas fa-download"></i> Downloads
 
-| Seção | Descrição |
-|-------|-----------|
-| [📘 Conceito](docs/concept.md) | O que é o formato e seu propósito |
-| [🏗️ Estrutura XML](docs/structure.md) | Hierarquia e tipos de dados |
-| [🔄 Versionamento](docs/lifecycle.md) | Ciclo de vida draft → final |
-| [⚖️ Avisos Legais](docs/legal-notices.md) | Disclaimers e limitações |
+<div class="download-box">
+  <div class="download-item">
+    <div class="download-info">
+      <div class="download-icon">
+        <i class="fas fa-file-code"></i>
+      </div>
+      <div>
+        <div class="download-name">Schema XSD v2.0</div>
+        <div class="download-desc">Schema XML para validação de pacotes</div>
+      </div>
+    </div>
+    <a href="{{ '/schema/cbam-producer-data-package-v2.xsd' | relative_url }}" class="btn btn-primary">
+      <i class="fas fa-download"></i> Download XSD
+    </a>
+  </div>
+  
+  <div class="download-item">
+    <div class="download-info">
+      <div class="download-icon" style="background: var(--color-info);">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <div>
+        <div class="download-name">Exemplo Mínimo</div>
+        <div class="download-desc">Estrutura básica com 1 instalação e 1 produto</div>
+      </div>
+    </div>
+    <a href="{{ '/examples/example-v2-minimal.xml' | relative_url }}" class="btn btn-secondary">
+      <i class="fas fa-eye"></i> Ver Exemplo
+    </a>
+  </div>
+  
+  <div class="download-item">
+    <div class="download-info">
+      <div class="download-icon" style="background: var(--color-success);">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <div>
+        <div class="download-name">Exemplo Completo</div>
+        <div class="download-desc">2 instalações, 3 produtos, todas funcionalidades</div>
+      </div>
+    </div>
+    <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}" class="btn btn-secondary">
+      <i class="fas fa-eye"></i> Ver Exemplo
+    </a>
+  </div>
+</div>
+
+### O que o exemplo completo demonstra
+
+<div class="features-list">
+  <div class="feature-item"><i class="fas fa-check-circle"></i> 2 instalações (BF-BOF e EAF)</div>
+  <div class="feature-item"><i class="fas fa-check-circle"></i> 3 produtos diferentes</div>
+  <div class="feature-item"><i class="fas fa-check-circle"></i> Dados reais e valores default</div>
+  <div class="feature-item"><i class="fas fa-check-circle"></i> Emissões de precursores</div>
+  <div class="feature-item"><i class="fas fa-check-circle"></i> Resumo consolidado</div>
+  <div class="feature-item"><i class="fas fa-check-circle"></i> Disclaimers PT/EN</div>
+</div>
 
 ---
 
-## Sobre
-
-O **CBAM Producer Data Package** é um formato estruturado de dados para troca de informações de emissões entre produtores de países terceiros (não-UE) e importadores europeus, no contexto do **Carbon Border Adjustment Mechanism** (CBAM) da União Europeia.
-
-Este repositório contém a especificação técnica pública do formato, incluindo:
-
-- 📘 Documentação conceitual e estrutural
-- 📐 Schema XML (XSD) para validação
-- 📄 Exemplos de arquivos XML válidos
-
----
-
-## ⚠️ Aviso Legal Importante
-
-> **Este documento NÃO é um relatório de submissão CBAM (QReport).**
-
-O CBAM Producer Data Package:
-
-- ❌ **NÃO pode** ser submetido diretamente ao CBAM Registry da União Europeia
-- ❌ **NÃO substitui** os formulários oficiais da Comissão Europeia
-- ❌ **NÃO contém** metodologias de cálculo ou algoritmos proprietários
-
-O formato serve exclusivamente como **contrato de dados** entre produtores e importadores.
-
----
-
-## 📥 Download do Schema (XSD)
-
-| Arquivo | URL Pública |
-|---------|-------------|
-| **Schema XSD v2** | [cbam-producer-data-package-v2.xsd](schema/cbam-producer-data-package-v2.xsd) |
-
-```bash
-# Download do Schema XSD
-curl -O https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd
-```
-
-### Referência no XML
+## <i class="fas fa-code"></i> Referência no XML
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -76,50 +133,33 @@ curl -O https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2
 </CBAMProducerDataPackage>
 ```
 
----
+### Validação via Terminal
 
-## 📄 Download de Exemplos
+```bash
+# Download do Schema
+curl -O https://rgtmaia.github.io/cbam-spec/schema/cbam-producer-data-package-v2.xsd
 
-| Exemplo | Descrição | Link |
-|---------|-----------|------|
-| **Mínimo** | Estrutura básica com 1 instalação e 1 produto | [example-v2-minimal.xml](examples/example-v2-minimal.xml) |
-| **Completo** | 2 instalações, 3 produtos, todas funcionalidades | [example-v2-complete.xml](examples/example-v2-complete.xml) |
-
-### O que o exemplo completo demonstra:
-
-- ✅ 2 instalações com rotas diferentes (BF-BOF e EAF)
-- ✅ 3 produtos com diferentes características
-- ✅ Uso de dados reais (`DeterminationType: 01`) e valores default (`02`)
-- ✅ Emissões de precursores
-- ✅ Resumo consolidado
-- ✅ Disclaimers legais em PT e EN
+# Validar arquivo XML
+xmllint --schema cbam-producer-data-package-v2.xsd seu-arquivo.xml --noout
+```
 
 ---
 
-## 📚 Documentação
+## <i class="fas fa-tags"></i> Classificação de Campos
 
-| Documento | Descrição |
-|-----------|-----------|
-| [📘 Conceito](docs/concept.md) | O que é o CBAM Producer Data Package e seu propósito |
-| [🏗️ Estrutura](docs/structure.md) | Visão geral da estrutura do documento XML |
-| [🔄 Ciclo de Vida](docs/lifecycle.md) | Versionamento, estados (draft/final) e governança |
-| [⚖️ Avisos Legais](docs/legal-notices.md) | Disclaimers e limitações de responsabilidade |
+O schema distingue três tipos de campos com responsabilidades diferentes:
 
----
-
-## 🏷️ Classificação de Campos
-
-O schema distingue três tipos de campos:
-
-| Tipo | Cor | Descrição | Exemplos |
-|------|-----|-----------|----------|
-| **REGULATORY** | 🔴 | Exigidos pelo EU 2023/956 | `DeterminationType`, `SpecificEmissions` |
-| **NON-REGULATORY** | 🟡 | Informativos/rastreabilidade | `Description`, `LegalName` |
-| **INFORMATIVE** | 🔵 | Responsabilidade do importador | `CnCode`, `HsCode` |
+| Tipo | Badge | Descrição | Exemplos |
+|------|-------|-----------|----------|
+| **REGULATORY** | <span class="badge badge-red">🔴 Regulatório</span> | Exigidos pelo EU 2023/956 | `DeterminationType`, `SpecificEmissions` |
+| **NON-REGULATORY** | <span class="badge badge-yellow">🟡 Não-Regulatório</span> | Informativos/rastreabilidade | `Description`, `LegalName` |
+| **INFORMATIVE** | <span class="badge badge-blue">🔵 Informativo</span> | Responsabilidade do importador | `CnCode`, `HsCode` |
 
 ---
 
-## 🏭 Setores Cobertos
+## <i class="fas fa-industry"></i> Setores Cobertos
+
+O CBAM (conforme Anexo I do Regulamento UE 2023/956) cobre os seguintes setores:
 
 | Setor | Produtos Típicos | Códigos CN |
 |-------|------------------|------------|
@@ -132,27 +172,20 @@ O schema distingue três tipos de campos:
 
 ---
 
-## 📜 Referências Regulatórias
+## <i class="fas fa-gavel"></i> Referências Regulatórias
 
 | Documento | Descrição |
 |-----------|-----------|
 | [EU 2023/956](https://eur-lex.europa.eu/eli/reg/2023/956) | Regulamento CBAM principal |
 | [EU 2023/1773](https://eur-lex.europa.eu/eli/reg_impl/2023/1773) | Regulamento de Implementação |
 | [CBAM Registry](https://cbam.ec.europa.eu/) | Portal oficial da Comissão Europeia |
+| [Combined Nomenclature](https://taxation-customs.ec.europa.eu/customs-4/calculation-customs-duties/customs-tariff/combined-nomenclature_en) | Códigos CN oficiais |
 
 ---
 
-## 📄 Licença
+## <i class="fas fa-file-contract"></i> Licença
 
-MIT License - Uso livre para implementação e integração.
+**MIT License** - Uso livre para implementação e integração.
 
----
-
-<p align="center">
-  <strong>CBAM Producer Data Package Specification v2.0</strong><br>
-  <em>Facilitando a comunicação de dados de emissões no contexto do CBAM</em><br><br>
-  <a href="schema/cbam-producer-data-package-v2.xsd">📥 Download XSD</a> •
-  <a href="docs/concept.md">📘 Documentação</a> •
-  <a href="examples/example-v2-complete.xml">📄 Exemplo</a>
-</p>
-
+Este é um formato aberto destinado a facilitar a comunicação de dados de emissões no contexto do CBAM. 
+Sugestões de melhoria são bem-vindas através de [Issues no GitHub]({{ site.github.repository_url }}/issues).

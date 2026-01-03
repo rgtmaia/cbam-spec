@@ -1,16 +1,7 @@
 ---
+layout: default
 title: "Ciclo de Vida e Versionamento"
 description: "Como funciona o ciclo de vida do CBAM Producer Data Package, incluindo estados draft/final, versionamento e governança de dados."
----
-
-# Ciclo de Vida e Versionamento
-
-[← Estrutura](structure.md) | [Avisos Legais →](legal-notices.md)
-
----
-
-**Navegação:** [Início](../README.md) • [Conceito](concept.md) • [Estrutura](structure.md) • **Ciclo de Vida** • [Avisos Legais](legal-notices.md)
-
 ---
 
 Este documento descreve o ciclo de vida de um CBAM Producer Data Package, incluindo estados, versionamento e governança dos dados.
@@ -227,8 +218,4 @@ Recomenda-se manter os pacotes arquivados por pelo menos:
 
 - **5 anos** para fins de auditoria CBAM
 - **Conforme legislação local** para fins tributários e comerciais
-
----
-
-**Anterior:** [← Estrutura](structure.md) | **Próximo:** [Avisos Legais →](legal-notices.md)
 

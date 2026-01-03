@@ -11,10 +11,8 @@ description: >-
 baseurl: "/cbam-spec"
 url: "https://rgtmaia.github.io"
 
-# Theme
-remote_theme: pages-themes/cayman@v0.2.0
+# Plugins
 plugins:
-  - jekyll-remote-theme
   - jekyll-seo-tag
 
 # SEO
@@ -30,6 +28,14 @@ markdown: kramdown
 kramdown:
   input: GFM
   hard_wrap: false
+  syntax_highlighter: rouge
+
+# Defaults - todas as páginas usam o layout default
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
 
 # Exclude from build
 exclude:
@@ -39,3 +45,4 @@ exclude:
   - vendor
   - .git
   - .gitignore
+  - README.md

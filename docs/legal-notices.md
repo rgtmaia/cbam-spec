@@ -1,16 +1,7 @@
 ---
+layout: default
 title: "Avisos Legais e Disclaimers"
 description: "Avisos legais, disclaimers e limitações de responsabilidade para uso do CBAM Producer Data Package."
----
-
-# Avisos Legais e Disclaimers
-
-[← Ciclo de Vida](lifecycle.md) | [Voltar ao Início](../README.md)
-
----
-
-**Navegação:** [Início](../README.md) • [Conceito](concept.md) • [Estrutura](structure.md) • [Ciclo de Vida](lifecycle.md) • **Avisos Legais**
-
 ---
 
 Este documento contém avisos legais importantes sobre o uso e limitações do CBAM Producer Data Package.
@@ -201,8 +192,4 @@ Para questões sobre:
 - **Regulamentação CBAM:** Consultar [CBAM Registry](https://cbam.ec.europa.eu/) ou autoridades nacionais competentes
 - **Este formato:** Abrir Issue no repositório
 - **Implementação específica:** Consultar documentação do software utilizado
-
----
-
-**Anterior:** [← Ciclo de Vida](lifecycle.md) | [Voltar ao Início](../README.md)
 

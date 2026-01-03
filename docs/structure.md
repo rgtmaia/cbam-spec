@@ -1,16 +1,7 @@
 ---
+layout: default
 title: "Estrutura do CBAM Producer Data Package"
 description: "Documentação detalhada da estrutura XML do CBAM Producer Data Package, incluindo hierarquia, tipos de dados e enumerações."
----
-
-# Estrutura do CBAM Producer Data Package
-
-[← Conceito](concept.md) | [Ciclo de Vida →](lifecycle.md)
-
----
-
-**Navegação:** [Início](../README.md) • [Conceito](concept.md) • **Estrutura** • [Ciclo de Vida](lifecycle.md) • [Avisos Legais](legal-notices.md)
-
 ---
 
 Este documento descreve a estrutura conceitual do documento XML do CBAM Producer Data Package.
@@ -246,8 +237,4 @@ O schema XSD garante:
 3. **Formatos** (CN Code = 8 dígitos, Country = 2 letras)
 4. **Unicidade** de IDs (Installation e Product)
 5. **Cardinalidade** mínima e máxima de elementos
-
----
-
-**Anterior:** [← Conceito](concept.md) | **Próximo:** [Ciclo de Vida →](lifecycle.md)
 

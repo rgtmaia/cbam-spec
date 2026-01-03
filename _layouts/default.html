@@ -1,66 +1,667 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: "en-US" }}">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="{{ site.lang | default: 'pt-BR' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  {% seo %}
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFBFPPKRGR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GFBFPPKRGR');
+  </script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --color-primary: #0d9488;
+      --color-primary-dark: #0f766e;
+      --color-primary-light: #14b8a6;
+      --color-secondary: #1e40af;
+      --color-accent: #f59e0b;
+      --color-bg: #0f172a;
+      --color-bg-light: #1e293b;
+      --color-bg-card: #334155;
+      --color-text: #f1f5f9;
+      --color-text-muted: #94a3b8;
+      --color-border: #475569;
+      --color-success: #22c55e;
+      --color-warning: #eab308;
+      --color-error: #ef4444;
+      --color-info: #3b82f6;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+    }
 
-    {% seo %}
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GFBFPPKRGR"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GFBFPPKRGR');
-    </script>
-    
-    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
-    <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
-        
-        {% if site.logo %}
-          <img src="{{site.logo | relative_url}}" alt="Logo" />
-        {% endif %}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        <p>{{ site.description | default: site.github.project_tagline }}</p>
+    html {
+      scroll-behavior: smooth;
+    }
 
-        {% if site.github.is_project_page %}
-        <p class="view"><a href="{{ site.github.repository_url }}">Ver o projeto no GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
-        {% endif %}
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
 
-        {% if site.github.is_user_page %}
-        <p class="view"><a href="{{ site.github.owner_url }}">Ver meu perfil no GitHub</a></p>
-        {% endif %}
+    /* Header / Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--color-bg) 0%, #1a365d 50%, var(--color-primary-dark) 100%);
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
 
-        {% if site.show_downloads %}
-        <ul class="downloads">
-          <li><a href="{{ site.github.zip_url }}">Download <strong>ZIP File</strong></a></li>
-          <li><a href="{{ site.github.tar_url }}">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="{{ site.github.repository_url }}">Ver no <strong>GitHub</strong></a></li>
-        </ul>
-        {% endif %}
-      </header>
-      <section>
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
 
-      {{ content }}
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-      </section>
-      <footer>
-        {% if site.github.is_project_page %}
-        <p>Este projeto é mantido por <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-        {% endif %}
-        <p><small>Hospedado no GitHub Pages &mdash; Tema por <a href="https://github.com/pages-themes/cayman">Cayman</a></small></p>
-      </footer>
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      color: var(--color-primary-light);
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 0%, var(--color-primary-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--color-text-muted);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Navigation */
+    .nav-bar {
+      background: var(--color-bg-light);
+      border-bottom: 1px solid var(--color-border);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--color-text);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .nav-link.active {
+      color: var(--color-primary-light);
+      background: rgba(20, 184, 166, 0.1);
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      background: var(--color-bg-light);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-primary);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .card p {
+      color: var(--color-text-muted);
+      font-size: 0.9375rem;
+    }
+
+    .card a {
+      color: var(--color-primary-light);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .card a:hover {
+      text-decoration: underline;
+    }
+
+    /* Section Titles */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 3rem 0 1.5rem;
+      color: var(--color-text);
+    }
+
+    .section-title i {
+      color: var(--color-primary-light);
+    }
+
+    /* Alert Box */
+    .alert {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-left: 4px solid var(--color-error);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .alert-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: #fca5a5;
+      margin-bottom: 0.5rem;
+    }
+
+    .alert ul {
+      margin-left: 1.5rem;
+      color: var(--color-text-muted);
+    }
+
+    .alert li {
+      margin: 0.25rem 0;
+    }
+
+    /* Code Blocks */
+    pre {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin: 1rem 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--color-bg-card);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.875em;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9375rem;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    th {
+      background: var(--color-bg-light);
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    td {
+      color: var(--color-text-muted);
+    }
+
+    tr:hover td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    td a {
+      color: var(--color-primary-light);
+      text-decoration: none;
+    }
+
+    td a:hover {
+      text-decoration: underline;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-red {
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+    }
+
+    .badge-yellow {
+      background: rgba(234, 179, 8, 0.2);
+      color: #fde047;
+    }
+
+    .badge-blue {
+      background: rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
+    }
+
+    .badge-green {
+      background: rgba(34, 197, 94, 0.2);
+      color: #86efac;
+    }
+
+    /* Download Section */
+    .download-box {
+      background: linear-gradient(135deg, var(--color-bg-light) 0%, var(--color-bg-card) 100%);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .download-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: var(--color-bg);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .download-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .download-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .download-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .download-name {
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .download-desc {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Features List */
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color-text-muted);
+      font-size: 0.9375rem;
+    }
+
+    .feature-item i {
+      color: var(--color-success);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--color-bg-light);
+      border-top: 1px solid var(--color-border);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    footer p {
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+    }
+
+    footer a {
+      color: var(--color-primary-light);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2rem 1rem;
+      }
+
+      .main-content {
+        padding: 2rem 1rem;
+      }
+
+      .nav-container {
+        justify-content: center;
+      }
+
+      .download-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .download-info {
+        flex-direction: column;
+      }
+    }
+
+    /* Links */
+    .main-content a:not(.btn):not(.card a):not(.nav-link) {
+      color: var(--color-primary-light);
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--color-text);
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    h3 {
+      font-size: 1.25rem;
+    }
+
+    /* Paragraphs */
+    p {
+      margin-bottom: 1rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Lists */
+    ul, ol {
+      margin: 1rem 0 1rem 1.5rem;
+      color: var(--color-text-muted);
+    }
+
+    li {
+      margin: 0.5rem 0;
+    }
+
+    /* Blockquotes */
+    blockquote {
+      border-left: 4px solid var(--color-primary);
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    /* HR */
+    hr {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 2rem 0;
+    }
+
+    /* Strong */
+    strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-leaf"></i>
+        <span>Open Standard v2.0</span>
+      </div>
+      <h1>CBAM Producer Data Package</h1>
+      <p class="hero-subtitle">
+        Especificação técnica pública para troca de dados de emissões entre produtores 
+        de países terceiros e importadores europeus no contexto do Carbon Border Adjustment Mechanism.
+      </p>
+      <div class="hero-buttons">
+        <a href="{{ '/schema/cbam-producer-data-package-v2.xsd' | relative_url }}" class="btn btn-primary">
+          <i class="fas fa-download"></i>
+          Download Schema XSD
+        </a>
+        <a href="{{ site.github.repository_url }}" class="btn btn-secondary">
+          <i class="fab fa-github"></i>
+          Ver no GitHub
+        </a>
+      </div>
     </div>
-    <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
-  </body>
-</html>
+  </header>
 
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="{{ '/' | relative_url }}" class="nav-link active">
+          <i class="fas fa-home"></i> Início
+        </a>
+        <a href="{{ '/docs/concept' | relative_url }}" class="nav-link">
+          <i class="fas fa-book"></i> Conceito
+        </a>
+        <a href="{{ '/docs/structure' | relative_url }}" class="nav-link">
+          <i class="fas fa-sitemap"></i> Estrutura
+        </a>
+        <a href="{{ '/docs/lifecycle' | relative_url }}" class="nav-link">
+          <i class="fas fa-sync-alt"></i> Ciclo de Vida
+        </a>
+        <a href="{{ '/docs/legal-notices' | relative_url }}" class="nav-link">
+          <i class="fas fa-balance-scale"></i> Avisos Legais
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="{{ '/examples/example-v2-complete.xml' | relative_url }}" class="nav-link">
+          <i class="fas fa-file-code"></i> Exemplos
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    {{ content }}
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      <strong>CBAM Producer Data Package Specification v2.0</strong><br>
+      Mantido por <a href="{{ site.github.owner_url }}">{{ site.github.owner_name | default: 'rgtmaia' }}</a> · 
+      <a href="{{ site.github.repository_url }}">GitHub</a> · 
+      Licença MIT
+    </p>
+  </footer>
+</body>
+</html>
